@@ -1,0 +1,3 @@
+.naveList{
+    @apply transition duration-500 hover:text-orange-600 font-bold;
+}

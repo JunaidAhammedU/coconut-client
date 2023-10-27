@@ -1,0 +1,59 @@
+/* Login.css */
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  #sbt-Button{
+      width: 150px;
+      height: 52px;
+      background-color: #FF642F;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+  }
+  #sbt-Button:hover{
+      background-color: #cf4f24;
+  }
+  #forget-password{
+      text-decoration: none;
+      font-size: small;
+      color: rgb(112, 112, 112);
+  }
+  #forget-password:hover{
+      color: #FF642F;
+      transition: 0.5s ;
+  }
+  
+  #Register{
+      text-decoration: none;
+      font-size: medium;
+      color: rgb(112, 112, 112);
+  }
+  #Register span{
+      color: #FF642F;
+      font-weight: 800;
+  }
+  #Register span :hover{
+      color: #cf4f24;
+      font-weight: 800;
+  }
+
+  #input-register{
+    outline: none;
+    border: 0;
+    height: 49px;
+    box-shadow: rgb(0 0 0 / 19%) 0px 1px 10px;
+  }
+  
+  /* Add more styles as needed */
+  
