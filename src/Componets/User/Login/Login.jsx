@@ -41,7 +41,7 @@ const Login = () => {
     } else if (!password_reg.test(user.password)) {
       toast.error("Invlaid Password!!", toastMessage(1000));
     } else {
-      const data = await axios.post(`${process.env.REACT_APP_server_url}/login`, { ...user });
+      const data = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/login`, { ...user });
       if (!data.data.exist) {
         toast.error("Invalid Username or Password!", toastMessage(1000));
       } else {
@@ -83,7 +83,7 @@ const Login = () => {
                 type="email"
                 autoComplete="email"
                 required
-                onChange={(e) => setUser({ ...user, [e.target.name]: [e.target.value] })}
+                onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
               />
             </div>
@@ -107,7 +107,7 @@ const Login = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                onChange={(e) => setUser({ ...user, [e.target.name]: [e.target.value] })}
+                onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
               />
             </div>

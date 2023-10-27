@@ -13,7 +13,7 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false); // Add this line
+  const [showPassword, setShowPassword] = useState(false);
 
   const showPasswordHandle = () => {
     setShowPassword(!showPassword);
@@ -48,8 +48,7 @@ const Register = () => {
 
     const name_reg = /^[A-Za-z_][a-zA-Z0-9_.]{3,15}$/gm;
     const email_reg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/gm;
-    const password_reg =
-      /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*().\\?]).{8,16}$/gm;
+    const password_reg = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*().\\?]).{8,16}$/gm;
 
     if (!name_reg.test(user.UserName)) {
       toast.error("Invalid Username", toastMessage(1000));
@@ -59,10 +58,10 @@ const Register = () => {
       toast.error("Create Strong Password", toastMessage(1000));
     } else {
       const { data } = await axios.post(
-        process.env.REACT_APP_server_url + "/register",
+        import.meta.env.VITE_REACT_APP_SERVER_URL + "/register",
         { ...user }
       );
-      console.log(data + "DATATATATATAT");
+      console.log(data.created);
       if (data.exist) {
         toast.warning("User Already exist!!", toastMessage(3000));
       } else {
@@ -104,7 +103,7 @@ const Register = () => {
                 autoComplete="UserName"
                 required
                 onChange={(e) =>
-                  setUser({ ...user, [e.target.name]: [e.target.value] })
+                  setUser({ ...user, [e.target.name]: e.target.value })
                 }
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
               />
@@ -126,7 +125,7 @@ const Register = () => {
                 autoComplete="email"
                 required
                 onChange={(e) =>
-                  setUser({ ...user, [e.target.name]: [e.target.value] })
+                  setUser({ ...user, [e.target.name]: e.target.value })
                 }
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
               />
@@ -150,7 +149,7 @@ const Register = () => {
                 autoComplete="password"
                 required
                 onChange={(e) =>
-                  setUser({ ...user, [e.target.name]: [e.target.value] })
+                  setUser({ ...user, [e.target.name]: e.target.value })
                 }
                 className="block w-full rounded-md border-0 py-1.5 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
               />
@@ -205,7 +204,7 @@ const Register = () => {
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Already haven account?{" "}
+        Don’t have an account yet?{" "}
           <Link
             to={"/login"}
             className="font-semibold leading-6 text-gray-700 hover:text-gray-950"
