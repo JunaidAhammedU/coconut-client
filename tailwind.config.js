@@ -6,7 +6,15 @@ export default {
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        defaultBtnColor:"#FF642F",
+        onHoverButton:'#e04612'
+      },
+      screens: {
+        ultraSm: "300px",
+      },
+    },
   },
   plugins: [require('flowbite/plugin')],
 }

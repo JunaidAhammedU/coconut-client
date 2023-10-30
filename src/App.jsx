@@ -6,7 +6,12 @@ import RegisterPage from './Pages/User/RegisterPage';
 import PortectedRoute from './Common/protectedRoute/ProtectedRoutes'
 import AuthProtected from './Common/protectedRoute/AuthProtected'
 import OtpVerifyPage from './Pages/User/OtpVerifyPage'
-//-----------------------------------------------------------------
+import AdminLandingPage from './Pages/Admin/AdminLandingPage'
+import AdminLoginPage from './Pages/Admin/AdminLoginPage';
+import DashboardPage from './Pages/Admin/DashboardPage';
+import AdminProtectedRoutes from './Common/protectedRoute/AdminProtectedRoute';
+import AdminAuthProtect from './Common/protectedRoute/AdminAuthProtect'
+//------------------------------------------------------------------------------
 
 const App = () => {
   return (
@@ -17,10 +22,11 @@ const App = () => {
         <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
         <Route path="/register" element={<AuthProtected element={<RegisterPage />} />} />
         <Route path="/otp-verify" element={<OtpVerifyPage />} />
-        {/* <Route path="/recipe-details" element={<RecipeDetails />} /> */}
 
         {/* Admin Routes */}
-        {/* <Route path='/admin' element={<AdminLoginPage />} /> */}
+        <Route path='/admin' element={ <AdminProtectedRoutes element={<AdminLandingPage />} />} />
+        <Route path='/admin/login' element={<AdminAuthProtect  element={<AdminLoginPage />}/>} />
+        <Route path='/admin/dashboard' element={<DashboardPage/>} />
       </Routes>
     </div>
   )
