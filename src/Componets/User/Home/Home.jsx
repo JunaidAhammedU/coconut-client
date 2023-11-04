@@ -60,123 +60,90 @@ const Home = () => {
       <section>
         <h1 className="text-5xl font-bold mt-5 text-center ">Categories</h1>
         <div className="flex flex-wrap justify-center gap-8 ">
-
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-11.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-11.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>
 
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-12.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-12.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>
 
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-13.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-13.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/2762942/pexels-photo-2762942.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>
 
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-14.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-14.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/2067405/pexels-photo-2067405.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>
 
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-15.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-15.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/2679501/pexels-photo-2679501.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>
 
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-13.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-13.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/3026803/pexels-photo-3026803.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>
 
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-17.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-17.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/1006190/pexels-photo-1006190.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>
 
-          <div className="cat_Div">
+          <div className="cat_Div1">
             <div className="relative">
-              <img
-                src="bg-pater-12.png"
-                alt=""
-                className="outerImgPtrn"
-              />
+              <img src="bg-pater-12.png" alt="" className="outerImgPtrn1" />
               <img
                 src="https://images.pexels.com/photos/8820783/pexels-photo-8820783.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt=""
-                className="innerImgPtrn"
+                className="innerImgPtrn1"
               />
             </div>
           </div>

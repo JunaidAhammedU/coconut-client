@@ -9,14 +9,14 @@
 .delicious {
   @apply text-transparent bg-gradient-to-r from-purple-900 via-red-500 to-red-600 bg-clip-text;
 }
-.cat_Div{
+.cat_Div1{
   @apply bg-purple-500 rounded-full w-32 h-32 mt-5 ;
 }
 
-.outerImgPtrn {
+.outerImgPtrn1 {
   @apply rounded-full w-32 h-32 border border-gray-300  hover:rotate-45 duration-700
 }
 
-.innerImgPtrn {
+.innerImgPtrn1 {
   @apply absolute inset-0 rounded-full w-24 h-24 m-auto object-cover border border-gray-700  transition-transform duration-500 ease-in-out transform hover:scale-125
 }

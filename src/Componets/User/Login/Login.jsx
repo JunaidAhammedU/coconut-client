@@ -16,8 +16,15 @@ const Login = () => {
     email: "",
     password: "",
   });
-
   const [showPassword, setShowPassword] = useState(false);
+
+  // const config = {
+  //   headers: {
+  //     Authorization: `Bearer ${user.token}`,
+  //     UserData: JSON.stringify(user),
+  //   },
+  // };
+
 
   const showPasswordHandle = () => {
     setShowPassword(!showPassword);

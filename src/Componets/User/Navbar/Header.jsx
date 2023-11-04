@@ -33,7 +33,7 @@ const Header = () => {
     <div className="sticky top-0 z-50">
       <Navbar fluid rounded className="border border-b-0.05 h-16 ">
         <Navbar.Brand href="https://flowbite-react.com">
-          <img src="../../../../public/logo.png" className="mr-3 h-6 sm:h-9" alt="coconut." />
+          <img src="/logo.png" className="mr-3 h-6 sm:h-9" alt="coconut." />
         </Navbar.Brand>
         <div className="flex md:order-2">
           <Dropdown
@@ -56,7 +56,13 @@ const Header = () => {
                 <span className="block text-sm">Guest</span>
               </Dropdown.Header>
             )}
-            <Dropdown.Item>Account</Dropdown.Item>
+
+            {user ? (
+              <Link to={"user-profile"}>
+                <Dropdown.Item>Account</Dropdown.Item>
+              </Link>
+            ) : null}
+
             <Dropdown.Divider />
             {user ? (
               <Link onClick={handleLogout}>
@@ -77,7 +83,7 @@ const Header = () => {
           <NavLink to={"/"} className=" naveList" href="#" active>
             Home
           </NavLink>
-          <NavLink to={"/"} className="naveList" href="#" active>
+          <NavLink to={"/explore-recipe"} className="naveList" href="#" active>
             Recipes
           </NavLink>
           <NavLink to={"/"} className="naveList" href="#" active>

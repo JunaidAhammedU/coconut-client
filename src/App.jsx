@@ -11,6 +11,10 @@ import AdminLoginPage from './Pages/Admin/AdminLoginPage';
 import DashboardPage from './Pages/Admin/DashboardPage';
 import AdminProtectedRoutes from './Common/protectedRoute/AdminProtectedRoute';
 import AdminAuthProtect from './Common/protectedRoute/AdminAuthProtect'
+import UserPage from './Pages/Admin/UserPage'
+import UserProfilePage from './Pages/User/UserProfilePage'
+import ExploreRecipePage from './Pages/User/ExploreRecipePage';
+// import AddRecipe from './Componets/User/AddRecipe/AddRecipe';
 //------------------------------------------------------------------------------
 
 const App = () => {
@@ -22,11 +26,15 @@ const App = () => {
         <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
         <Route path="/register" element={<AuthProtected element={<RegisterPage />} />} />
         <Route path="/otp-verify" element={<OtpVerifyPage />} />
+        <Route path='/user-profile' element={<UserProfilePage />} />
+        <Route path='/explore-recipe' element={<ExploreRecipePage />} />
+        {/* <Route path='/addRecipe' element={<AddRecipe />} /> */}
 
         {/* Admin Routes */}
         <Route path='/admin' element={ <AdminProtectedRoutes element={<AdminLandingPage />} />} />
         <Route path='/admin/login' element={<AdminAuthProtect  element={<AdminLoginPage />}/>} />
-        <Route path='/admin/dashboard' element={<DashboardPage/>} />
+        <Route path='/admin/dashboard' element={<AdminProtectedRoutes element={<DashboardPage/>} />} />
+        <Route path='/admin/users' element={<AdminProtectedRoutes element={<UserPage/>} />} />
       </Routes>
     </div>
   )

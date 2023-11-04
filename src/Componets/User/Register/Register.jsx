@@ -48,7 +48,8 @@ const Register = () => {
 
     const name_reg = /^[A-Za-z_][a-zA-Z0-9_.]{3,15}$/gm;
     const email_reg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/gm;
-    const password_reg = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*().\\?]).{8,16}$/gm;
+    const password_reg =
+      /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*().\\?]).{8,16}$/gm;
 
     if (!name_reg.test(user.UserName)) {
       toast.error("Invalid Username", toastMessage(1000));
@@ -74,19 +75,15 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          className="mx-auto h-10 w-auto"
-          src="../../../assets/logo2.png"
-          alt="coconut"
-        />
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <img className="mx-auto h-10 w-auto" src="/logo.png" alt="coconut" />
+        <h2 className="mt-5 font-sans text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Register your account
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
@@ -155,7 +152,7 @@ const Register = () => {
               />
               {showPassword ? (
                 <svg
-                  className="absolute w-4 h-4 text-gray-800 dark:text-white top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
+                  className="absolute w-4 h-4 text-gray-800 dark:text-white top-1/2 transform -translate-y-1/2 right-3 cursor-pointer "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -201,10 +198,28 @@ const Register = () => {
               Sign up
             </button>
           </div>
+
+          <div className="flex items-center justify-center">
+            <div>
+              <button className="w-60 h-10 rounded-lg border transition duration-200 hover:border-gray-800 flex items-center justify-start shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 488 512"
+                  className="mr-5 ml-5"
+                >
+                  <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
+                </svg>
+                <span className="text-center font-semibold text-sm">
+                  Continue with <span class="text-blue-700">Google</span>
+                </span>
+              </button>
+            </div>
+          </div>
         </form>
 
-        <p className="mt-10 text-center text-sm text-gray-500">
-        Don’t have an account yet?{" "}
+        <p className="mt-5 text-center text-sm text-gray-500">
+          Don’t have an account yet?{" "}
           <Link
             to={"/login"}
             className="font-semibold leading-6 text-gray-700 hover:text-gray-950"

@@ -1,0 +1,7 @@
+.cat_Div{
+    @apply rounded-full w-40 h-40 mt-5  ;
+  }
+  
+  .category_img{
+    @apply rounded-full w-40 h-40 object-cover
+  }
