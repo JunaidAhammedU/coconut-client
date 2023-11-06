@@ -1,18 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ExploreRecipe.css";
-import RecipeCard from '../RecipeCard/RecipeCard'
+import RecipeCard from "../RecipeCard/RecipeCard";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 //----------------------------------------------
 
 const ExploreRecipe = () => {
+  const [recipes, setAllRecipes] = useState([]);
+
+  const getAllRecipes = () => {
+    axios
+      .get(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/getallrecipes`)
+      .then((res) => {
+        if (res.data.status) {
+          setAllRecipes(res.data.allRecipes);
+        } else {
+          console.log("error");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllRecipes();
+  }, []);
   return (
     <>
-      <section>
+      {/* <section>
         <div className="grid grid-cols-1">
           <h1 className="font-sans text-5xl font-bold py-4 px-5">
             Popular Recipes
           </h1>
         </div>
-      </section>
+      </section> */}
       {/* ===== */}
       <section>
         <div className="flex  flex-wrap justify-center gap-10">
@@ -64,14 +86,9 @@ const ExploreRecipe = () => {
       {/* ========= */}
       <section>
         <div className="flex flex-wrap gap-10 justify-center mt-10 mx-4 border rounded-t-md bg-slate-100 p-5">
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
+          {recipes.map((recipe) => {
+            return <RecipeCard data={recipe} />
+          })}
         </div>
       </section>
     </>

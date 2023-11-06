@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
+import { useSelector } from "react-redux";
+//----------------------------------------------
 
 const Home = () => {
   const navigate = useNavigate();
-
   useEffect(() => {
     const token = localStorage.getItem("user");
     axios

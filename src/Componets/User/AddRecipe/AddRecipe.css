@@ -1,0 +1,11 @@
+.headings {
+  @apply w-1/2 text-left pl-1 font-sans text-gray-500 mt-2 text-xs;
+}
+
+.Ingredients {
+  @apply w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;
+}
+
+.Nutritions {
+  @apply w-full rounded-lg mt-2 border-gray-300 text-gray-900 text-sm;
+}

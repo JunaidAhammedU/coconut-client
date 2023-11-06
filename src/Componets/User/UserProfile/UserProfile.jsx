@@ -3,11 +3,13 @@ import "./UserProfile.css";
 import { Link } from "react-router-dom";
 import { IoIosClose } from "react-icons/io";
 import AddRecipe from "../AddRecipe/AddRecipe";
+import { useSelector } from "react-redux";
 //-------------------------------------------------
 
 const UserProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const {id} = useSelector((state)=> state.user)
+  
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -116,15 +118,20 @@ const UserProfile = () => {
             className="absolute w-screen h-screen top-0 flex z-50 justify-center items-center bg-opacity-75 bg-black"
             onClick={handleModalClick}
           >
-            <button data-modal-hide="default-modal" type="button" className="absolute top-2 right-2 text-white hover:bg-white/10 transition duration-300" onClick={closeModal}>
+            <button
+              data-modal-hide="default-modal"
+              type="button"
+              className="absolute top-2 right-2 text-white hover:bg-white/10 transition duration-300"
+              onClick={closeModal}
+            >
               <IoIosClose fontSize={40} />
             </button>
 
-            <div className="relative bg-gray-200 w-4/5 h-3/4 rounded-lg">
-                <AddRecipe />
+            <div className="relative bg-gray-100 w-4/5 h-4/5 rounded-lg p-2">
+              <AddRecipe />
             </div>
           </div>
-        )} 
+        )}
       </section>
 
       {/* ============================ */}

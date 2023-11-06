@@ -14,9 +14,9 @@
 }
 
 .outerImgPtrn1 {
-  @apply rounded-full w-32 h-32 border border-gray-300  hover:rotate-45 duration-700
+  @apply rounded-full w-32 h-32 border border-gray-300  hover:rotate-45 duration-700;
 }
 
-.innerImgPtrn1 {
+.innerImgPtrn1{
   @apply absolute inset-0 rounded-full w-24 h-24 m-auto object-cover border border-gray-700  transition-transform duration-500 ease-in-out transform hover:scale-125
 }

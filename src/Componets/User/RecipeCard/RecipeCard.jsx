@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const RecipeCard = () => {
+const RecipeCard = (props) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -67,15 +66,13 @@ const RecipeCard = () => {
       <div className="w-72 rounded overflow-hidden shadow-lg bg-white">
         <img
           className="w-full h-44 object-cover"
-          src="https://images.pexels.com/photos/9884561/pexels-photo-9884561.jpeg?auto=compress&cs=tinysrgb&w=600"
+          src={`Images/${props.data.recipeImage[0]}`}
           alt="Sunset in the mountains"
         />
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+          <div className="font-bold text-xl mb-2">{props.data.title}</div>
           <p className="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quia, nulla! Maiores et perferendis eaque,
-            exercitationem praesentium nihil.
+           {props.data.description}
           </p>
         </div>
         <div className="flex px-3 py-3 relative bg-orange-200">
@@ -90,7 +87,7 @@ const RecipeCard = () => {
             />
           </div>
           <div className="pt-6 ml-2">
-            <p className="font-sans font-semibold">junaid ahammed</p>
+            <p className="font-sans font-semibold">{props.data.recipeDetails[0].UserName}</p>
           </div>
           <div className="absolute right-6 bottom-6">
             <svg
