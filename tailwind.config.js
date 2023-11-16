@@ -13,6 +13,7 @@ export default {
       },
       screens: {
         ultraSm: "300px",
+        foldSize:"280px"
       },
     },
   },

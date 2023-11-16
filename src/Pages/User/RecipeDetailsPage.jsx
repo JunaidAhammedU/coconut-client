@@ -1,13 +1,14 @@
-import React from 'react'
-import Header from '../../Components/User/Header/Header'
+import React from "react";
+import Header from "../../Componets/User/Navbar/Header";
+import RecipeDetails from "../../Componets/User/RecipeDetails/RecipeDetails";
 
-const RecipeDetails = () => {
+const RecipeDetailsPage = () => {
   return (
     <div>
-      <Header/>
-      kooi
+      <Header />
+      <RecipeDetails />
     </div>
-  )
-}
+  );
+};
 
-export default RecipeDetails
+export default RecipeDetailsPage;

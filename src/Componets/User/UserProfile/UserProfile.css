@@ -1,5 +1,5 @@
 .heade_div{
-  @apply grid grid-cols-2 p-5 border-b ultraSm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 
+  @apply grid grid-cols-2 p-5 border-b ultraSm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 px-14
 }
 .image-div {
   @apply flex items-center justify-center  rounded-lg w-52 py-2;

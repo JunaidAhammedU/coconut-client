@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "../../Loader/Loader";
 //------------------------------------------------------------
 
 const Register = () => {
@@ -14,6 +15,7 @@ const Register = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const showPasswordHandle = () => {
     setShowPassword(!showPassword);
@@ -58,15 +60,22 @@ const Register = () => {
     } else if (!password_reg.test(user.password)) {
       toast.error("Create Strong Password", toastMessage(1000));
     } else {
+      setLoader(true);
       const { data } = await axios.post(
         import.meta.env.VITE_REACT_APP_SERVER_URL + "/register",
         { ...user }
       );
-      console.log(data.created);
+
       if (data.exist) {
         toast.warning("User Already exist!!", toastMessage(3000));
+        setTimeout(() => {
+          setLoader(false);
+        }, 1000);
       } else {
-        toast.success("New Account Created!", toastMessage(1000));
+        toast.success("New Account Created!", toastMessage(1500));
+        setTimeout(() => {
+          setLoader(false);
+        }, 1000);
         setTimeout(() => {
           navigate("/otp-verify");
         }, 2000);
@@ -191,15 +200,22 @@ const Register = () => {
           </div>
 
           <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center transition duration-500 rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign up
-            </button>
+          {loader ? (
+              <button className="flex w-full justify-center transition duration-500 rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                {" "}
+                <Loader />{" "}
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="flex w-full justify-center transition duration-500 rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign up
+              </button>
+            )}
           </div>
 
-          <div className="flex items-center justify-center">
+          {/* <div className="flex items-center justify-center">
             <div>
               <button className="w-60 h-10 rounded-lg border transition duration-200 hover:border-gray-800 flex items-center justify-start shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
                 <svg
@@ -215,7 +231,7 @@ const Register = () => {
                 </span>
               </button>
             </div>
-          </div>
+          </div> */}
         </form>
 
         <p className="mt-5 text-center text-sm text-gray-500">

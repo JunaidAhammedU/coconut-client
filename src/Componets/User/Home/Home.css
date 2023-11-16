@@ -10,7 +10,7 @@
   @apply text-transparent bg-gradient-to-r from-purple-900 via-red-500 to-red-600 bg-clip-text;
 }
 .cat_Div1{
-  @apply bg-purple-500 rounded-full w-32 h-32 mt-5 ;
+  @apply rounded-full w-32 h-32 mt-5 ;
 }
 
 .outerImgPtrn1 {

@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
-import { useSelector } from "react-redux";
 //----------------------------------------------
 
 const Home = () => {
   const navigate = useNavigate();
+
   useEffect(() => {
-    const token = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user ? user.token : null;
     axios
       .post(import.meta.env.VITE_REACT_APP_SERVER_URL, { token })
       .then((response) => {
@@ -36,7 +37,6 @@ const Home = () => {
     backgroundSize: "cover",
     minHeight: "100%",
   };
-
   return (
     <>
       <section style={sectionStyle}>
@@ -57,6 +57,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       {/* ------------------- */}
       <section>
         <h1 className="text-5xl font-bold mt-5 text-center ">Categories</h1>
@@ -150,6 +151,14 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* <section className="grid gap-4 bg-red-400  grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 md:grid-cols-3">
+        <div className="bg-blue-200 h-12">1
+        </div>
+        <div className="bg-blue-200 h-12 hover:scale-110 transition duration-300">1</div>
+        <div className="bg-blue-200 h-12">1</div>
+        <div className="bg-blue-200 h-12">1</div>
+      </section> */}
     </>
   );
 };

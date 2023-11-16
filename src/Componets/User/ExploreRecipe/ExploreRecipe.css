@@ -1,7 +1,7 @@
 .cat_Div{
-    @apply rounded-full w-40 h-40 mt-5  ;
+    @apply rounded-full w-40 h-40 mt-5;
   }
   
   .category_img{
-    @apply rounded-full w-40 h-40 object-cover
+    @apply rounded-full w-40 h-40 object-cover hover:scale-110 transition duration-500 ease-in-out overflow-hidden
   }

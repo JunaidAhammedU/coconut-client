@@ -4,12 +4,17 @@ import { Link } from "react-router-dom";
 import { IoIosClose } from "react-icons/io";
 import AddRecipe from "../AddRecipe/AddRecipe";
 import { useSelector } from "react-redux";
-//-------------------------------------------------
+import { getLoggedUserInfo } from "../../../Services/api/user_API";
+import LoggedUserCard from "../LoggedUserCard/LoggedUserCard";
+//-----------------------------------------------------------------
 
 const UserProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {id} = useSelector((state)=> state.user)
-  
+  const { id } = useSelector((state) => state.user);
+  const [userData, setUserData] = useState([]);
+  const [recipeData, setRecipeData] = useState([]);
+  const [count, setCount] = useState(0);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -24,6 +29,7 @@ const UserProfile = () => {
     }
   };
 
+  // managing modal
   useEffect(() => {
     const modalButton = document.querySelector(
       '[data-modal-toggle="default-modal"]'
@@ -31,12 +37,26 @@ const UserProfile = () => {
     if (modalButton) {
       modalButton.addEventListener("click", openModal);
     }
-
     return () => {
       if (modalButton) {
         modalButton.removeEventListener("click", openModal);
       }
     };
+  }, []);
+
+  // for fetching data of the user
+  useEffect(() => {
+    const getLoggedUserData = async () => {
+      const data = await getLoggedUserInfo(id);
+      if (data) {
+        setRecipeData(data.recipeData);
+        setUserData(data.userDetails);
+        setCount(data.recipeData.length);
+      } else {
+        console.log("error");
+      }
+    };
+    getLoggedUserData();
   }, []);
 
   return (
@@ -53,7 +73,7 @@ const UserProfile = () => {
 
           <div className="profile_dtl_div">
             <div className="ml-6 text-2xl font-bold font-sans mt-3">
-              <h1>Junaid Ahammed</h1>
+              <h1>{userData.UserName}</h1>
             </div>
             <div className="ml-6 text-sm font-sans mt-3">
               <p>
@@ -67,11 +87,13 @@ const UserProfile = () => {
             <div className="flex gap-7 ml-6 mt-4">
               <div>
                 <h1 className="font-thin font-sans text-xs">Recipes</h1>
-                <h1 className="font-sans font-bold">123</h1>
+                <h1 className="font-sans font-bold">{count}</h1>
               </div>
               <div>
                 <h1 className="font-thin font-sans text-xs">following</h1>
-                <h1 className="font-sans font-bold">102</h1>
+                <h1 className="font-sans font-bold">
+                  {userData.following ? `${userData.following.length}` : "0"}
+                </h1>
               </div>
               <div className="ml-auto justify-center mr-2 mt-5 w-4 h-4">
                 <svg
@@ -136,25 +158,10 @@ const UserProfile = () => {
 
       {/* ============================ */}
       <section>
-        <div className="grid xl:grid-cols-2 px-6 lg:grid-cols-2 md:grid-cols-1 md:justify-center gap-2 ultraSm:grid-cols-1">
-          <div className="flex flex-col mt-8 items-center  lg:justify-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <img
-              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-              src="https://images.pexels.com/photos/3892469/pexels-photo-3892469.jpeg?auto=compress&cs=tinysrgb&w=600"
-              alt=""
-            />
-            <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
-              </h5>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
-            </div>
-          </div>
-
-          {/*  */}
+        <div className="flex flex-wrap gap-10 justify-center mt-10 mx-4 border rounded-t-md bg-slate-100 p-5">
+          {recipeData.map((recipe) => {
+            return <LoggedUserCard data={recipe} />;
+          })}
         </div>
       </section>
     </>

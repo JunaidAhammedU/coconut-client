@@ -7,8 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Header = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const userName = user ? user.getUser.UserName : "Guest";
+  const userName = user ? user.data.UserName : null;
 
   // Toaster Message
   const toastMessage = (param) => {
@@ -25,7 +24,9 @@ const Header = () => {
 
   //Logout
   const handleLogout = () => {
-    toast.info("Logout successful", toastMessage(1000));
+    setTimeout(() => {
+      toast.info("Logout successful", toastMessage(1000));
+    }, 1000);
     JSON.parse(localStorage.removeItem("user"));
   };
 
@@ -58,7 +59,7 @@ const Header = () => {
             )}
 
             {user ? (
-              <Link to={"user-profile"}>
+              <Link to={"/user-profile"}>
                 <Dropdown.Item>Account</Dropdown.Item>
               </Link>
             ) : null}
@@ -87,14 +88,14 @@ const Header = () => {
             Recipes
           </NavLink>
           <NavLink to={"/"} className="naveList" href="#" active>
-            Services
+            AI
           </NavLink>
-          <NavLink to={"/"} className="naveList" href="#" active>
+          {/* <NavLink to={"/"} className="naveList" href="#" active>
             Pricing
           </NavLink>
           <NavLink to={"/"} className="naveList" href="#" active>
             Contact
-          </NavLink>
+          </NavLink> */}
           <ToastContainer />
         </Navbar.Collapse>
       </Navbar>

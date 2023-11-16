@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "./AddRecipe.css";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
-import { handleAddRecipe } from "../../../utils/User/handleAddRecipe";
+import { handleAddRecipe } from "../../../Services/api/user_API";
 //---------------------------------------------------------------
 
 const AddRecipe = () => {
   const [image, setImage] = useState(null);
-  const {id}  = useSelector((state)=> state.user)
+  const { id } = useSelector((state) => state.user);
   const [recipe, setRecipe] = useState({
     title: "",
     description: "",
@@ -55,7 +55,8 @@ const AddRecipe = () => {
         action=""
         className="grid xl:grid-cols-3 lg:grid-cols-3 gap-2 md:grid-cols-1  ultraSm:grid-cols-1"
         onSubmit={(e) => {
-          e.preventDefault(), handleAddRecipe(recipe,ingredient,instruction,image,id);
+          e.preventDefault(),
+            handleAddRecipe(recipe, ingredient, instruction, image, id);
         }}
         encType="multipart/form-data"
       >
@@ -202,7 +203,7 @@ const AddRecipe = () => {
         <div className="p-2 ">
           <div className="flex gap-2 mt-2">
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient1"
@@ -214,7 +215,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient2"
@@ -228,7 +229,7 @@ const AddRecipe = () => {
           </div>
           <div className="flex gap-2 mt-2">
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient3"
@@ -240,7 +241,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient4"
@@ -254,7 +255,7 @@ const AddRecipe = () => {
           </div>
           <div className="flex gap-2 mt-2">
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient5"
@@ -266,7 +267,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient6"
@@ -280,7 +281,7 @@ const AddRecipe = () => {
           </div>
           <div className="flex gap-2 mt-2">
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient7"
@@ -292,7 +293,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Ingredients"
+              className="w-1/2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block;"
               type="text"
               placeholder="Ingredients*"
               name="ingredient8"
@@ -312,7 +313,7 @@ const AddRecipe = () => {
               <p className="headings">*Nutritions</p>
             </div>
             <input
-              className="Nutritions"
+              className=" w-full rounded-lg mt-2 border-gray-300 text-gray-900 text-sm"
               type="text"
               placeholder="Calories:"
               name="calories"
@@ -322,7 +323,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Nutritions"
+              className=" w-full rounded-lg mt-2 border-gray-300 text-gray-900 text-sm"
               type="text"
               placeholder="Protein:"
               name="protein"
@@ -332,7 +333,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Nutritions"
+              className=" w-full rounded-lg mt-2 border-gray-300 text-gray-900 text-sm"
               type="text"
               placeholder="Carbohydrates:"
               name="carbohydrates"
@@ -342,7 +343,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Nutritions"
+              className=" w-full rounded-lg mt-2 border-gray-300 text-gray-900 text-sm"
               type="text"
               placeholder="Fat:"
               name="fat"
@@ -352,7 +353,7 @@ const AddRecipe = () => {
               }
             />
             <input
-              className="Nutritions"
+              className=" w-full rounded-lg mt-2 border-gray-300 text-gray-900 text-sm"
               type="text"
               placeholder="Calcium:"
               name="calcium"
@@ -463,4 +464,4 @@ const AddRecipe = () => {
   );
 };
 
-export default AddRecipe;
+export default React.memo(AddRecipe);

@@ -1,33 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./RecipeCard.css";
-//----------------------------------------------------------------
+import "./LoggedUserCard.css";
+// import {
+//   handleFollowUser,
+//   handleUnFollowUser,
+// } from "../../../Services/api/user_API";
+//----------------------------------------------
 
-const RecipeCard = (props) => {
+const LoggedUserCard = (props) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
-
-  // //handle follow
-  // const handleFollow = async (new_FollowingId) => {
-  //   const response = await handleFollowUser(new_FollowingId, id);
-  //   if (response === true) {
-  //     setFollowUser(true);
-  //   }
-  // };
-
-  // //handle funollow
-  // const handleUnFollow = async (new_unFollowingId) => {
-  //   const response = await handleUnFollowUser(new_unFollowingId, id);
-  //   if (response === true) {
-  //     setFollowUser(false);
-  //   }
-  // };
-
-  // for fetching data of the user
-  // useEffect(() => {}, [handleFollow, handleUnFollow]);
 
   return (
     <div className="relative">
@@ -89,7 +74,7 @@ const RecipeCard = (props) => {
         <img
           className="w-full h-44 object-cover"
           src={`Images/${props.data.recipeImage[0]}`}
-          alt="Sunset in the mountains"
+          alt="Recipe Image"
         />
         <div className="px-6 py-4 max-h-40 h-40 overflow-hidden text-ellipsis">
           <div className="font-bold text-xl mb-2">{props.data.title}</div>
@@ -98,37 +83,16 @@ const RecipeCard = (props) => {
           </p>
         </div>
 
-        <div className="flex px-3 py-3 relative bg-orange-300">
-          <div className="absolute right-12 bottom-6">
-            <p className="text-xs font-sans">123</p>
+        <div className="flex relative border-t h-10 px-2">
+          <div className="absolute right-8 bottom-2">
+            <p className="text-xs font-sans">2132</p>
           </div>
-          <div>
-            <img
-              className="inline-block h-14 w-14 rounded-full ring-2 ring-white"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP4jDwIlW1Zfn4daXPkK17hsFh7W5Ar7ooOQ&usqp=CAU"
-              alt=""
-            />
+          <div className="pt-4 pl-2 pr-2">
+            <p className="font-sans text-xs ">
+              {`${new Date(props.data.createdAt).getUTCDate()} days ago`}
+            </p>
           </div>
-
-          {props.id === props.data.recipeDetails[0]._id ? (
-            <div className="flex px-2 flex-col">
-              <p className="font-sans font-semibold my-auto">You</p>
-              <p className="font-sans text-xs">
-                <span className="font-sans text-sm">2</span> Days Ago
-              </p>
-            </div>
-          ) : (
-            <div className="flex px-2 flex-col">
-              <p className="font-sans font-semibold my-auto">
-                {props.data.recipeDetails[0].UserName}
-              </p>
-              <p className="font-sans text-xs">
-                <span className="font-sans text-sm">2</span> Days Ago
-              </p>
-            </div>
-          )}
-
-          <div className="absolute right-6 bottom-6">
+          <div className="absolute right-2 bottom-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="1em"
@@ -143,4 +107,4 @@ const RecipeCard = (props) => {
   );
 };
 
-export default React.memo(RecipeCard);
+export default React.memo(LoggedUserCard);

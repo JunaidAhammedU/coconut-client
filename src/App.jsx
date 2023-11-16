@@ -14,6 +14,7 @@ import AdminAuthProtect from './Common/protectedRoute/AdminAuthProtect'
 import UserPage from './Pages/Admin/UserPage'
 import UserProfilePage from './Pages/User/UserProfilePage'
 import ExploreRecipePage from './Pages/User/ExploreRecipePage';
+import RecipeDetailsPage from "./Pages/User/RecipeDetailsPage";
 //------------------------------------------------------------------------------
 
 const App = () => {
@@ -25,8 +26,9 @@ const App = () => {
         <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
         <Route path="/register" element={<AuthProtected element={<RegisterPage />} />} />
         <Route path="/otp-verify" element={<OtpVerifyPage />} />
-        <Route path='/user-profile' element={<UserProfilePage />} />
+        <Route path='/user-profile' element={<PortectedRoute element={<UserProfilePage />} />} />
         <Route path='/explore-recipe' element={<ExploreRecipePage />} />
+        <Route path='/recipedetails' element={<RecipeDetailsPage />} />
 
         {/* Admin Routes */}
         <Route path='/admin' element={ <AdminProtectedRoutes element={<AdminLandingPage />} />} />

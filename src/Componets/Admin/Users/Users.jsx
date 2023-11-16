@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Header from "../AdHeader/Header";
-import axios from "axios";
 import { Button } from "flowbite-react";
 import { ToastContainer } from "react-toastify";
-import { userBolck } from "../../../utils/Admin/HandleFunction";
-//--------------------------------------------------------------
+import {
+  handleUserBolckAndUnblock,
+  getAllUserData,
+} from "../../../Services/api/admin_API";
+//-------------------------------------------------------------------------------------------
 
 const Users = () => {
   const [userData, setUserData] = useState([]);
 
-  const getData = () => {
-    axios
-      .get(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/admin/getuser`)
-      .then((data) => {
-        if (data) {
-          setUserData(data.data.response);
-        } else {
-          console.log("not data fetched");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
-    getData();
-  }, [getData]);
+    const fetchAllUsers = async () => {
+      setUserData(await getAllUserData());
+    };
+    fetchAllUsers();
+  }, [getAllUserData]);
 
   return (
     <>
@@ -36,7 +26,9 @@ const Users = () => {
           {/* ---===---- */}
           <div className="grid">
             <div className="flex rounded items-center bg-gray-100 h-16 dark:bg-gray-800">
-              <h1 className="text-start font-bold  ml-5 font-sans text-gray-600 text-2xl">User Management</h1>
+              <h1 className="text-start font-bold  ml-5 font-sans text-gray-600 text-2xl">
+                User Management
+              </h1>
             </div>
           </div>
 
@@ -60,8 +52,13 @@ const Users = () => {
                         <td className="px-4 py-2 ">{data.email}</td>
                         <td className="px-4 py-2 ">{data.createdAt}</td>
                         <Button
-                          className={`mt-2 h-8 w-24 rounded-lg text-white font-semibold text-xs transition duration-300 ${data.is_blocked ? 'bg-red-500' : 'bg-green-500'}`}
-                          onClick={() =>{ userBolck(data); getData();}}>
+                          className={`mt-2 h-8 w-24 rounded-lg text-white font-semibold text-xs transition duration-300 ${
+                            data.is_blocked ? "bg-red-500" : "bg-green-500"
+                          }`}
+                          onClick={() => {
+                            handleUserBolckAndUnblock(data);
+                          }}
+                        >
                           {data.is_blocked ? "blocked" : "active"}
                         </Button>
                       </tr>
