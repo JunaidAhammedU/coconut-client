@@ -28,7 +28,6 @@ const RecipeCard = (props) => {
 
   // for fetching data of the user
   // useEffect(() => {}, [handleFollow, handleUnFollow]);
-
   return (
     <div className="relative">
       {/* Dropdown */}
@@ -61,7 +60,7 @@ const RecipeCard = (props) => {
             >
               <div className="py-1" role="none">
                 <Link
-                  to={"/recipedetails"}
+                  to={`/recipedetails/${props.data._id}/${props.data.recipeDetails[0]._id}`}
                   className="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-slate-200"
                   role="menuitem"
                   tabIndex="-1"

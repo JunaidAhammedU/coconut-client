@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BsBookmarkPlus,
   BsBoxArrowUp,
@@ -9,9 +9,34 @@ import {
 import { PiStarFourDuotone } from "react-icons/pi";
 import { PiCookingPotDuotone } from "react-icons/pi";
 import "./RecipeDetails.css";
+import { useParams } from "react-router-dom";
+import { getRecipeData } from "../../../Services/api/user_API";
 //-------------------------------------------------------------------------------
 
 const RecipeDetails = () => {
+  let { id, userId } = useParams();
+  const [instructions, setInstructions] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [recipeData, setRecipeData] = useState({});
+  const [userDetails, setUserDetails] = useState({});
+  const [nutritions, setNutritions] = useState({});
+
+  const fetchData = async () => {
+    const { recipeData, userData } = await getRecipeData(id, userId);
+    console.log(recipeData);
+    if (recipeData && userData) {
+      setInstructions(recipeData.Instructions);
+      setIngredients(recipeData.Ingredients);
+      setNutritions(recipeData.Nutritions);
+      setRecipeData(recipeData);
+      setUserDetails(userData);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <section>
@@ -33,7 +58,7 @@ const RecipeDetails = () => {
       <section className="px-2">
         <div className="grid grid-cols-1 mt-5">
           <h1 className="text-4xl sm:text-5xl font-semibold font-serif text-start ml-5">
-            Strawberry ice cream
+            {recipeData.title}
           </h1>
         </div>
 
@@ -46,7 +71,9 @@ const RecipeDetails = () => {
             />
           </div>
           <div className="ml-2 mr-5 my-auto">
-            <h1 className="text-sm font-sans font-semibold">Junaid</h1>
+            <h1 className="text-sm font-sans font-semibold">
+              {userDetails.UserName}
+            </h1>
           </div>
 
           <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 sm:gap-10 foldSize:mt-1 foldSize:justify-start">
@@ -67,7 +94,7 @@ const RecipeDetails = () => {
                 style={{ fontSize: "16px" }}
               />
               <p className="text-xs py-0.5 font-sans sm:whitespace-nowrap">
-                10 days ago
+                {`${new Date(recipeData.createdAt).getUTCDate()} days ago`}
               </p>
             </div>
           </div>
@@ -80,14 +107,12 @@ const RecipeDetails = () => {
         <div className=" ultraSm:px-6 md:px-16 border-t-2">
           <div className="mt-4 md:w-2/3 lg:w-2/3 ">
             <p className="text-lg font-sans text-start">
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-              est necessitatibus distinctio temporibus.Lorem ipsum dolor sit
-              amet"
+              {recipeData.description}
             </p>
           </div>
           <div className="flex justify-center py-2 mt-5 overflow-hidden">
             <img
-              src="https://images.pexels.com/photos/1358389/pexels-photo-1358389.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+              src={`/Images/${recipeData.recipeImage}`}
               alt=""
               className="object-cover rounded-xl"
             />
@@ -97,13 +122,13 @@ const RecipeDetails = () => {
         <div className="flex mt-5 gap-3">
           <div className="px-6 border-r-2">
             <h1 className="text-start font-sans text-black/50 text-sm">PREP</h1>
-            <p className="text-start">15 Min</p>
+            <p className="text-start">{`${recipeData.cookingTime} Min `}</p>
           </div>
           <div className="px-6 border-r-2">
             <h1 className="text-start font-sans text-black/50 text-sm">
               SERVING
             </h1>
-            <p className="text-start">15 Min</p>
+            <p className="text-start">4</p>
           </div>
         </div>
       </section>
@@ -117,30 +142,14 @@ const RecipeDetails = () => {
               Ingredients.
             </h1>
 
-            <div className="flex p-4 relative">
-              <PiStarFourDuotone className="absolute top-5 left-1" />
-              <p className="ml-3 text-lg font-sans">
-                124 ml - Lorem ipsum, dolor hifaiugdoiycgasd jbc
-              </p>
-            </div>
-            <div className="flex p-4 relative">
-              <PiStarFourDuotone className="absolute top-5 left-1" />
-              <p className="ml-3 text-lg font-sans">
-                165 gm - Lorem ipsum, dolor hvljshvlysv juISUUVC sc
-              </p>
-            </div>
-            <div className="flex p-4 relative">
-              <PiStarFourDuotone className="absolute top-5 left-1" />
-              <p className="ml-3 text-lg font-sans">
-                255 lt - Lorem ipsum, dolor lknloUScbiuzbcl ,c ksuboicboIbs
-              </p>
-            </div>
-            <div className="flex p-4 relative">
-              <PiStarFourDuotone className="absolute top-5 left-1" />
-              <p className="ml-3 text-lg font-sans">
-                526 ml - Lorem ipsum, dolor ljbldsicibdoc
-              </p>
-            </div>
+            {ingredients.map((value, ind) => {
+              return (
+                <div className="flex p-4 relative">
+                  <PiStarFourDuotone className="absolute top-5 left-1" />
+                  <p className="ml-3 text-lg font-sans">{value}</p>
+                </div>
+              );
+            })}
 
             {/* nutrition area */}
             <div className="py-4 2xl:px-36 xl:px-28 lg:28 md:px-24">
@@ -162,20 +171,36 @@ const RecipeDetails = () => {
                   </thead>
                   <tbody>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">Calories</td>
-                      <td className="whitespace-nowrap px-6 py-4">251 gm</td>
+                      <td className="whitespace-nowrap px-6 py-4">Calcium</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {nutritions.calcium}
+                      </td>
                     </tr>
                     <tr className="border-b text-center">
                       <td className="whitespace-nowrap px-6 py-4">Calories</td>
-                      <td className="whitespace-nowrap px-6 py-4">251 gm</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {nutritions.calories}
+                      </td>
                     </tr>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">Calories</td>
-                      <td className="whitespace-nowrap px-6 py-4">251 gm</td>
+                      <td className="whitespace-nowrap px-6 py-4">Protein</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {nutritions.protein}
+                      </td>
                     </tr>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">Calories</td>
-                      <td className="whitespace-nowrap px-6 py-4">251 gm</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        Carbohydrates
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {nutritions.carbohydrates}
+                      </td>
+                    </tr>
+                    <tr className="border-b text-center">
+                      <td className="whitespace-nowrap px-6 py-4">Fat</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {nutritions.fat}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -190,65 +215,14 @@ const RecipeDetails = () => {
               Instructions.
             </h1>
 
-            <div className="flex p-4 relative">
-              <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
-              <p className="ml-5 text-lg font-sans">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Excepturi
-              </p>
-            </div>
-
-            <div className="flex p-4 relative">
-              <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
-              <p className="ml-5 text-lg font-sans">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Excepturi recusandae numquam obcaecati recusandae numquam
-                obcaecati
-              </p>
-            </div>
-
-            <div className="flex p-4 relative">
-              <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
-              <p className="ml-5 text-lg font-sans">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Excepturi recusandae numquam obcaecati
-              </p>
-            </div>
-
-            <div className="flex p-4 relative">
-              <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
-              <p className="ml-5 text-lg font-sans">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Excepturi recusandae numquam obcaecati recusandae numquam
-                obcaecati
-              </p>
-            </div>
-
-            <div className="flex p-4 relative">
-              <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
-              <p className="ml-5 text-lg font-sans">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Excepturi recusandae numquam obcaecati amet consectetur
-                adipisicing elit. Excepturi recusandae numquam obcaecati
-              </p>
-            </div>
-
-            <div className="flex p-4 relative">
-              <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
-              <p className="ml-5 text-lg font-sans">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Excepturi recusandae numquam obcaecati
-              </p>
-            </div>
-
-            <div className="flex p-4 relative">
-              <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
-              <p className="ml-5 text-lg font-sans">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Excepturi recusandae numquam obcaecati recusandae numquam
-                obcaecati recusandae numquam obcaecati
-              </p>
-            </div>
+            {instructions.map((value, ind) => {
+              return (
+                <div className="flex p-4 relative">
+                  <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
+                  <p className="ml-5 text-lg font-sans">{value}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -284,7 +258,7 @@ const RecipeDetails = () => {
 
             <div className="px-3">
               <p className=" text-end font-sans text-xs text-black/40">
-                45 mints ago
+                45min ago
               </p>
             </div>
           </div>
@@ -312,7 +286,7 @@ const RecipeDetails = () => {
 
             <div className="px-3">
               <p className=" text-end font-sans text-xs text-black/40">
-                45 mints ago
+                45min ago
               </p>
             </div>
           </div>

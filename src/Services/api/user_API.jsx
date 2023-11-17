@@ -67,32 +67,34 @@ export const handleAddRecipe = async (
   formData.append("image", image);
   formData.append("userId", id);
 
-  for (const key in ingredient) {
-    formData.append("ingredient", ingredient[key]);
-  }
-  for (const key in instruction) {
-    formData.append("instruction", instruction[key]);
-  }
+  ingredient.forEach((value, index) => {
+    formData.append(`ingredient[${index}]`, value);
+  });
+
+  instruction.forEach((value, index) => {
+    formData.append(`instruction[${index}]`, value);
+  });
 
   try {
-    const response = await api_request.post(`/addrecipe`, formData, {
+    const { data } = await api_request.post(`/addrecipe`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
 
-    if (response.data.status === -1) {
-      errorAlert("image is not added");
-    } else if (response.data.status === 1) {
-      successAlert("Recipe Added");
+    if (!data.status) {
+      errorAlert(data.message);
+    } else if (data.status) {
+      successAlert("Recipe added");
       window.location.reload();
     } else {
-      errorAlert("Somthing Whent wrong");
+      errorAlert(data.error);
       setTimeout(() => {
         navigate("/user-profile");
       }, 2000);
     }
   } catch (error) {
+    errorAlert(error);
     console.error(error);
   }
 };
@@ -103,6 +105,20 @@ export const getLoggedUserInfo = async (userData) => {
     const id = userData;
     const { data } = await api_request.get(`/getuserdata/${id}`);
     if (data) {
+      return data;
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// get recipe intividual deails
+export const getRecipeData = async (id, userId) => {
+  try {
+    const { data } = await api_request.get(`/getrecipedata/${id}/${userId}`);
+    if (data.status) {
       return data;
     } else {
       errorAlert(data.message);

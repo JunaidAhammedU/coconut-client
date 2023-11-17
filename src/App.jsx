@@ -28,7 +28,7 @@ const App = () => {
         <Route path="/otp-verify" element={<OtpVerifyPage />} />
         <Route path='/user-profile' element={<PortectedRoute element={<UserProfilePage />} />} />
         <Route path='/explore-recipe' element={<ExploreRecipePage />} />
-        <Route path='/recipedetails' element={<RecipeDetailsPage />} />
+        <Route path='/recipedetails/:id/:userId' element={<RecipeDetailsPage />} />
 
         {/* Admin Routes */}
         <Route path='/admin' element={ <AdminProtectedRoutes element={<AdminLandingPage />} />} />
