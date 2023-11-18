@@ -16,34 +16,6 @@ export const getAllRecipes = async () => {
   }
 };
 
-// handle follow user
-export const handleFollowUser = async (id, follower) => {
-  try {
-    const { data } = await api_request.post(`/addfollow/${id}`, { follower });
-    if (!data) {
-      errorAlert("you cant follow this user");
-    } else {
-      return data.status;
-    }
-  } catch (error) {
-    errorAlert(error);
-  }
-};
-
-// handle unfollow user
-export const handleUnFollowUser = async (id, follower) => {
-  try {
-    const { data } = await api_request.post(`/addunfollow/${id}`, { follower });
-    if (!data) {
-      errorAlert("you cant unfollow this user");
-    } else {
-      return data.status;
-    }
-  } catch (error) {
-    errorAlert(error);
-  }
-};
-
 // handle post add recipes
 export const handleAddRecipe = async (
   recipe,
@@ -125,5 +97,29 @@ export const getRecipeData = async (id, userId) => {
     }
   } catch (error) {
     errorAlert(error);
+  }
+};
+
+export const followUser = async (loggedInUserId, userId) => {
+  try {
+    const response = await api_request.post(`/addfollow/${userId}`, {
+      follower: loggedInUserId,
+    });
+    return response.data.status;
+  } catch (error) {
+    console.error("Error following user:", error);
+    return false;
+  }
+};
+
+export const unfollowUser = async (loggedInUserId, userId) => {
+  try {
+    const response = await api_request.post(`/addunfollow/${userId}`, {
+      follower: loggedInUserId,
+    });
+    return response.data.status;
+  } catch (error) {
+    console.error("Error unfollowing user:", error);
+    return false;
   }
 };

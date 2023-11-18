@@ -10,11 +10,24 @@ import { PiStarFourDuotone } from "react-icons/pi";
 import { PiCookingPotDuotone } from "react-icons/pi";
 import "./RecipeDetails.css";
 import { useParams } from "react-router-dom";
-import { getRecipeData } from "../../../Services/api/user_API";
-//-------------------------------------------------------------------------------
+import {
+  getRecipeData,
+  followUser,
+  unfollowUser,
+} from "../../../Services/api/user_API";
+import { useDispatch, useSelector } from "react-redux";
+import axiosInstance from "../../../axios";
+import Modal from "../Modal/Modal";
+//----------------------------------------------------------------------------------------
 
 const RecipeDetails = () => {
   let { id, userId } = useParams();
+
+  const dispatch = useDispatch();
+  const { id: loggedInUserId } = useSelector((state) => state.user);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const [instructions, setInstructions] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [recipeData, setRecipeData] = useState({});
@@ -36,6 +49,40 @@ const RecipeDetails = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Fetch follow status when component mounts
+  useEffect(() => {
+    const fetchFollowStatus = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/followStatus/${loggedInUserId}/${userId}`
+        );
+        setIsFollowing(response.data.isFollowing);
+      } catch (error) {
+        console.error("Error fetching follow status:", error);
+      }
+    };
+
+    fetchFollowStatus();
+  }, [loggedInUserId, userId]);
+
+  // handle follow
+  const handleFollow = async () => {
+    const status = await followUser(loggedInUserId, userId);
+    if (status) {
+      setIsFollowing(true);
+      setShowModal(true);
+    }
+  };
+
+  // handle un follow
+  const handleUnfollow = async () => {
+    const status = await unfollowUser(loggedInUserId, userId);
+    if (status) {
+      setIsFollowing(false);
+      setShowModal(true);
+    }
+  };
 
   return (
     <>
@@ -77,11 +124,20 @@ const RecipeDetails = () => {
           </div>
 
           <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 sm:gap-10 foldSize:mt-1 foldSize:justify-start">
+            {/*  */}
             <div className="my-auto">
-              <button className="border font-sans text-sm rounded-lg px-2 font-bold border-black/60">
-                Follow
-              </button>
+              {userId !== loggedInUserId && (
+                <button
+                  className="border font-sans text-sm rounded-lg px-2 font-bold border-black/60"
+                  onClick={isFollowing ? handleUnfollow : handleFollow}
+                >
+                  {isFollowing ? "Unfollow" : "Follow"}
+                </button>
+              )}
             </div>
+            <Modal showModal={showModal} setShowModal={setShowModal} />
+
+            {/*  */}
 
             <div className="flex gap-1 my-auto">
               <BsChatLeftDotsFill className="text-black/90 text-lg" />

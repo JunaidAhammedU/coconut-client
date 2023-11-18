@@ -10,24 +10,6 @@ const RecipeCard = (props) => {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  // //handle follow
-  // const handleFollow = async (new_FollowingId) => {
-  //   const response = await handleFollowUser(new_FollowingId, id);
-  //   if (response === true) {
-  //     setFollowUser(true);
-  //   }
-  // };
-
-  // //handle funollow
-  // const handleUnFollow = async (new_unFollowingId) => {
-  //   const response = await handleUnFollowUser(new_unFollowingId, id);
-  //   if (response === true) {
-  //     setFollowUser(false);
-  //   }
-  // };
-
-  // for fetching data of the user
-  // useEffect(() => {}, [handleFollow, handleUnFollow]);
   return (
     <div className="relative">
       {/* Dropdown */}

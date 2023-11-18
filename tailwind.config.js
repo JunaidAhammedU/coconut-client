@@ -13,9 +13,12 @@ export default {
       },
       screens: {
         ultraSm: "300px",
-        foldSize:"280px"
+        foldSize: "280px",
       },
     },
   },
-  plugins: [require("flowbite/plugin")],
+  daisyui: {
+    themes: ["cmyk"],
+  },
+  plugins: [require("flowbite/plugin"), require("daisyui")],
 };
