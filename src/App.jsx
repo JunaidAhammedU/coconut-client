@@ -15,6 +15,7 @@ import UserPage from './Pages/Admin/UserPage'
 import UserProfilePage from './Pages/User/UserProfilePage'
 import ExploreRecipePage from './Pages/User/ExploreRecipePage';
 import RecipeDetailsPage from "./Pages/User/RecipeDetailsPage";
+import ChatPage from './Pages/Chat/ChatPage';
 //------------------------------------------------------------------------------
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path='/user-profile' element={<PortectedRoute element={<UserProfilePage />} />} />
         <Route path='/explore-recipe' element={<ExploreRecipePage />} />
         <Route path='/recipedetails/:id/:userId' element={<RecipeDetailsPage />} />
+        <Route path='/userchat' element={<ChatPage />} />
 
         {/* Admin Routes */}
         <Route path='/admin' element={ <AdminProtectedRoutes element={<AdminLandingPage />} />} />

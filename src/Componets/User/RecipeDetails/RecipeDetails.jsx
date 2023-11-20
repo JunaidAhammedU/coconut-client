@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  BsBookmarkPlus,
-  BsBoxArrowUp,
-  BsArrowUpRight,
-  BsChatLeftDotsFill,
-  BsCalendar2MinusFill,
-} from "react-icons/bs";
+import { BsBookmarkPlus, BsBoxArrowUp, BsArrowUpRight } from "react-icons/bs";
+import { PiChatsDuotone } from "react-icons/pi";
+import { BiComment } from "react-icons/bi";
+import { FaRegCalendar } from "react-icons/fa";
 import { PiStarFourDuotone } from "react-icons/pi";
 import { PiCookingPotDuotone } from "react-icons/pi";
 import "./RecipeDetails.css";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   getRecipeData,
   followUser,
@@ -36,7 +33,6 @@ const RecipeDetails = () => {
 
   const fetchData = async () => {
     const { recipeData, userData } = await getRecipeData(id, userId);
-    console.log(recipeData);
     if (recipeData && userData) {
       setInstructions(recipeData.Instructions);
       setIngredients(recipeData.Ingredients);
@@ -95,6 +91,9 @@ const RecipeDetails = () => {
             </p>
           </div>
           <div className="flex">
+            <Link to={'/userchat'}>
+              <PiChatsDuotone className="mr-8 text-2xl text-black/80 hover:text-black" />
+            </Link>
             <BsBoxArrowUp className="mr-8 text-2xl text-black/80 hover:text-black" />
             <BsBookmarkPlus className="text-2xl text-black/80 hover:text-black" />
           </div>
@@ -110,13 +109,14 @@ const RecipeDetails = () => {
         </div>
 
         <div className="flex flex-wrap mt-5 p-2">
-          <div className="rounded-full w-12 h-12 sm:w-16 sm:h-16">
-            <img
-              className="rounded-full w-full h-full object-cover"
-              src="https://picsum.photos/200/300"
-              alt=""
-            />
+          <div className="avatar online placeholder">
+            <div className="bg-neutral text-neutral-content rounded-full w-16">
+              <span className="text-2xl">
+                {userDetails.UserName ? userDetails.UserName[0] : ``}
+              </span>
+            </div>
           </div>
+
           <div className="ml-2 mr-5 my-auto">
             <h1 className="text-sm font-sans font-semibold">
               {userDetails.UserName}
@@ -140,15 +140,12 @@ const RecipeDetails = () => {
             {/*  */}
 
             <div className="flex gap-1 my-auto">
-              <BsChatLeftDotsFill className="text-black/90 text-lg" />
+              <BiComment className="text-black/90 text-xl" />
               <p className="text-xs font-sans">123</p>
             </div>
 
             <div className="flex gap-1 my-auto">
-              <BsCalendar2MinusFill
-                className="text-black/90"
-                style={{ fontSize: "16px" }}
-              />
+              <FaRegCalendar className="text-black/90 text-lg" />
               <p className="text-xs py-0.5 font-sans sm:whitespace-nowrap">
                 {`${new Date(recipeData.createdAt).getUTCDate()} days ago`}
               </p>
@@ -166,11 +163,12 @@ const RecipeDetails = () => {
               {recipeData.description}
             </p>
           </div>
+
           <div className="flex justify-center py-2 mt-5 overflow-hidden">
             <img
               src={`/Images/${recipeData.recipeImage}`}
               alt=""
-              className="object-cover rounded-xl"
+              className="object-cover rounded-xl lg:h-[400px] lg:w-[800px] xl:h-[550px] xl:w-[800px]"
             />
           </div>
         </div>
