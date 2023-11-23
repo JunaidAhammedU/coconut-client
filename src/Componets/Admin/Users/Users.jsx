@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "../AdHeader/Header";
+// import Header from "../AdHeader/Header";
 import { Button } from "flowbite-react";
 import { ToastContainer } from "react-toastify";
 import {
@@ -20,7 +20,6 @@ const Users = () => {
 
   return (
     <>
-      <Header />
       <div className="p-4 sm:ml-64 ">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
           {/* ---===---- */}

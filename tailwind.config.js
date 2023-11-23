@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        "plus-jakarta-sans": ['"Plus Jakarta Sans"', "sans-serif"],
+      },
       colors: {
         defaultBtnColor: "#FF642F",
         onHoverButton: "#e04612",

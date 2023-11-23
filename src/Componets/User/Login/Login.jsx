@@ -8,6 +8,7 @@ import api_request from "../../../axios";
 import { ToastContainer } from "react-toastify";
 import Loader from "../../Loader/Loader";
 import { successAlert, errorAlert } from "../../../Services/Toast/Toast";
+import toast from "react-hot-toast";
 //-----------------------------------------------------------------------
 
 const Login = () => {
@@ -34,8 +35,6 @@ const Login = () => {
 
     // passing data to from login to backend
     const { data } = await api_request.post("/login", { ...user });
-    console.log(data.token);
-    
     if (!data.status) {
       errorAlert(data.message);
       setTimeout(() => {
@@ -47,7 +46,7 @@ const Login = () => {
         setLoader(false);
       }, 1000);
       setTimeout(() => {
-        localStorage.setItem("user",JSON.stringify(data))
+        localStorage.setItem("user", JSON.stringify(data));
         dispatch(
           updateUser({
             id: data.data._id,
@@ -159,8 +158,7 @@ const Login = () => {
           <div>
             {loader ? (
               <button className="flex w-full justify-center transition duration-500 rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                {" "}
-                <Loader />{" "}
+                <Loader />
               </button>
             ) : (
               <button

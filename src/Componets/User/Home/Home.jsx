@@ -44,7 +44,7 @@ const Home = () => {
           <div className="max-w-md">
             <h1 className="pt-4 text-6xl font-bold tracking-tighter leading-tight">
               Healthy life Make Your Food More{" "}
-              <span className="delicious">"Delicious.</span>
+              <span className="delicious">"Delicious"</span>
             </h1>
             <p className="pt-2 text-lg font-normal">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam

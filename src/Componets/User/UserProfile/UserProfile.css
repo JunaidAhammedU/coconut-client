@@ -12,5 +12,5 @@
 }
 
 .profile_sec_div{
-  @apply grid grid-cols-1 mt-3 ml-7
+  @apply grid grid-cols-1 px-4
 }

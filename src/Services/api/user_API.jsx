@@ -1,5 +1,6 @@
 import api_request from "../../axios";
-import { successAlert, errorAlert } from "../Toast/Toast";
+import { successAlert, errorAlert, commentAddedAlert } from "../Toast/Toast";
+import { toast } from "react-hot-toast";
 //---------------------------------------------------------
 
 //get all recipes
@@ -100,11 +101,13 @@ export const getRecipeData = async (id, userId) => {
   }
 };
 
+// follow user handeler
 export const followUser = async (loggedInUserId, userId) => {
   try {
     const response = await api_request.post(`/addfollow/${userId}`, {
       follower: loggedInUserId,
     });
+    commentAddedAlert("You followed");
     return response.data.status;
   } catch (error) {
     console.error("Error following user:", error);
@@ -112,14 +115,92 @@ export const followUser = async (loggedInUserId, userId) => {
   }
 };
 
+// unfollow user handler
 export const unfollowUser = async (loggedInUserId, userId) => {
   try {
     const response = await api_request.post(`/addunfollow/${userId}`, {
       follower: loggedInUserId,
     });
+    commentAddedAlert("You Unfollowed");
+
     return response.data.status;
   } catch (error) {
     console.error("Error unfollowing user:", error);
     return false;
+  }
+};
+
+// taking all followers Data
+export const getFollowerData = async (userId) => {
+  try {
+    const { data } = await api_request.get(`/getallfollowers/${userId}`);
+    if (data) {
+      return data;
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// fetching all user chat history
+export const createChat = async (loggedUserId, userId) => {
+  try {
+    const { data } = await api_request.post(
+      `/createChat/${loggedUserId}/${userId}`
+    );
+    if (data) {
+      return data;
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// fetch all chats
+export const fetchChatHistory = async (userId1, userId2) => {
+  try {
+    const { data } = await api_request.get(
+      `/chathistory/${userId1}/${userId2}`
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+// set new comment
+export const newComment = async (newComment) => {
+  try {
+    const { data } = await api_request.post(`/addcomment`, newComment);
+    if (data) {
+      commentAddedAlert(data.message);
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// get recipe search sort filter data
+export const getSearchAllRecipeData = async (sort, filter, page, search) => {
+  try {
+    const { data } = await api_request.get(
+      `/getrecipesearch?page=${page}&sort=${sort.sort},${
+        sort.order
+      }&category=${filter.toString()}&search=${search}`
+    );
+    if (data) {
+      return data;
+    } else {
+      errorAlert("somting went wrong!");
+    }
+  } catch (error) {
+    errorAlert(error);
   }
 };

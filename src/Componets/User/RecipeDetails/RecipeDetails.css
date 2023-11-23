@@ -1,3 +1,15 @@
 .nutrition_instruction_div {
   @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 px-9 gap-2 mt-8;
 }
+
+.topSectionDiv {
+  @apply grid ultraSm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 px-10;
+}
+
+.activeButtonDiv {
+  @apply flex xl:justify-end lg:justify-end justify-between p-3 gap-2 bg-white;
+}
+
+.activeButton {
+  @apply btn bg-white border rounded-lg hover:border-black hover:bg-white;
+}

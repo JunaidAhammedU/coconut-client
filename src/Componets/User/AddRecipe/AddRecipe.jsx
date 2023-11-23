@@ -28,7 +28,7 @@ const AddRecipe = () => {
   });
 
   const [ingredient, setIngredient] = useState([[]]);
-  const [instruction, setInstruction] = useState([[]]);
+  const [instruction, setInstruction] = useState([[], [], [], []]);
 
   const addIngredientField = () => {
     setIngredient([...ingredient, []]);
@@ -40,7 +40,7 @@ const AddRecipe = () => {
   //--------------------------------------------------
 
   return (
-    <div className="w-full h-full rounded-lg ultraSm:overflow-y-auto ultraSm:p-2 md:px-12">
+    <div className="w-full h-[600px] rounded-lg ultraSm:overflow-y-auto ultraSm:p-2 md:px-12">
       <div>
         <h1 className="text-start font-bold  ml-3 font-sans text-gray-600 text-2xl">
           Add Recipe*
@@ -285,7 +285,7 @@ const AddRecipe = () => {
             <input
               className=" w-full rounded-lg mt-2 border-gray-300 text-gray-900 text-sm"
               type="text"
-              placeholder="Protein:" 
+              placeholder="Protein:"
               name="protein"
               style={{ height: "37px" }}
               onChange={(e) =>

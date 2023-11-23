@@ -74,7 +74,7 @@ const RecipeCard = (props) => {
         />
         <div className="px-6 py-4 max-h-40 h-40 overflow-hidden text-ellipsis">
           <div className="font-bold text-xl mb-2">{props.data.title}</div>
-          <p className="text-gray-700 font-sans text-sm">
+          <p className="text-gray-700 font-sans text-sm h-6">
             {props.data.description}
           </p>
         </div>

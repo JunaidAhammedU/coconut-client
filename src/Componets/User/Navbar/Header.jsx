@@ -33,7 +33,7 @@ const Header = () => {
   return (
     <div className="sticky top-0 z-50">
       <Navbar fluid rounded className="border border-b-0.05 h-16 ">
-        <Navbar.Brand href="https://flowbite-react.com">
+        <Navbar.Brand>
           <img src="/logo.png" className="mr-3 h-6 sm:h-9" alt="coconut." />
         </Navbar.Brand>
         <div className="flex md:order-2">
@@ -90,12 +90,13 @@ const Header = () => {
           <NavLink to={"/"} className="naveList" href="#" active>
             AI
           </NavLink>
-          {/* <NavLink to={"/"} className="naveList" href="#" active>
-            Pricing
+          <NavLink to={"/userchat"} className="naveList" href="#" active>
+            Message
           </NavLink>
-          <NavLink to={"/"} className="naveList" href="#" active>
+
+          {/* <NavLink to={"/"} className="naveList" href="#" active>
             Contact
-          </NavLink> */}
+          </NavLink>  */}
           <ToastContainer />
         </Navbar.Collapse>
       </Navbar>
