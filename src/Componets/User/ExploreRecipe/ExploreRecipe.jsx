@@ -50,7 +50,7 @@ const ExploreRecipe = () => {
   return (
     <>
       <section>
-        <div className="flex  flex-wrap justify-center gap-10">
+        <div className="flex flex-wrap justify-center gap-10 overflow-y-auto h-[235px]">
           <div className="cat_Div">
             <div className="relative overflow-hidden rounded-full">
               <img
@@ -112,17 +112,31 @@ const ExploreRecipe = () => {
         </div>
       </section>
       {/* ========= */}
-      <section className=" mt-10 p-2">
-        <div className="flex justify-end px-5 py-2 position-static">
-          <input
-            type="text"
-            placeholder="Search recipe"
-            className="input w-full input-bordered max-w-xs "
-            onChange={(e) => handleSearch(e.target.value)}
-          />
+      <section className="relative">
+        <div className="flex justify-center">
+          <div className="flex py-6 gap-4 w-4/5 ultraSm:flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row items-center border-t-2 ">
+            <div>
+              <ul className="menu menu-horizontal bg-white rounded-box border border-black/20">
+                <li>
+                  <a>Veg</a>
+                </li>
+                <li>
+                  <a>Non veg</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Search any recipe"
+                className="input w-full input-bordered max-w-xs focus:outline-none hover:border-black/40 h-[53px] rounded-box"
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="flex flex-wrap gap-10 justify-center mx-4 border rounded-t-md bg-slate-50 p-5">
+        <div className="flex flex-wrap gap-10 justify-center py-2">
           {recipes
             .filter((item) => {
               return (
@@ -133,7 +147,17 @@ const ExploreRecipe = () => {
               );
             })
             .map((recipe) => {
-              return <RecipeCard key={recipe._id} data={recipe} id={id} />;
+              return (
+                <RecipeCard
+                  title={recipe.title}
+                  description={recipe.description}
+                  userId={recipe.userId}
+                  image={recipe.recipeImage[0]}
+                  id={recipe._id}
+                  recipe={recipe}
+                  currentUserId={id}
+                />
+              );
             })}
         </div>
       </section>

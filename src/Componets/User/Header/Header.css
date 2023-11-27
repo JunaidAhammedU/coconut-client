@@ -1,0 +1,7 @@
+.naveList {
+  @apply transition duration-500 hover:text-orange-600 font-bold pt-4 pl-3 pb-3 border lg:border-none md:border-none;
+}
+
+.ai_naveItem {
+  @apply flex transition duration-500 hover:text-red-600 font-bold pt-4 pl-3 pb-3 border lg:border-none md:border-none gap-1;
+}

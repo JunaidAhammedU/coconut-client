@@ -4,11 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const adminData = JSON.parse(localStorage.getItem("admin"));
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
   const handleLogout = () => {
     localStorage.removeItem("admin");
     navigate("/admin/login");
   };
+  
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };

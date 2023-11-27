@@ -1,26 +1,43 @@
-import React, { useEffect } from "react";
+// Modal.js
+import React from "react";
 
-const Modal = ({ showModal, setShowModal }) => {
-  useEffect(() => {
-    const modal = document.getElementById("my_modal_1");
-    if (showModal) {
-      modal.showModal();
-    } else {
-      modal.close();
-    }
-  }, [showModal]);
+const Modal = ({
+  id,
+  title,
+  btn_title,
+  isOpen,
+  onClose,
+  onConfirm,
+  recipeImg,
+  recipeTitle,
+}) => {
+  if (!isOpen) return null;
 
   return (
-    <dialog id="my_modal_1" className="modal">
+    <dialog
+      id={id}
+      className="modal modal-bottom sm:modal-middle bg-black/50"
+      open
+    >
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4">Press ESC key or click the button below to close</p>
+        <p className="py-5">{title}</p>
+        {recipeImg ? (
+          <div className="avatar absolute left-12 bottom-3 ">
+            <div className="w-20 rounded">
+              <img src={`/Images/${recipeImg}`} />
+            </div>
+            <p className="px-4 font-abc font-semibold ">
+              {recipeTitle.toUpperCase()}
+            </p>
+          </div>
+        ) : null}
         <div className="modal-action">
-          <form method="dialog">
-            <button className="btn" onClick={() => setShowModal(false)}>
-              Close
-            </button>
-          </form>
+          <button className="btn" onClick={onConfirm}>
+            {btn_title}
+          </button>
+          <button className="btn" onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </dialog>

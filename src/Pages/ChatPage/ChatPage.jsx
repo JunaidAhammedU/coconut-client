@@ -1,6 +1,6 @@
 import React from "react";
-import Chat from "../../Componets/Chat/Chat/Chat";
-import Header from "../../Componets/User/Navbar/Header";
+import Chat from "../../Componets/ChatSection/Chat/Chat";
+import Header from "../../Componets/User/Header/Header";
 //----------------------------------------------------------
 
 const ChatPage = () => {

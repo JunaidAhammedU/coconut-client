@@ -27,7 +27,7 @@ const AddRecipe = () => {
     instruction: "",
   });
 
-  const [ingredient, setIngredient] = useState([[]]);
+  const [ingredient, setIngredient] = useState([[],[]]);
   const [instruction, setInstruction] = useState([[], [], [], []]);
 
   const addIngredientField = () => {
@@ -127,7 +127,7 @@ const AddRecipe = () => {
           <div className="flex gap-2 ">
             <input
               className=" w-1/2 rounded-lg border-gray-300"
-              type="number"
+              type="time"
               onChange={(e) =>
                 setRecipe({ ...recipe, [e.target.name]: e.target.value })
               }

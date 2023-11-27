@@ -1,9 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import EmptyChat from "../EmptyChat/EmptyChat";
+import { FiSend } from "react-icons/fi";
+//--------------------------------------------------------
 
-const ChatArea = ({ selectedUser, handleBackButton, room, socket, chatHistory }) => {
+const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
   const chatContainerRef = useRef(null);
-  const { id, name } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.user);
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
 
@@ -51,21 +55,19 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket, chatHistory })
   return (
     <>
       {selectedUser ? (
-        <div className="w-full p-4">
-          <div className="flex items-center mb-4">
-            <button
+        <div className="w-full p-2 overflow-hidden">
+          <div className="chat_header">
+            <IoMdArrowRoundBack
               className="mr-3  rounded-full cursor-pointer"
               onClick={handleBackButton}
-            >
-              &lt; Back
-            </button>
-            <h1 className="text-xl font-semibold">Chat with {selectedUser}</h1>
+            />
+            <h1 className="text-lg font-sans">
+              Chat with{" "}
+              <span className="font-semibold font-sans text-xl">{selectedUser}</span>
+            </h1>
           </div>
 
-          <div
-            className="border rounded-xl h-[410px] overflow-hidden overflow-y-auto p-4 bg-purple-400"
-            ref={chatContainerRef}
-          >
+          <div className="chat_area" ref={chatContainerRef}>
             {allMessages.map((message, indx) => {
               return (
                 <div
@@ -87,38 +89,38 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket, chatHistory })
                   ) : (
                     <div className="chat-header">user</div>
                   )}
-                  <div className="chat-bubble">{message.text}</div>
+                  <div className="chat-bubble">
+                    <p>{message.text}</p>
+                  </div>
                   <div className="chat-footer opacity-50">{message.time}</div>
                 </div>
               );
             })}
           </div>
 
+          {/* input field section */}
           <form>
-            <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 mt-4">
+            <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 mt-2">
+
               <textarea
                 id="chat"
                 rows="1"
-                className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                className="chat_input"
                 placeholder="Your message..."
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
               ></textarea>
 
-              <button
+              <FiSend
                 type="submit"
-                className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
+                className="send_btn"
                 onClick={handleSendMessage}
-              >
-                <span>send</span>
-              </button>
+              />
             </div>
           </form>
         </div>
       ) : (
-        <div className="w-full p-4">
-          <h1 className="text-xl font-semibold">Select any chat</h1>
-        </div>
+        <EmptyChat />
       )}
     </>
   );

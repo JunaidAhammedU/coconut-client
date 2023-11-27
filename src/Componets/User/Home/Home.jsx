@@ -42,7 +42,7 @@ const Home = () => {
       <section style={sectionStyle}>
         <div className="flex justify-between px-24 py-8 max-w-screen-xl mx-auto">
           <div className="max-w-md">
-            <h1 className="pt-4 text-6xl font-bold tracking-tighter leading-tight">
+            <h1 className="pt-4 text-5xl font-bold tracking-tighter leading-tight">
               Healthy life Make Your Food More{" "}
               <span className="delicious">"Delicious"</span>
             </h1>

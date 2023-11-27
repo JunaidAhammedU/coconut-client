@@ -12,7 +12,7 @@ export const promiseAlert = async (message) => {
 export const errorAlert = async (message) => {
   toast.error(message, {
     position: "top-right",
-  })
+  });
 };
 
 export const successAlert = async (message) => {
@@ -27,7 +27,7 @@ export const warnAlert = async (message) => {
       border: "1px solid #fff",
       padding: "11px",
       color: "#713200",
-      backgroundColor:"#fae105"
+      backgroundColor: "#fae105",
     },
     iconTheme: {
       primary: "#d4c00d",
@@ -47,5 +47,11 @@ export const commentAddedAlert = async (message) => {
       primary: "#713200",
       secondary: "#FFFAEE",
     },
+  });
+};
+
+export const emojiAlert = (message) => {
+  toast(message, {
+    icon: "🍲",
   });
 };

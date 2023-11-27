@@ -1,0 +1,31 @@
+.Chat-container {
+  @apply flex flex-col h-full gap-2 bg-white rounded-lg p-2 overflow-y-auto shadow-xl;
+}
+
+.listDiv {
+  @apply flex rounded-lg p-1 hover:bg-orange-300 hover:scale-105 transition duration-300 ease-in-out cursor-pointer ultraSm:flex-col md:flex-row lg:flex-row xl:flex-row first:2xl:flex-row md:w-36 lg:w-72 xl:lg:w-72;
+}
+
+.chat_header {
+  @apply flex items-center bg-white rounded-md px-3 py-3 shadow-md;
+}
+
+.chat_area {
+  @apply h-[416px] bg-white overflow-hidden overflow-y-auto p-4 mt-2 rounded-md shadow-md;
+}
+
+.chat_input {
+  @apply block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-orange-300 focus:border-orange-300 resize-none;
+}
+
+.send_btn {
+  @apply text-2xl text-orange-400 hover:text-onHoverButton transition duration-200
+}
+
+.chat_div {
+  @apply flex items-center px-3 py-2 rounded-lg bg-gray-50 mt-4;
+}
+
+.emoji_btn{
+  @apply text-2xl text-black/70 hover:text-black/90 transition duration-200
+}

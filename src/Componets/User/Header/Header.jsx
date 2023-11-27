@@ -1,40 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dropdown, Navbar, Avatar } from "flowbite-react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import "./Header.css";
-import { ToastContainer, toast } from "react-toastify";
+import Modal from "../Modal/Modal";
+import { successAlert } from "../../../Services/Toast/Toast";
+import { BsStars } from "react-icons/bs";
 //----------------------------------------------------------
 
 const Header = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const userName = user ? user.data.UserName : null;
-
-  // Toaster Message
-  const toastMessage = (param) => {
-    return {
-      position: "top-center",
-      autoClose: param,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    };
-  };
+  const navigete = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
 
   //Logout
   const handleLogout = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleConfirmLogout = () => {
+    setModalOpen(false);
+    successAlert("Logout successful");
     setTimeout(() => {
-      toast.info("Logout successful", toastMessage(1000));
+      navigete("/login");
+      JSON.parse(localStorage.removeItem("user"));
     }, 1000);
-    JSON.parse(localStorage.removeItem("user"));
   };
 
   return (
     <div className="sticky top-0 z-50">
+      <Modal
+        id="logout_modal"
+        title="Are you sure you want to logout?"
+        btn_title="Logout"
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmLogout}
+      />
+
       <Navbar fluid rounded className="border border-b-0.05 h-16 ">
         <Navbar.Brand>
-          <img src="/logo.png" className="mr-3 h-6 sm:h-9" alt="coconut." />
+          <img
+            src="/logo.png"
+            className="mr-3 h-6 sm:h-9 object-cover"
+            alt="coconut."
+          />
         </Navbar.Brand>
         <div className="flex md:order-2">
           <Dropdown
@@ -43,8 +57,9 @@ const Header = () => {
             label={
               <Avatar
                 alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                img="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600"
                 rounded
+                className=""
               />
             }
           >
@@ -81,23 +96,23 @@ const Header = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse className="bg-white z-10 md:z-0 lg:z-0 xl:z-0">
-          <NavLink to={"/"} className=" naveList" href="#" active>
+          <NavLink to={"/"} className=" naveList " href="#" active>
             Home
           </NavLink>
           <NavLink to={"/explore-recipe"} className="naveList" href="#" active>
             Recipes
           </NavLink>
-          <NavLink to={"/"} className="naveList" href="#" active>
-            AI
+          <NavLink to={"/"} className="ai_naveItem" active>
+            Genarate with AI
+            <BsStars className="text-red-500 text-xl" />
           </NavLink>
           <NavLink to={"/userchat"} className="naveList" href="#" active>
             Message
           </NavLink>
 
-          {/* <NavLink to={"/"} className="naveList" href="#" active>
-            Contact
-          </NavLink>  */}
-          <ToastContainer />
+          <NavLink to={"/user-profile/collections"} className="naveList" href="#" active>
+            Collection
+          </NavLink>
         </Navbar.Collapse>
       </Navbar>
     </div>

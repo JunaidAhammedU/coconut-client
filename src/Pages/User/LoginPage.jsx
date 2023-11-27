@@ -1,5 +1,4 @@
 import React from 'react'
-import Home from '../../Componets/User/Home/Home'
 import Login from '../../Componets/User/Login/Login'
 //---------------------------------------------------------------------
 

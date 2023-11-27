@@ -13,3 +13,8 @@
 .activeButton {
   @apply btn bg-white border rounded-lg hover:border-black hover:bg-white;
 }
+
+.activeButtonNoFollowed {
+  @apply btn bg-white border rounded-lg hover:border-black hover:bg-white cursor-not-allowed ;
+}
+

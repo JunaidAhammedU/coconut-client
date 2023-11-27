@@ -1,7 +1,11 @@
 import api_request from "../../axios";
-import { successAlert, errorAlert, commentAddedAlert } from "../Toast/Toast";
-import { toast } from "react-hot-toast";
-//---------------------------------------------------------
+import {
+  successAlert,
+  errorAlert,
+  commentAddedAlert,
+  emojiAlert,
+} from "../Toast/Toast";
+//----------------------------------------------------------------------------------------
 
 //get all recipes
 export const getAllRecipes = async () => {
@@ -73,9 +77,8 @@ export const handleAddRecipe = async (
 };
 
 //get loggedUserDetails
-export const getLoggedUserInfo = async (userData) => {
+export const getLoggedUserInfo = async (id) => {
   try {
-    const id = userData;
     const { data } = await api_request.get(`/getuserdata/${id}`);
     if (data) {
       return data;
@@ -199,6 +202,39 @@ export const getSearchAllRecipeData = async (sort, filter, page, search) => {
       return data;
     } else {
       errorAlert("somting went wrong!");
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// add new recipe in to saved collection
+export const addSavedRecipe = async (recipeId, userId) => {
+  try {
+    const { data } = await api_request.post(
+      `/addSavedRecipe/?recipeId=${recipeId}&userId=${userId}`
+    );
+    if (data.status) {
+      emojiAlert(data.message);
+      return data;
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// get all saved collection data
+export const getCollectionData = async (userId) => {
+  try {
+    const { data } = await api_request.get(
+      `/getAllCollections?userId=${userId}`
+    );
+    if (data.status) {
+      return data;
+    } else {
+      errorAlert(data.message);
     }
   } catch (error) {
     errorAlert(error);

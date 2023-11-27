@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { PiChatsDuotone } from "react-icons/pi";
+import { BiTime } from "react-icons/bi";
+import { PiStarFourDuotone } from "react-icons/pi";
+import { PiCookingPotDuotone } from "react-icons/pi";
+import { useParams, Link } from "react-router-dom";
+import { shareOnWhatsapp } from "../../../utils/whatsAppShare/Share";
 import {
   BsBookmarkPlus,
   BsBoxArrowUp,
@@ -7,36 +13,34 @@ import {
   BsCalendar4Event,
   BsPeople,
 } from "react-icons/bs";
-import { PiChatsDuotone } from "react-icons/pi";
-import { BiTime } from "react-icons/bi";
-import { PiStarFourDuotone } from "react-icons/pi";
-import { PiCookingPotDuotone } from "react-icons/pi";
-import "./RecipeDetails.css";
-import { useParams, Link } from "react-router-dom";
 import {
   getRecipeData,
   followUser,
   unfollowUser,
   newComment,
-  // fetchAllComment,
+  addSavedRecipe,
 } from "../../../Services/api/user_API";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../../axios";
-//----------------------------------------------------------------------------------------
+import Comments from "../Comments/Comments";
+import Modal from "../Modal/Modal";
+import "./RecipeDetails.css";
+//-----------------------------------------------------------------------------------------------------
 
 const RecipeDetails = () => {
   let { id, userId } = useParams();
 
   const dispatch = useDispatch();
   const { id: loggedInUserId } = useSelector((state) => state.user);
+
   const [isFollowing, setIsFollowing] = useState(false);
-  const [comment, setComment] = useState({});
   const [instructions, setInstructions] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [recipeData, setRecipeData] = useState({});
   const [userDetails, setUserDetails] = useState({});
   const [nutritions, setNutritions] = useState({});
   const [allComments, setallComments] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchData = async () => {
     const { recipeData, userData } = await getRecipeData(id, userId);
@@ -72,7 +76,7 @@ const RecipeDetails = () => {
 
   // handle follow
   const handleFollow = async () => {
-    const status = await followUser(loggedInUserId, userId);
+    const status = await followUser(loggedInUserId, userDetails._id);
     if (status) {
       setIsFollowing(true);
     }
@@ -80,23 +84,26 @@ const RecipeDetails = () => {
 
   // handle un follow
   const handleUnfollow = async () => {
-    const status = await unfollowUser(loggedInUserId, userId);
+    const status = await unfollowUser(loggedInUserId, userDetails._id);
     if (status) {
       setIsFollowing(false);
     }
   };
 
-  const handleComment = async (e) => {
-    e.preventDefault();
+  const handleSave = () => {
+    setIsModalOpen(true);
+  };
 
-    if (comment !== "") {
-      const newCommentData = {
-        user: loggedInUserId,
-        text: comment,
-        recipe: recipeData._id,
-      };
-      await newComment(newCommentData);
-      setallComments((preComment) => [...preComment, newCommentData]);
+  const modalOnClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSaveRecipe = async () => {
+    setIsModalOpen(false);
+    try {
+      await addSavedRecipe(recipeData._id, loggedInUserId);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -107,29 +114,45 @@ const RecipeDetails = () => {
           <div className="flex mr-2 bg-white p-3">
             <BsArrowUpRight className="my-auto text-lg text-lime-600" />
             <p className="text-xs font-sans ml-1 my-auto">
-              <span className="font-sans text-lime-600 font-bold">85%</span> would make this again.
+              <span className="font-sans text-lime-600 font-bold">85%</span>{" "}
+              would make this again.
             </p>
           </div>
 
           <div className="activeButtonDiv ">
-            <div className="bg-white ">
-              <Link to={"/userchat"}>
-                <button className="activeButton">
+            <div
+              className={`bg-white ${
+                !isFollowing ? `tooltip tooltip-bottom` : ``
+              } `}
+              data-tip={`Do follow  ${userDetails.UserName}`}
+            >
+              <Link to={`${isFollowing ? `/userchat` : `#`}`}>
+                <button
+                  className={`${
+                    !isFollowing ? `activeButtonNoFollowed` : `activeButton`
+                  }`}
+                >
                   <PiChatsDuotone className="h-6 w-6" />
                   Chat
                 </button>
               </Link>
             </div>
 
-            <div className="bg-white ">
-              <button className="activeButton">
+            <div
+              className="bg-white tooltip tooltip-bottom"
+              data-tip="share on whatsapp"
+            >
+              <button
+                className="activeButton"
+                onClick={() => shareOnWhatsapp(recipeData)}
+              >
                 <BsBoxArrowUp className="h-6 w-6" />
                 Share
               </button>
             </div>
 
             <div className="bg-white ">
-              <button className="activeButton">
+              <button className="activeButton" onClick={handleSave}>
                 <BsBookmarkPlus className="h-6 w-6" />
                 Save
               </button>
@@ -140,8 +163,18 @@ const RecipeDetails = () => {
       {/* ============== */}
 
       <section className="px-2">
+        <Modal
+          title={"Are you sure this recipe should be added to your collection?"}
+          btn_title={"Add"}
+          isOpen={isModalOpen}
+          recipeImg={recipeData.recipeImage}
+          recipeTitle={recipeData.title}
+          onClose={modalOnClose}
+          onConfirm={handleSaveRecipe}
+        />
+
         <div className="grid grid-cols-1 mt-5 p-3">
-          <h1 className="ultraSm:text-5xl ultraSm:text-center sm:text-7xl font-semibold font-serif md:text-start">
+          <h1 className="foldSize:text-3xl foldSize:text-center ultraSm:text-5xl ultraSm:text-center sm:text-5xl font-semibold font-serif md:text-start">
             {recipeData.title}
           </h1>
         </div>
@@ -165,7 +198,7 @@ const RecipeDetails = () => {
             <div className="mt-1">
               {userId !== loggedInUserId && (
                 <button
-                  className="font-sans text-start text-sm rounded-lg font-bold text-black/50 hover:text-black transition"
+                  className="font-abc text-start text-sm rounded-lg font-bold text-black/50 hover:text-black transition"
                   onClick={isFollowing ? handleUnfollow : handleFollow}
                 >
                   {isFollowing ? "Unfollow" : "Follow"}
@@ -196,28 +229,40 @@ const RecipeDetails = () => {
         </div>
 
         <div className="flex mt-5 gap-3  py-3 justify-center ">
-          <div className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2 border-l-2">
+          <div
+            className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2 border-l-2 tooltip"
+            data-tip="coocking time"
+          >
             <button className="btn hover:bg-white bg-white border-none text-xs font-thin">
               <BiTime className="h-6 w-6" />
               <span className="font-sans font-bold">{`${recipeData.cookingTime} Min `}</span>
             </button>
           </div>
 
-          <div className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2">
+          <div
+            className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2 tooltip"
+            data-tip="servings"
+          >
             <button className="btn hover:bg-white bg-white border-none text-xs font-thin">
               <BsPeople className="h-6 w-6" />
               <span className="font-sans font-bold">4</span>
             </button>
           </div>
 
-          <div className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2">
+          <div
+            className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2 tooltip"
+            data-tip="comments"
+          >
             <button className="btn hover:bg-white bg-white border-none text-xs font-thin">
               <BsChatLeftText className="h-6 w-6" />
               <span className="font-sans font-bold">123</span>
             </button>
           </div>
 
-          <div className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2">
+          <div
+            className="ultraSm:px-0 md:px-4 lg:px-6 border-r-2 tooltip"
+            data-tip="date"
+          >
             <button className="btn hover:bg-white bg-white border-none text-xs font-thin">
               <BsCalendar4Event className="h-6 w-6" />
               <span className="font-sans font-bold">123</span>
@@ -237,7 +282,7 @@ const RecipeDetails = () => {
 
             {ingredients.map((value, ind) => {
               return (
-                <div className="flex p-4 relative">
+                <div key={ind} className="flex p-4 relative">
                   <PiStarFourDuotone className="absolute top-5 left-1" />
                   <p className="ml-3 text-lg font-sans">{value}</p>
                 </div>
@@ -310,7 +355,7 @@ const RecipeDetails = () => {
 
             {instructions.map((value, ind) => {
               return (
-                <div className="flex p-4 relative">
+                <div className="flex p-4 relative" key={ind}>
                   <PiCookingPotDuotone className="text-xl absolute top-5 left-1" />
                   <p className="ml-5 text-lg font-sans">{value}</p>
                 </div>
@@ -322,73 +367,81 @@ const RecipeDetails = () => {
       {/* ========= */}
 
       <section className="px-10">
-        <div className="mt-10 border-t-8 border-defaultBtnColor">
-          <h1 className="text-3xl py-5 text-start px-4 font-serif font-semibold">
-            Comments* <span className="text-lg font-semibold">(2)</span>
-          </h1>
-          <div className="py-1">
-            <form onSubmit={handleComment}>
-              <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 ">
-                <div className="px-4 py-2 bg-white rounded-t-lg">
-                  <label for="comment" className="sr-only">
-                    Your comment
-                  </label>
-                  <textarea
-                    id="comment"
-                    rows="4"
-                    className="w-full px-0 text-sm text-gray-900 bg-white resize-none border-none"
-                    placeholder="Write a comment..."
-                    required
-                    onChange={(e) => setComment(e.target.value)}
-                  ></textarea>
-                </div>
-                <div className="flex items-center justify-between px-3 py-2 border-t">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-defaultBtnColor rounded-lg focus:ring-4 focus:ring-blue-200 "
-                  >
-                    Post comment
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-          {/* === */}
-
-          {allComments.map((comment, indx) => {
-            return (
-              <div key={indx} className="border rounded p-3 mt-3">
-                <div className="flex p-2">
-                  <div className="rounded-full w-9 h-9 sm:w-9 sm:h-w-9">
-                    <img
-                      className="rounded-full w-full h-full object-cover"
-                      src="https://picsum.photos/200/300"
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-2 mr-5 my-auto">
-                    <h1 className="text-sm font-sans font-semibold">
-                      {comment.user.UserName}
-                    </h1>
-                  </div>
-                </div>
-
-                <div className="mt-2 p-2">
-                  <p className="font-sans text-sm">{comment.text}</p>
-                </div>
-
-                <div className="px-3">
-                  <p className=" text-end font-sans text-xs text-black/40">
-                    45min ago
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <Comments
+          allComments={allComments}
+          setallComments={setallComments}
+          newComment={newComment}
+          loggedInUserId={loggedInUserId}
+          recipeId={recipeData._id}
+        />
       </section>
     </>
   );
 };
 
 export default RecipeDetails;
+
+// <div className="mt-10 border-t-8 border-defaultBtnColor">
+// <h1 className="text-3xl py-5 text-start px-4 font-serif font-semibold">
+//   Comments* <span className="text-lg font-semibold">(2)</span>
+// </h1>
+// <div className="py-1">
+//   <form onSubmit={handleComment}>
+//     <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 ">
+//       <div className="px-4 py-2 bg-white rounded-t-lg">
+//         <label for="comment" className="sr-only">
+//           Your comment
+//         </label>
+//         <textarea
+//           id="comment"
+//           rows="4"
+//           className="w-full px-0 text-sm text-gray-900 bg-white resize-none border-none"
+//           placeholder="Write a comment..."
+//           required
+//           onChange={(e) => setComment(e.target.value)}
+//         ></textarea>
+//       </div>
+//       <div className="flex items-center justify-between px-3 py-2 border-t">
+//         <button
+//           type="submit"
+//           className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-defaultBtnColor rounded-lg focus:ring-4 focus:ring-blue-200 "
+//         >
+//           Post comment
+//         </button>
+//       </div>
+//     </div>
+//   </form>
+// </div>
+// {/* === */}
+
+// {allComments.map((comment, indx) => {
+//   return (
+//     <div key={indx} className="border rounded p-3 mt-3">
+//       <div className="flex p-2">
+//         <div className="rounded-full w-9 h-9 sm:w-9 sm:h-w-9">
+//           <img
+//             className="rounded-full w-full h-full object-cover"
+//             src="https://picsum.photos/200/300"
+//             alt=""
+//           />
+//         </div>
+//         <div className="ml-2 mr-5 my-auto">
+//           <h1 className="text-sm font-sans font-semibold">
+//             {comment.user.UserName}
+//           </h1>
+//         </div>
+//       </div>
+
+//       <div className="mt-2 p-2">
+//         <p className="font-sans text-sm">{comment.text}</p>
+//       </div>
+
+//       <div className="px-3">
+//         <p className=" text-end font-sans text-xs text-black/40">
+//           {calculateTimeAgo(comment.createdAt)}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// })}
+// </div>

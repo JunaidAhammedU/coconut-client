@@ -15,7 +15,9 @@ import UserPage from './Pages/Admin/UserPage'
 import UserProfilePage from './Pages/User/UserProfilePage'
 import ExploreRecipePage from './Pages/User/ExploreRecipePage';
 import RecipeDetailsPage from "./Pages/User/RecipeDetailsPage";
-import ChatPage from './Pages/Chat/ChatPage';
+import ChatPage from './Pages/ChatPage/ChatPage';
+import SavedCollectionPage from './Pages/User/SavedCollectionPage';
+import UserRecipeListPage from './Pages/User/UserRecipeListPage';
 //------------------------------------------------------------------------------
 
 const App = () => {
@@ -27,7 +29,10 @@ const App = () => {
         <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
         <Route path="/register" element={<AuthProtected element={<RegisterPage />} />} />
         <Route path="/otp-verify" element={<OtpVerifyPage />} />
-        <Route path='/user-profile' element={<PortectedRoute element={<UserProfilePage />} />} />
+        <Route path='/user-profile' element={<PortectedRoute element={<UserProfilePage />} />} >
+            <Route path='recipeList' element={<UserRecipeListPage />} />
+            <Route path='collections' element={<SavedCollectionPage />} />
+        </Route>
         <Route path='/explore-recipe' element={<ExploreRecipePage />} />
         <Route path='/recipedetails/:id/:userId' element={<RecipeDetailsPage />} />
         <Route path='/userchat' element={<ChatPage />} />

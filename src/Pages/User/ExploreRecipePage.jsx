@@ -1,6 +1,6 @@
 import React from "react";
 import ExploreRecipe from "../../Componets/User/ExploreRecipe/ExploreRecipe";
-import Header from "../../Componets/User/Navbar/Header.jsx";
+import Header from "../../Componets/User/Header/Header";
 //-------------------------------------------------------------------------
 
 const ExploreRecipePage = () => {
