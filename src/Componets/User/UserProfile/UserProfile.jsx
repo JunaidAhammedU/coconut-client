@@ -15,6 +15,11 @@ const UserProfile = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [collecionData, setCollecionData] = useState([]);
   const [recipeCount, setRecipeCount] = useState(0);
+  const [selectedOption, setSelectedOption] = useState("recipes");
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+  };
 
   // for fetching data of the user
   const getLoggedUserData = async () => {
@@ -41,33 +46,43 @@ const UserProfile = () => {
     <>
       <ProfileHeader userData={userData} recipeCount={recipeCount} />
 
+      {/* ======= */}
       <section>
         <div className="flex px-6 justify-center">
-          <div>
-            <ul class="flex flex-wrap text-sm font-medium text-center text-black border-b-2 border-black/50">
-              <li class="me-2">
+          <div className="">
+            <ul className="flex flex-wrap text-sm font-medium text-center text-black ">
+              <li className="me-2">
                 <Link
-                  to={"/user-profile/recipeList"}
-                  aria-current="page"
-                  class="inline-block p-4 text-black rounded-t-lg "
+                  to="/user-profile/recipeList"
+                  onClick={() => handleOptionClick("recipes")}
+                  className={`inline-block py-2 px-7 rounded-2xl ${
+                    selectedOption === "recipes"
+                      ? "bg-black text-white"
+                      : "text-black"
+                  }`}
                 >
-                  recipes
+                  Recipes
                 </Link>
               </li>
 
-              <li class="me-2">
+              <li className="me-2">
                 <Link
-                  to={"/user-profile/collections"}
-                  class="inline-block p-4 "
+                  to="/user-profile/collections"
+                  onClick={() => handleOptionClick("collections")}
+                  className={`inline-block py-2 px-7 rounded-2xl ${
+                    selectedOption === "collections"
+                      ? "bg-black text-white"
+                      : "text-black"
+                  }`}
                 >
-                  collections
+                  Collections
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="px-3 h-[500px] ">
+        <div className="px-3 h-[500px]">
           <Outlet context={{ recipeData, collecionData }} />
         </div>
       </section>

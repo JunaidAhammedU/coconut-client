@@ -7,7 +7,7 @@ const SavedCollection = () => {
   return (
     <>
       <section>
-        <div className="flex p-5 flex-col items-center">
+        <div className="flex p-5 flex-col items-center border-t-2 mt-2">
           {collecionData.map((data, ind) => {
             return (
               <div

@@ -63,7 +63,9 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
             />
             <h1 className="text-lg font-sans">
               Chat with{" "}
-              <span className="font-semibold font-sans text-xl">{selectedUser}</span>
+              <span className="font-semibold font-sans text-xl">
+                {selectedUser}
+              </span>
             </h1>
           </div>
 
@@ -101,7 +103,6 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
           {/* input field section */}
           <form>
             <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 mt-2">
-
               <textarea
                 id="chat"
                 rows="1"

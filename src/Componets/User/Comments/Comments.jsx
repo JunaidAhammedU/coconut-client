@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //---------------------------------------
 
 const Comments = ({
@@ -9,6 +9,12 @@ const Comments = ({
   recipeId,
 }) => {
   const [comment, setComment] = useState({});
+
+  const sortedComment = allComments.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB - dateA;
+  });
 
   // adding new Comment
   const handleComment = async (e) => {
@@ -29,7 +35,7 @@ const Comments = ({
     const currentDate = new Date();
     const uploadedDate = new Date(createdAt);
     const timeDifference = currentDate - uploadedDate;
-    
+
     const seconds = Math.floor(timeDifference / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -81,7 +87,7 @@ const Comments = ({
         </div>
         {/* === */}
 
-        {allComments.map((comment, indx) => {
+        {sortedComment.map((comment, indx) => {
           return (
             <div key={indx} className="border rounded p-3 mt-3">
               <div className="flex p-2">

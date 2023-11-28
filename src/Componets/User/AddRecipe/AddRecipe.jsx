@@ -6,7 +6,7 @@ import { handleAddRecipe } from "../../../Services/api/user_API";
 import { IoCloseCircleOutline, IoAddSharp } from "react-icons/io5";
 //---------------------------------------------------------------
 
-const AddRecipe = () => {
+const AddRecipe = ({ allCategory }) => {
   const [image, setImage] = useState();
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -27,7 +27,7 @@ const AddRecipe = () => {
     instruction: "",
   });
 
-  const [ingredient, setIngredient] = useState([[],[]]);
+  const [ingredient, setIngredient] = useState([[], []]);
   const [instruction, setInstruction] = useState([[], [], [], []]);
 
   const addIngredientField = () => {
@@ -142,18 +142,13 @@ const AddRecipe = () => {
               }
             >
               <option className="font-sans text-xs">Choose</option>
-              <option className="font-sans text-xs" value="Indian">
-                Indian
-              </option>
-              <option className="font-sans text-xs" value="Arabic">
-                Arabic
-              </option>
-              <option className="font-sans text-xs" value="Chinese">
-                Chinese
-              </option>
-              <option className="font-sans text-xs" value="Italian">
-                Italian
-              </option>
+              {allCategory.map((data, ind) => {
+                return (
+                  <option className="font-sans text-xs" value={data._id}>
+                    {data.title}
+                  </option>
+                );
+              })}
             </select>
           </div>
 

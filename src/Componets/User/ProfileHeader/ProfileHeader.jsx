@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 import AddRecipe from "../AddRecipe/AddRecipe";
-//----------------------------------------------
+import ListModal from "../ListModal/ListModal";
+import { getAllCategories } from "../../../Services/api/admin_API";
+//------------------------------------------------------------------
 
 const ProfileHeader = ({ userData, recipeCount }) => {
+  const [allCategory, setAllCategory] = useState([]);
+
+  useEffect(() => {
+    const allCategory = async () => {
+      try {
+        const response = await getAllCategories();
+        setAllCategory(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    allCategory();
+  }, []);
+
   return (
     <>
       <div>
@@ -52,20 +69,40 @@ const ProfileHeader = ({ userData, recipeCount }) => {
               </span>
             </button>
           </div>
-          <div className="ultraSm:px-0 md:px-4 lg:px-6justify-center flex flex-col ">
+          <div
+            className="ultraSm:px-0 md:px-4 lg:px-6justify-center flex flex-col "
+            onClick={() => document.getElementById("followers").showModal()}
+          >
+            <ListModal
+              id={"followers"}
+              title={"Followers"}
+              userData={userData?.followers}
+            />
             <p className="font-abc font-normal text-sm text-gray-700 text-center">
               Followers
             </p>
             <button className="btn hover:bg-white  border-none text-xs font-thin bg-white">
-              <span className="font-abc font-normal text-lg">123</span>
+              <span className="font-abc font-normal text-lg">
+                {userData?.followers?.length}
+              </span>
             </button>
           </div>
-          <div className="ultraSm:px-0 md:px-4 lg:px-6 justify-center flex flex-col">
+          <div
+            className="ultraSm:px-0 md:px-4 lg:px-6 justify-center flex flex-col"
+            onClick={() => document.getElementById("following").showModal()}
+          >
+            <ListModal
+              id={"following"}
+              title={"Following"}
+              userData={userData?.following}
+            />
             <p className="font-abc font-normal text-sm text-gray-700 text-center">
               Following
             </p>
             <button className="btn hover:bg-white  border-none text-xs font-thin bg-white">
-              <span className="font-abc font-normal text-lg">58</span>
+              <span className="font-abc font-normal text-lg">
+                {userData?.following?.length}
+              </span>
             </button>
           </div>
         </div>
@@ -79,7 +116,7 @@ const ProfileHeader = ({ userData, recipeCount }) => {
               ✕
             </button>
           </form>
-          <AddRecipe />
+          <AddRecipe allCategory={allCategory} />
         </div>{" "}
       </dialog>
     </>

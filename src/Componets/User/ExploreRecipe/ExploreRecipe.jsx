@@ -1,116 +1,89 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import "./ExploreRecipe.css";
-import RecipeCard from "../RecipeCard/RecipeCard";
 import { useSelector } from "react-redux";
 import {
   getAllRecipes,
   getSearchAllRecipeData,
 } from "../../../Services/api/user_API";
-//--------------------------------------------------------------
+import { getAllCategories } from "../../../Services/api/admin_API";
+import Loader from "../../Skeleton/Skeleton";
+const RecipeCard = lazy(() => import("../RecipeCard/RecipeCard"));
+//------------------------------------------------------------------------------------
 
 const ExploreRecipe = () => {
   const [recipes, setAllRecipes] = useState([]);
   const { id } = useSelector((state) => state.user);
-  const [obj, setObj] = useState({});
   const [sort, setSort] = useState({ sort: "rating", order: "desc" });
   const [filterType, setFilterType] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [allCategory, setAllCategory] = useState([]);
 
+  // Function to handle search
   const handleSearch = async (value) => {
     setSearch(value);
   };
 
-  // use to fetch data of all recipes.
-  useEffect(() => {
-    const getAllRecipesDetails = async () => {
-      const response = await getAllRecipes();
-      if (response.data) {
-        setAllRecipes(response.data);
+  // Function to fetch all recipes
+  const getAllRecipesDetails = async () => {
+    const response = await getAllRecipes();
+    if (response.data) {
+      setAllRecipes(response.data);
+    }
+  };
+
+  // Function to search all recipes with filter and sort
+  const getAllRecipeData = async () => {
+    const response = await getSearchAllRecipeData(
+      sort,
+      filterType,
+      page,
+      search
+    );
+  };
+
+  // Function to fetch all categories
+  const fetchAllCategory = async () => {
+    try {
+      const response = await getAllCategories();
+      if (response) {
+        setAllCategory(response.data);
       }
-    };
-    getAllRecipesDetails();
-  }, []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  // search all recipe with filter and sort
+  // Fetch data
   useEffect(() => {
-    const getAllRecipeData = async () => {
-      const response = await getSearchAllRecipeData(
-        sort,
-        filterType,
-        page,
-        search
-      );
-      console.log(response);
-    };
-
+    getAllRecipesDetails();
     getAllRecipeData();
+    fetchAllCategory();
   }, [sort, filterType, page, search]);
 
   return (
     <>
       <section>
         <div className="flex flex-wrap justify-center gap-10 overflow-y-auto h-[235px]">
-          <div className="cat_Div">
-            <div className="relative overflow-hidden rounded-full">
-              <img
-                src="https://images.pexels.com/photos/7441761/pexels-photo-7441761.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                className="category_img"
-              />
-            </div>
-            <h1 className="text-center font-semibold font-sans pt-2">Bread</h1>
-          </div>
-
-          <div className="cat_Div">
-            <div className="relative overflow-hidden rounded-full">
-              <img
-                src="https://images.pexels.com/photos/15564188/pexels-photo-15564188/free-photo-of-pancakes-with-berries-and-marple-syrup.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                className="category_img"
-              />
-            </div>
-            <h1 className="text-center font-semibold font-sans pt-2">
-              Pan cakes
-            </h1>
-          </div>
-
-          <div className="cat_Div">
-            <div className="relative overflow-hidden rounded-full">
-              <img
-                src="https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                className="category_img"
-              />
-            </div>
-            <h1 className="text-center font-semibold font-sans pt-2">Kababs</h1>
-          </div>
-
-          <div className="cat_Div">
-            <div className="relative overflow-hidden rounded-full">
-              <img
-                src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                className="category_img"
-              />
-            </div>
-            <h1 className="text-center font-semibold font-sans pt-2">
-              Noodles
-            </h1>
-          </div>
-
-          <div className="cat_Div">
-            <div className="relative overflow-hidden rounded-full">
-              <img
-                src="https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt=""
-                className="category_img"
-              />
-            </div>
-            <h1 className="text-center font-semibold font-sans pt-2">Salads</h1>
-          </div>
+          {allCategory.map((data, ind) => {
+            return (
+              <div key={ind} className="cat_Div">
+                <div className="relative overflow-hidden rounded-full">
+                  <img
+                    src={`/Images/${data.image}`}
+                    alt=""
+                    className="category_img"
+                  />
+                </div>
+                <h1 className="text-center font-semibold font-sans pt-2">
+                  {data.title}
+                </h1>
+              </div>
+            );
+          })}
         </div>
       </section>
+
       {/* ========= */}
       <section className="relative">
         <div className="flex justify-center">
@@ -136,6 +109,7 @@ const ExploreRecipe = () => {
           </div>
         </div>
 
+        {/* Display recipes */}
         <div className="flex flex-wrap gap-10 justify-center py-2">
           {recipes
             .filter((item) => {
@@ -148,20 +122,31 @@ const ExploreRecipe = () => {
             })
             .map((recipe) => {
               return (
-                <RecipeCard
-                  title={recipe.title}
-                  description={recipe.description}
-                  userId={recipe.userId}
-                  image={recipe.recipeImage[0]}
-                  id={recipe._id}
-                  recipe={recipe}
-                  currentUserId={id}
-                />
+                <Suspense key={recipe._id} fallback={<Loader />}>
+                  <LazyRecipeCard
+                    title={recipe.title}
+                    description={recipe.description}
+                    userId={recipe.userId}
+                    image={recipe.recipeImage[0]}
+                    id={recipe._id}
+                    recipe={recipe}
+                    currentUserId={id}
+                  />
+                </Suspense>
               );
             })}
         </div>
       </section>
     </>
+  );
+};
+
+// Lazy loaded RecipeCard component
+const LazyRecipeCard = (props) => {
+  return (
+    <Suspense fallback={<Loader />}>
+      <RecipeCard {...props} />
+    </Suspense>
   );
 };
 

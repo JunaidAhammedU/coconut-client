@@ -11,13 +11,14 @@ import AdminLoginPage from './Pages/Admin/AdminLoginPage';
 import DashboardPage from './Pages/Admin/DashboardPage';
 import AdminProtectedRoutes from './Common/protectedRoute/AdminProtectedRoute';
 import AdminAuthProtect from './Common/protectedRoute/AdminAuthProtect'
-import UserPage from './Pages/Admin/UserPage'
 import UserProfilePage from './Pages/User/UserProfilePage'
 import ExploreRecipePage from './Pages/User/ExploreRecipePage';
 import RecipeDetailsPage from "./Pages/User/RecipeDetailsPage";
 import ChatPage from './Pages/ChatPage/ChatPage';
 import SavedCollectionPage from './Pages/User/SavedCollectionPage';
 import UserRecipeListPage from './Pages/User/UserRecipeListPage';
+import UsersManagementPage from './Pages/Admin/UsersManagementPage';
+import CategoryManagementPage from './Pages/Admin/CategoryManagementPage'
 //------------------------------------------------------------------------------
 
 const App = () => {
@@ -41,7 +42,8 @@ const App = () => {
         <Route path='/admin' element={ <AdminProtectedRoutes element={<AdminLandingPage />} />} />
         <Route path='/admin/login' element={<AdminAuthProtect  element={<AdminLoginPage />}/>} />
         <Route path='/admin/dashboard' element={<AdminProtectedRoutes element={<DashboardPage/>} />} />
-        <Route path='/admin/users' element={<AdminProtectedRoutes element={<UserPage/>} />} />
+        <Route path='/admin/users' element={<AdminProtectedRoutes element={<UsersManagementPage/>} />} />
+        <Route path='/admin/category' element={<AdminProtectedRoutes element={<CategoryManagementPage/>} />} />
       </Routes>
     </div>
   )
