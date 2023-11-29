@@ -19,6 +19,7 @@ import SavedCollectionPage from './Pages/User/SavedCollectionPage';
 import UserRecipeListPage from './Pages/User/UserRecipeListPage';
 import UsersManagementPage from './Pages/Admin/UsersManagementPage';
 import CategoryManagementPage from './Pages/Admin/CategoryManagementPage'
+import RecipeCategoriesPage from './Pages/User/RecipeCategoriesPage';
 //------------------------------------------------------------------------------
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
         <Route path='/explore-recipe' element={<ExploreRecipePage />} />
         <Route path='/recipedetails/:id/:userId' element={<RecipeDetailsPage />} />
         <Route path='/userchat' element={<ChatPage />} />
+        <Route path='/category_recipe/:category' element={<RecipeCategoriesPage />} />
 
         {/* Admin Routes */}
         <Route path='/admin' element={ <AdminProtectedRoutes element={<AdminLandingPage />} />} />

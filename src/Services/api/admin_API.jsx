@@ -1,11 +1,6 @@
 import api_request from "../../axios";
-import {
-  successAlert,
-  errorAlert,
-  promiseAlert,
-  warnAlert,
-} from "../Toast/Toast";
-//---------------------------------------------------------
+import { successAlert, errorAlert, warnAlert } from "../Toast/Toast";
+//-------------------------------------------------------------------
 
 export const handleAdminLogin = async () => {
   try {

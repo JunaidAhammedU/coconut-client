@@ -6,9 +6,10 @@ import {
   getSearchAllRecipeData,
 } from "../../../Services/api/user_API";
 import { getAllCategories } from "../../../Services/api/admin_API";
-import Loader from "../../Skeleton/Skeleton";
+import RecipeSkeleton from "../../Skeleton/RecipeSkeleton";
+import { Link } from "react-router-dom";
 const RecipeCard = lazy(() => import("../RecipeCard/RecipeCard"));
-//------------------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
 const ExploreRecipe = () => {
   const [recipes, setAllRecipes] = useState([]);
@@ -67,18 +68,20 @@ const ExploreRecipe = () => {
         <div className="flex flex-wrap justify-center gap-10 overflow-y-auto h-[235px]">
           {allCategory.map((data, ind) => {
             return (
-              <div key={ind} className="cat_Div">
-                <div className="relative overflow-hidden rounded-full">
-                  <img
-                    src={`/Images/${data.image}`}
-                    alt=""
-                    className="category_img"
-                  />
+              <Link to={`/category_recipe/${data._id}`} key={ind}>
+                <div className="cat_Div">
+                  <div className="relative overflow-hidden rounded-full">
+                    <img
+                      src={`/Images/${data.image}`}
+                      alt=""
+                      className="category_img"
+                    />
+                  </div>
+                  <h1 className="text-center font-semibold font-sans pt-2">
+                    {data.title}
+                  </h1>
                 </div>
-                <h1 className="text-center font-semibold font-sans pt-2">
-                  {data.title}
-                </h1>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -122,7 +125,7 @@ const ExploreRecipe = () => {
             })
             .map((recipe) => {
               return (
-                <Suspense key={recipe._id} fallback={<Loader />}>
+                <Suspense key={recipe._id} fallback={<RecipeSkeleton />}>
                   <LazyRecipeCard
                     title={recipe.title}
                     description={recipe.description}
@@ -144,7 +147,7 @@ const ExploreRecipe = () => {
 // Lazy loaded RecipeCard component
 const LazyRecipeCard = (props) => {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<RecipeSkeleton />}>
       <RecipeCard {...props} />
     </Suspense>
   );

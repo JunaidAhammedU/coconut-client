@@ -13,6 +13,7 @@ const RecipeCard = ({
   currentUserId,
   recipe,
   loggedUser,
+  Cuisine,
 }) => {
   return (
     <div className="card w-[334px] bg-base-100 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col relative border">
@@ -49,11 +50,11 @@ const RecipeCard = ({
       <div className="card-body flex flex-col justify-between p-4 relative">
         {loggedUser ? null : (
           <div className="absolute top-6 right-3">
-            <h1 className="text-black font-sans text-xs">{`${
-              currentUserId === recipe?.recipeDetails[0]._id
-                ? `you`
-                : recipe.recipeDetails[0]?.UserName
-            }`}</h1>
+            <h1 className="text-black font-sans text-xs">
+              {currentUserId === (recipe?.userId || null)
+                ? "you"
+                : (Cuisine && "") || recipe?.recipeDetails?.[0]?.UserName}
+            </h1>
           </div>
         )}
         <div>

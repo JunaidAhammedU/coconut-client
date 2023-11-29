@@ -1,6 +1,6 @@
 import React from "react";
 
-const Skeleton = () => {
+const RecipeSkeleton = () => {
   return (
     <div className="card w-[334px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col relative border skeleton bg-blue-50">
       <figure className="h-52 overflow-hidden relative skeleton px-2">
@@ -17,4 +17,4 @@ const Skeleton = () => {
   );
 };
 
-export default Skeleton;
+export default RecipeSkeleton;

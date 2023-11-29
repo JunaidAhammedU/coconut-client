@@ -1,3 +1,4 @@
+import axios from "axios";
 import api_request from "../../axios";
 import {
   successAlert,
@@ -6,6 +7,29 @@ import {
   emojiAlert,
 } from "../Toast/Toast";
 //----------------------------------------------------------------------------------------
+
+// checking is user authenticated
+export const is_auth = async () => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user ? user.token : null;
+    axios
+      .post(import.meta.env.VITE_REACT_APP_SERVER_URL, { token })
+      .then((response) => {
+        const data = response.data;
+        if (!data.status) {
+          errorAlert("Try to login again");
+          return data;
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    errorAlert(error);
+  }
+};
 
 //get all recipes
 export const getAllRecipes = async () => {
@@ -164,15 +188,12 @@ export const createChat = async (loggedUserId, userId) => {
 };
 
 // fetch all chats
-export const fetchChatHistory = async (userId1, userId2) => {
+export const fetchChatHistory = async (room) => {
   try {
-    const { data } = await api_request.get(
-      `/chathistory/${userId1}/${userId2}`
-    );
+    const { data } = await api_request.get(`/chathistory?room=${room}`);
     return data;
   } catch (error) {
-    console.error(error);
-    return [];
+    errorAlert(error);
   }
 };
 
@@ -230,6 +251,22 @@ export const getCollectionData = async (userId) => {
   try {
     const { data } = await api_request.get(
       `/getAllCollections?userId=${userId}`
+    );
+    if (data.status) {
+      return data;
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// get all category based recipe
+export const getAllRecipeCatgory = async (category) => {
+  try {
+    const { data } = await api_request.get(
+      `/getAllCategoryRecipe?category=${category}`
     );
     if (data.status) {
       return data;

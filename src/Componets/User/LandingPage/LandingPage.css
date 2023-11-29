@@ -1,0 +1,19 @@
+.text_div {
+  @apply absolute inset-0 flex flex-col justify-center items-center lg:items-start text-center lg:text-left text-white p-6;
+}
+
+.delicious {
+  @apply text-6xl text-transparent bg-gradient-to-r from-purple-900 via-red-500 to-red-600 bg-clip-text;
+}
+
+.blured_div {
+  @apply foldSize:w-[200px] ultraSm:w-[200px] md:w-[200px] lg:w-[600px] xl:w-[600px] 2xl:w-[600px] h-[400px] bg-gradient-to-b from-white/50 via-white/50 to-[#f88080] -z-0 absolute top-20 left-8 blur-2xl;
+}
+
+.landing_btn {
+  @apply btn bg-white hover:bg-white/20 border-none shadow-[0_3px_10px_rgb(0,0,0,0.2)] font-abc hover:font-bold transition duration-500 rounded-3xl;
+}
+
+.landing_txt {
+  @apply foldSize:text-4xl ultraSm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl 2xl:text-6xl font-bold mb-4 lg:text-left  drop-shadow-md text-black;
+}

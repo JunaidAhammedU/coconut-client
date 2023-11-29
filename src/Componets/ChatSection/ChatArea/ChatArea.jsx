@@ -3,9 +3,16 @@ import { useSelector } from "react-redux";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import EmptyChat from "../EmptyChat/EmptyChat";
 import { FiSend } from "react-icons/fi";
-//--------------------------------------------------------
+//---------------------------------------------------------
 
-const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
+const ChatArea = ({
+  selectedUser,
+  handleBackButton,
+  room,
+  socket,
+  chatHistory,
+  userData,
+}) => {
   const chatContainerRef = useRef(null);
   const { id } = useSelector((state) => state.user);
   const [newMessage, setNewMessage] = useState("");
@@ -28,6 +35,7 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
     }
   };
 
+  // for joining the room
   useEffect(() => {
     if (socket && selectedUser && room) {
       socket.emit("join_room", room);
@@ -45,12 +53,17 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
     };
   }, [socket, allMessages]);
 
+  // auto scrolling for new message
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
   }, [allMessages]);
+
+  useEffect(() => {
+    setAllMessages(chatHistory);
+  }, [selectedUser]);
 
   return (
     <>
@@ -62,9 +75,8 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
               onClick={handleBackButton}
             />
             <h1 className="text-lg font-sans">
-              Chat with{" "}
               <span className="font-semibold font-sans text-xl">
-                {selectedUser}
+                {userData.UserName}
               </span>
             </h1>
           </div>
@@ -89,7 +101,7 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
                   {message.senderId === id ? (
                     <div className="chat-header">you</div>
                   ) : (
-                    <div className="chat-header">user</div>
+                    <div className="chat-header">{userData.UserName}</div>
                   )}
                   <div className="chat-bubble">
                     <p>{message.text}</p>
@@ -102,7 +114,7 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
 
           {/* input field section */}
           <form>
-            <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 mt-2">
+            <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 mt-2">
               <textarea
                 id="chat"
                 rows="1"
@@ -127,4 +139,4 @@ const ChatArea = ({ selectedUser, handleBackButton, room, socket }) => {
   );
 };
 
-export default ChatArea;
+export default React.memo(ChatArea);

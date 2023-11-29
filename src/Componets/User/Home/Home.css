@@ -1,22 +1,11 @@
-.button_Landing_1 {
-  @apply flex justify-center items-center border border-orange-500 rounded-xl font-semibold focus:ring-orange-300 px-6 py-3 bg-defaultBtnColor text-white hover:bg-onHoverButton transition duration-500 hover:shadow-2xl;
-}
-
-.button_Landing_2 {
-  @apply flex justify-center border text-white items-center bg-black bg-opacity-50 hover:bg-opacity-70 rounded-xl font-semibold px-6 py-3 hover:shadow-2xl hover:border-gray-950 transition duration-500;
-}
-
-.delicious {
-  @apply text-transparent bg-gradient-to-r from-purple-900 via-red-500 to-red-600 bg-clip-text;
-}
-.cat_Div1{
-  @apply rounded-full w-32 h-32 mt-5 ;
+.cat_Div1 {
+  @apply rounded-full w-32 h-32 mt-5;
 }
 
 .outerImgPtrn1 {
-  @apply rounded-full w-32 h-32 border border-gray-300  hover:rotate-45 duration-700;
+  @apply rounded-full w-32 h-32 border border-gray-300;
 }
 
-.innerImgPtrn1{
-  @apply absolute inset-0 rounded-full w-24 h-24 m-auto object-cover border border-gray-700  transition-transform duration-500 ease-in-out transform hover:scale-125
+.innerImgPtrn1 {
+  @apply absolute inset-0 rounded-full w-24 h-24 m-auto object-cover border border-gray-700  transition-transform duration-500 ease-in-out transform hover:scale-125;
 }

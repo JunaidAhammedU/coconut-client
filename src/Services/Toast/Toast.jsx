@@ -1,13 +1,5 @@
 import { toast } from "react-hot-toast";
-
-export const promiseAlert = async (message) => {
-  toast.promise(message, {
-    pending: "Uploading...",
-    success: "Upload successful!",
-    error: "Upload Faild!!",
-    position: "top-center",
-  });
-};
+//--------------------------------------
 
 export const errorAlert = async (message) => {
   toast.error(message, {

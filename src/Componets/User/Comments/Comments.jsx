@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-//---------------------------------------
+import { format } from "timeago.js";
+import './Comments.css'
+//-------------------------------------------------
 
 const Comments = ({
   allComments,
@@ -28,27 +30,7 @@ const Comments = ({
       };
       await newComment(newCommentData);
       setallComments((preComment) => [...preComment, newCommentData]);
-    }
-  };
-
-  const calculateTimeAgo = (createdAt) => {
-    const currentDate = new Date();
-    const uploadedDate = new Date(createdAt);
-    const timeDifference = currentDate - uploadedDate;
-
-    const seconds = Math.floor(timeDifference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-
-    if (days > 0) {
-      return `${days} day${days === 1 ? "" : "s"} ago`;
-    } else if (hours > 0) {
-      return `${hours} hour${hours === 1 ? "" : "s"} ago`;
-    } else if (minutes > 0) {
-      return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
-    } else {
-      return `${seconds} second${seconds === 1 ? "" : "s"} ago`;
+      setComment('')
     }
   };
 
@@ -56,7 +38,7 @@ const Comments = ({
     <>
       <div className="mt-10 border-t-8 border-defaultBtnColor">
         <h1 className="text-3xl py-5 text-start px-4 font-serif font-semibold">
-          Comments* <span className="text-lg font-semibold">(2)</span>
+          Comments* <span className="text-lg font-semibold">({allComments.length})</span>
         </h1>
         <div className="py-1">
           <form onSubmit={handleComment}>
@@ -68,16 +50,17 @@ const Comments = ({
                 <textarea
                   id="comment"
                   rows="4"
-                  className="w-full px-0 text-sm text-gray-900 bg-white resize-none border-none"
+                  className="Comment_input"
                   placeholder="Write a comment..."
                   required
+                  value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 ></textarea>
               </div>
               <div className="flex items-center justify-between px-3 py-2 border-t">
                 <button
                   type="submit"
-                  className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-defaultBtnColor rounded-lg focus:ring-4 focus:ring-blue-200 "
+                  className="Comment_btn"
                 >
                   Post comment
                 </button>
@@ -111,7 +94,7 @@ const Comments = ({
 
               <div className="px-3">
                 <p className=" text-end font-sans text-xs text-black/40">
-                  {calculateTimeAgo(comment.createdAt)}
+                  {format(comment.createdAt)}
                 </p>
               </div>
             </div>

@@ -10,23 +10,24 @@ import { initializeSocket } from "../../../Services/Socket/Socket_io";
 import "./Chat.css";
 import { errorAlert } from "../../../Services/Toast/Toast";
 import Coversation from "../Coversation/Coversation";
-import UserList from "../UserList/UserList";
-//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------
 
 const Chat = () => {
   const [selectedUser, setSelectedUser] = useState(null);
+  const [userData, setUserData] = useState({});
   const [userList, setUserList] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [room, setCreateRoom] = useState("");
   const { id } = useSelector((state) => state.user);
   const socket = initializeSocket();
 
-  const handleUserClick = async (user) => {
-    setSelectedUser(user);
-    const response = await createChat(id, user);
-    setCreateRoom(response.chatData[0]._id);
-    // const chatHistory = await fetchChatHistory(id, user);
-    // setChatHistory(chatHistory.messages || []);
+  const handleUserClick = async (selectId, user) => {
+    setSelectedUser(selectId);
+    setUserData(user);
+    const response = await createChat(id, selectId);
+    setCreateRoom(response?.chatData[0]._id);
+    const allChatHistory = await fetchChatHistory(response?.chatData[0]._id);
+    setChatHistory(allChatHistory.data);
   };
 
   const handleBackButton = () => {
@@ -53,7 +54,7 @@ const Chat = () => {
           <div className="Chat-list">
             {userList?.map((chat, indx) => {
               return (
-                <div key={indx} onClick={() => handleUserClick(chat._id)}>
+                <div key={indx} onClick={() => handleUserClick(chat._id, chat)}>
                   <Coversation data={chat} currentUserId={id} />
                 </div>
               );
@@ -69,17 +70,10 @@ const Chat = () => {
         room={room}
         socket={socket}
         chatHistory={chatHistory}
+        userData={userData}
       />
     </div>
   );
 };
 
 export default Chat;
-
-
-// <UserList
-// users={userList}
-// selectedUser={selectedUser}
-// handleUserClick={handleUserClick}
-// showChatList={showChatList}
-// />

@@ -1,9 +1,13 @@
 import React from "react";
 import { SlOptions } from "react-icons/sl";
 import { Link, useOutletContext } from "react-router-dom";
+//---------------------------------------------------------
+
 
 const SavedCollection = () => {
+  // fetching Data from outlook
   const { collecionData } = useOutletContext();
+
   return (
     <>
       <section>

@@ -42,6 +42,7 @@ const RecipeDetails = () => {
   const [allComments, setallComments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // use to fetch all recipe datas
   const fetchData = async () => {
     const { recipeData, userData } = await getRecipeData(id, userId);
     if (recipeData && userData) {
@@ -106,7 +107,6 @@ const RecipeDetails = () => {
       console.log(error);
     }
   };
-
   return (
     <>
       <section>
@@ -255,7 +255,7 @@ const RecipeDetails = () => {
           >
             <button className="btn hover:bg-white bg-white border-none text-xs font-thin">
               <BsChatLeftText className="h-6 w-6" />
-              <span className="font-sans font-bold">123</span>
+              <span className="font-sans font-bold">{allComments?.length}</span>
             </button>
           </div>
 
@@ -265,7 +265,12 @@ const RecipeDetails = () => {
           >
             <button className="btn hover:bg-white bg-white border-none text-xs font-thin">
               <BsCalendar4Event className="h-6 w-6" />
-              <span className="font-sans font-bold">123</span>
+              <span className="font-sans font-bold">
+                {new Date(recipeData.createdAt).toLocaleString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
             </button>
           </div>
         </div>

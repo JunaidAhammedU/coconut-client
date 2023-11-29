@@ -200,7 +200,7 @@ const Register = () => {
           </div>
 
           <div>
-          {loader ? (
+            {loader ? (
               <button className="flex w-full justify-center transition duration-500 rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 {" "}
                 <Loader />{" "}
@@ -214,28 +214,10 @@ const Register = () => {
               </button>
             )}
           </div>
-
-          {/* <div className="flex items-center justify-center">
-            <div>
-              <button className="w-60 h-10 rounded-lg border transition duration-200 hover:border-gray-800 flex items-center justify-start shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="1em"
-                  viewBox="0 0 488 512"
-                  className="mr-5 ml-5"
-                >
-                  <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
-                </svg>
-                <span className="text-center font-semibold text-sm">
-                  Continue with <span class="text-blue-700">Google</span>
-                </span>
-              </button>
-            </div>
-          </div> */}
         </form>
 
         <p className="mt-5 text-center text-sm text-gray-500">
-          Don’t have an account yet?{" "}
+          Have an account?.
           <Link
             to={"/login"}
             className="font-semibold leading-6 text-gray-700 hover:text-gray-950"
