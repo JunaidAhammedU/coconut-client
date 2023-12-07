@@ -25,16 +25,15 @@ const UserProfile = () => {
   const getLoggedUserData = async () => {
     const data = await getLoggedUserInfo(id);
     if (data) {
-      setRecipeData(data.recipeData);
-      setUserData(data.userDetails);
-      setRecipeCount(data.recipeData.length);
+      setRecipeData(data?.recipeData);
+      setUserData(data?.userDetails);
+      setRecipeCount(data?.recipeData.length);
     }
   };
-
   // for fetching data of the user
   const getAllCollectionData = async () => {
     const data = await getCollectionData(id);
-    setCollecionData(data.data.recipe);
+    setCollecionData(data?.data?.recipe);
   };
 
   useEffect(() => {
@@ -69,13 +68,16 @@ const UserProfile = () => {
                 <Link
                   to="/user-profile/collections"
                   onClick={() => handleOptionClick("collections")}
-                  className={`inline-block py-2 px-7 rounded-2xl ${
+                  className={`inline-block py-2 px-5 rounded-2xl ${
                     selectedOption === "collections"
                       ? "bg-black text-white"
                       : "text-black"
                   }`}
                 >
                   Collections
+                  <div className="badge bg-orange-500 text-white border-none ">
+                    {collecionData?.length ? collecionData?.length : "0"}
+                  </div>
                 </Link>
               </li>
             </ul>

@@ -10,6 +10,9 @@ export const errorAlert = async (message) => {
 export const successAlert = async (message) => {
   toast.success(message, {
     position: "top-right",
+    style: {
+      zIndex: 9999,
+    },
   });
 };
 

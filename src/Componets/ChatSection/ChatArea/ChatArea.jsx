@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import EmptyChat from "../EmptyChat/EmptyChat";
 import { FiSend } from "react-icons/fi";
-//---------------------------------------------------------
+import Loader from "../../Loader/Loader";
+import { format } from "timeago.js";
+//-----------------------------------------------------------
 
 const ChatArea = ({
   selectedUser,
@@ -17,6 +19,7 @@ const ChatArea = ({
   const { id } = useSelector((state) => state.user);
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -63,7 +66,7 @@ const ChatArea = ({
 
   useEffect(() => {
     setAllMessages(chatHistory);
-  }, [selectedUser]);
+  }, [selectedUser, room, socket, handleBackButton]);
 
   return (
     <>
@@ -82,11 +85,13 @@ const ChatArea = ({
           </div>
 
           <div className="chat_area" ref={chatContainerRef}>
-            {allMessages.map((message, indx) => {
-              return (
+            {isLoading ? (
+              <Loader />
+            ) : (
+              allMessages.map((message, indx) => (
                 <div
                   className={`chat ${
-                    message.senderId == id ? `chat-end` : `chat-start`
+                    message.senderId === id ? "chat-end" : "chat-start"
                   }`}
                   key={indx}
                 >
@@ -108,8 +113,8 @@ const ChatArea = ({
                   </div>
                   <div className="chat-footer opacity-50">{message.time}</div>
                 </div>
-              );
-            })}
+              ))
+            )}
           </div>
 
           {/* input field section */}

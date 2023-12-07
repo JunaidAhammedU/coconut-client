@@ -1,6 +1,7 @@
 import React from "react";
 import ExploreRecipe from "../../Componets/User/ExploreRecipe/ExploreRecipe";
 import Header from "../../Componets/User/Header/Header";
+import Footer from "../../Componets/User/Footer/Footer.jsx";
 //-------------------------------------------------------------------------
 
 const ExploreRecipePage = () => {
@@ -8,6 +9,7 @@ const ExploreRecipePage = () => {
     <div>
       <Header />
       <ExploreRecipe />
+      <Footer />
     </div>
   );
 };

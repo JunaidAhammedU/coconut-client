@@ -42,13 +42,18 @@ const UsersManagement = () => {
                     <th className="px-4 py-2">Action</th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   {userData.map((data, ind) => {
                     return (
                       <tr className="font-sans text-sm" key={ind}>
                         <td className="px-4 py-2 ">{data?.UserName}</td>
                         <td className="px-4 py-2 ">{data?.email}</td>
-                        <td className="px-4 py-2 ">{data?.createdAt}</td>
+                        <td className="px-4 py-2 ">
+                          {new Date(data?.createdAt).toLocaleString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </td>
                         <Button
                           className={`mt-2 h-8 w-24 rounded-lg text-white font-semibold text-xs transition duration-300 ${
                             data?.is_blocked ? "bg-red-500" : "bg-green-500"

@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import "./RecipeCategories.css";
 import { getAllRecipeCatgory } from "../../../Services/api/user_API";
-import { MdOutlineSmsFailed } from "react-icons/md";
+import { MdOutlineEmojiFoodBeverage } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import RecipeSkeleton from "../../Skeleton/RecipeSkeleton.jsx";
 import { useSelector } from "react-redux";
@@ -60,11 +60,9 @@ const RecipeCategories = () => {
               })}
             </div>
           ) : (
-            <div className="flex flex-wrap gap-10 justify-center py-2 flex-col items-center">
-              <div>
-                <img src="/NotFound.jpg" alt="" className="w-[300px]" />
-              </div>
-              <p className="font-sans text-gray-700 ">No Data Founded</p>
+            <div className="flex flex-wrap justify-center py-2 items-center">
+              <MdOutlineEmojiFoodBeverage className="text-3xl mx-3 text-gray-700" />
+              <p className="font-sans text-gray-700 text-sm ">No Recipes related with this category.</p>
             </div>
           )}
         </div>

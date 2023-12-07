@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, lazy, Suspense } from "react";
 import { PiChatsDuotone } from "react-icons/pi";
 import { BiTime } from "react-icons/bi";
 import { PiStarFourDuotone } from "react-icons/pi";
@@ -22,10 +22,11 @@ import {
 } from "../../../Services/api/user_API";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../../axios";
-import Comments from "../Comments/Comments";
-import Modal from "../Modal/Modal";
 import "./RecipeDetails.css";
-//-----------------------------------------------------------------------------------------------------
+import { FaUserCircle } from "react-icons/fa";
+import Modal from "../Modal/Modal";
+const LazyComments = lazy(() => import("../Comments/Comments"));
+//--------------------------------------------------------------------------
 
 const RecipeDetails = () => {
   let { id, userId } = useParams();
@@ -55,6 +56,7 @@ const RecipeDetails = () => {
     }
   };
 
+  // useEffect for fetching recipe all details
   useEffect(() => {
     fetchData();
   }, [newComment]);
@@ -77,7 +79,7 @@ const RecipeDetails = () => {
 
   // handle follow
   const handleFollow = async () => {
-    const status = await followUser(loggedInUserId, userDetails._id);
+    const status = await followUser(loggedInUserId, userDetails?._id);
     if (status) {
       setIsFollowing(true);
     }
@@ -85,20 +87,23 @@ const RecipeDetails = () => {
 
   // handle un follow
   const handleUnfollow = async () => {
-    const status = await unfollowUser(loggedInUserId, userDetails._id);
+    const status = await unfollowUser(loggedInUserId, userDetails?._id);
     if (status) {
       setIsFollowing(false);
     }
   };
 
+  // modal for saving recipe purpose
   const handleSave = () => {
     setIsModalOpen(true);
   };
 
+  // modal for saving recipe purpose
   const modalOnClose = () => {
     setIsModalOpen(false);
   };
 
+  // function of saving this recipe in to the user collection
   const handleSaveRecipe = async () => {
     setIsModalOpen(false);
     try {
@@ -107,6 +112,7 @@ const RecipeDetails = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <section>
@@ -120,23 +126,25 @@ const RecipeDetails = () => {
           </div>
 
           <div className="activeButtonDiv ">
-            <div
-              className={`bg-white ${
-                !isFollowing ? `tooltip tooltip-bottom` : ``
-              } `}
-              data-tip={`Do follow  ${userDetails.UserName}`}
-            >
-              <Link to={`${isFollowing ? `/userchat` : `#`}`}>
-                <button
-                  className={`${
-                    !isFollowing ? `activeButtonNoFollowed` : `activeButton`
-                  }`}
-                >
-                  <PiChatsDuotone className="h-6 w-6" />
-                  Chat
-                </button>
-              </Link>
-            </div>
+            {userDetails?._id === loggedInUserId ? null : (
+              <div
+                className={`bg-white ${
+                  !isFollowing ? `tooltip tooltip-bottom` : ``
+                } `}
+                data-tip={`Do follow  ${userDetails?.UserName}`}
+              >
+                <Link to={`${isFollowing ? `/userchat` : `#`}`}>
+                  <button
+                    className={`${
+                      !isFollowing ? `activeButtonNoFollowed` : `activeButton`
+                    }`}
+                  >
+                    <PiChatsDuotone className="h-6 w-6" />
+                    Chat
+                  </button>
+                </Link>
+              </div>
+            )}
 
             <div
               className="bg-white tooltip tooltip-bottom"
@@ -174,24 +182,27 @@ const RecipeDetails = () => {
         />
 
         <div className="grid grid-cols-1 mt-5 p-3">
-          <h1 className="foldSize:text-3xl foldSize:text-center ultraSm:text-5xl ultraSm:text-center sm:text-5xl font-semibold font-serif md:text-start">
-            {recipeData.title}
-          </h1>
+          <h1 className="recipe_title">{recipeData.title}</h1>
         </div>
 
         <div className="flex mt-5 p-2 ">
-          <div className="avatar online placeholder">
-            <div className="bg-neutral text-neutral-content rounded-full w-16">
-              <span className="text-2xl">
-                {userDetails.UserName ? userDetails.UserName[0] : ``}
-              </span>
+          {userDetails?.profile_image ? (
+            <div className="avatar">
+              <div className="w-20 rounded-full">
+                <img src={`/Images/${userDetails?.profile_image}`} />
+              </div>
             </div>
-          </div>
+          ) : (
+            <FaUserCircle
+              className="h-20 w-20 text-gray-300"
+              aria-hidden="true"
+            />
+          )}
 
           <div className="px-5 my-auto">
             <div className="">
               <h1 className="text-xl font-sans font-semibold">
-                {userDetails.UserName}
+                {userDetails?.UserName}
               </h1>
             </div>
 
@@ -314,25 +325,31 @@ const RecipeDetails = () => {
                   </thead>
                   <tbody>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">Calcium</td>
+                      <td className="whitespace-nowrap px-6 py-4 font-semibold text-gray-700">
+                        Calcium
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {nutritions.calcium}
                       </td>
                     </tr>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">Calories</td>
+                      <td className="whitespace-nowrap px-6 py-4  font-semibold text-gray-700">
+                        Calories
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {nutritions.calories}
                       </td>
                     </tr>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">Protein</td>
+                      <td className="whitespace-nowrap px-6 py-4  font-semibold text-gray-700">
+                        Protein
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {nutritions.protein}
                       </td>
                     </tr>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">
+                      <td className="whitespace-nowrap px-6 py-4  font-semibold text-gray-700">
                         Carbohydrates
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
@@ -340,7 +357,9 @@ const RecipeDetails = () => {
                       </td>
                     </tr>
                     <tr className="border-b text-center">
-                      <td className="whitespace-nowrap px-6 py-4">Fat</td>
+                      <td className="whitespace-nowrap px-6 py-4  font-semibold text-gray-700">
+                        Fat
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {nutritions.fat}
                       </td>
@@ -369,17 +388,19 @@ const RecipeDetails = () => {
           </div>
         </div>
       </section>
-      {/* ========= */}
 
-      <section className="px-10">
-        <Comments
-          allComments={allComments}
-          setallComments={setallComments}
-          newComment={newComment}
-          loggedInUserId={loggedInUserId}
-          recipeId={recipeData._id}
-        />
-      </section>
+      {/* ======= */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <section className="px-10">
+          <LazyComments
+            allComments={allComments}
+            setallComments={setallComments}
+            newComment={newComment}
+            loggedInUserId={loggedInUserId}
+            recipeId={recipeData._id}
+          />
+        </section>
+      </Suspense>
     </>
   );
 };

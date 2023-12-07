@@ -9,7 +9,6 @@ import LandingPage from "../LandingPage/LandingPage";
 const Home = () => {
   const navigate = useNavigate();
   const [allCategory, setAllCategory] = useState([]);
-
   //check the user is authenticated
   const checkIsauthenticated = async () => {
     const data = await is_auth();

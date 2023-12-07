@@ -5,10 +5,8 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../../../Redux/User/UserSlice";
 import "react-toastify/dist/ReactToastify.css";
 import api_request from "../../../axios";
-import { ToastContainer } from "react-toastify";
 import Loader from "../../Loader/Loader";
 import { successAlert, errorAlert } from "../../../Services/Toast/Toast";
-import toast from "react-hot-toast";
 //-----------------------------------------------------------------------
 
 const Login = () => {
@@ -49,11 +47,12 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data));
         dispatch(
           updateUser({
-            id: data.data._id,
-            name: data.data.UserName,
-            email: data.data.email,
-            followers: data.data.followers,
-            following: data.data.following,
+            id: data?.data?._id,
+            name: data?.data?.UserName,
+            email: data?.data?.email,
+            followers: data?.data?.followers,
+            following: data?.data?.following,
+            profile_image: data?.data?.profile_image,
           })
         );
         navigate("/");
@@ -181,7 +180,6 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <ToastContainer />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../../Componets/User/Header/Header";
 import RecipeCategories from "../../Componets/User/RecipeCategories/RecipeCategories";
+import Footer from "../../Componets/User/Footer/Footer.jsx";
 //------------------------------------------------------------------------------------
 
 const RecipeCategoriesPage = () => {
@@ -8,6 +9,7 @@ const RecipeCategoriesPage = () => {
     <>
       <Header />
       <RecipeCategories />
+      <Footer />
     </>
   );
 };

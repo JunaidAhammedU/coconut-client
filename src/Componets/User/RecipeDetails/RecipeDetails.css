@@ -15,6 +15,9 @@
 }
 
 .activeButtonNoFollowed {
-  @apply btn bg-white border rounded-lg hover:border-black hover:bg-white cursor-not-allowed ;
+  @apply btn bg-white border rounded-lg hover:border-black hover:bg-white cursor-not-allowed;
 }
 
+.recipe_title {
+  @apply foldSize:text-3xl foldSize:text-center ultraSm:text-5xl ultraSm:text-center sm:text-5xl font-semibold md:text-start;
+}

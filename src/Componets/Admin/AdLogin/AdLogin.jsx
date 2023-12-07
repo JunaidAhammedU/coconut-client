@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import {  } from "../../../Services/api/admin_API";
+import {} from "../../../Services/api/admin_API";
 //-----------------------------------------------------------
 
 const AdLogin = () => {
   const navigate = useNavigate();
-  
+
   const [admin, setAdmin] = useState({
     email: "",
     password: "",
@@ -37,7 +37,8 @@ const AdLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email_reg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/gm;
-    const password_reg = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*().\\?]).{8,16}$/gm;
+    const password_reg =
+      /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*().\\?]).{8,16}$/gm;
 
     if (!email_reg.test(admin.email)) {
       toast.error("Invalid Email Address", toastMessage(1000));
@@ -48,16 +49,15 @@ const AdLogin = () => {
         `${import.meta.env.VITE_REACT_APP_SERVER_URL}/admin/login`,
         { ...admin }
       );
-        if (!data.data.status === -1) {
-          toast.error("Invalid Username or Password!", toastMessage(1000));
-        } else {
-          toast.success("Successfully LoggedIn!", toastMessage(1000));
-          setTimeout(() => {
-            localStorage.setItem('admin', JSON.stringify(data.data));
-            // dispatch(updateUser({ id: data.data.getUser._id, name: data.data.getUser.UserName, email: data.data.getUser.email }));
-            navigate('/admin/dashboard')
-          }, 2000);
-        }
+      if (!data.data.status === -1) {
+        toast.error("Invalid Username or Password!", toastMessage(1000));
+      } else {
+        toast.success("Successfully LoggedIn!", toastMessage(1000));
+        setTimeout(() => {
+          localStorage.setItem("admin", JSON.stringify(data.data));
+          navigate("/admin/category");
+        }, 2000);
+      }
     }
   };
 
@@ -66,7 +66,7 @@ const AdLogin = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-10 w-auto" src="/logo.png" alt="coconut" />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Admin Signup
         </h2>
       </div>
 

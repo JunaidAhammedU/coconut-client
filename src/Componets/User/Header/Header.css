@@ -1,7 +1,11 @@
 .naveList {
-  @apply transition duration-500 hover:text-orange-600 font-bold pt-4 pl-3 pb-3 border lg:border-none md:border-none;
+  @apply transition duration-500 hover:text-orange-600 font-bold pt-4 pl-3 pb-3 border my-1;
 }
 
 .ai_naveItem {
-  @apply flex transition duration-500 hover:text-red-600 font-bold pt-4 pl-3 pb-3 border lg:border-none md:border-none gap-1;
+  @apply flex transition font-abc duration-500 hover:text-red-600 font-bold pt-4 pl-3 pb-3 border lg:border-none md:border-none gap-1;
+}
+
+.naveList_main {
+  @apply font-abc transition duration-500 hover:text-orange-600 font-bold pt-4 pl-3 pb-3 border lg:border-none md:border-none;
 }

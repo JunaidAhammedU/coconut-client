@@ -17,9 +17,13 @@ export const UserSlice = createSlice({
       state.email = action.payload.email;
       state.followers = action.payload.followers;
       state.following = action.payload.following;
+      state.profile_image = action.payload.profile_image;
+    },
+    chatReducer: (state, action) => {
+      state.selectedChat = action.payload.selectedChat;
     },
   },
 });
 
-export const { updateUser } = UserSlice.actions;
+export const { updateUser, chatReducer } = UserSlice.actions;
 export default UserSlice.reducer;

@@ -3,7 +3,6 @@ import { SlOptions } from "react-icons/sl";
 import { Link, useOutletContext } from "react-router-dom";
 //---------------------------------------------------------
 
-
 const SavedCollection = () => {
   // fetching Data from outlook
   const { collecionData } = useOutletContext();
@@ -12,7 +11,8 @@ const SavedCollection = () => {
     <>
       <section>
         <div className="flex p-5 flex-col items-center border-t-2 mt-2">
-          {collecionData.map((data, ind) => {
+
+          {collecionData?.map((data, ind) => {
             return (
               <div
                 key={ind}
@@ -20,7 +20,7 @@ const SavedCollection = () => {
               >
                 <figure className="max-w-[200px] h-[270px]">
                   <img
-                    src={`/Images/${data.recipeImage[0]}`}
+                    src={`/Images/${data?.recipeImage[0]}`}
                     alt="Movie"
                     className="w-full h-full object-cover"
                   />
@@ -40,12 +40,12 @@ const SavedCollection = () => {
                       </li>
                     </ul>
                   </div>
-                  <h2 className="card-title">{data.title}</h2>
+                  <h2 className="card-title">{data?.title}</h2>
                   <p className="line-clamp-3] max-w-[500px] max-h-[100px] overflow-hidden">
-                    {data.description}
+                    {data?.description}
                   </p>
                   <div className="card-actions justify-end">
-                    <Link to={`/recipedetails/${data._id}/${data.userId}`}>
+                    <Link to={`/recipedetails/${data?._id}/${data?.userId}`}>
                       <button className="btn bg-defaultBtnColor hover:bg-orange-500 text-white">
                         Try Recipe
                       </button>
@@ -55,6 +55,7 @@ const SavedCollection = () => {
               </div>
             );
           })}
+
         </div>
       </section>
     </>

@@ -224,7 +224,7 @@ const AddRecipe = ({ allCategory }) => {
           <div className="h-44 overflow-hidden overflow-y-auto">
             {ingredient.map((value, index) => {
               return (
-                <div className="mt-2 relative">
+                <div className="mt-2 relative" key={value._id}>
                   <IoCloseCircleOutline
                     className="text-xl font-sans text-black/40 hover:text-black/70 absolute top-2.5 right-2 cursor-pointer"
                     onClick={(e) => {

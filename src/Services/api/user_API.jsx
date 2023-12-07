@@ -277,3 +277,61 @@ export const getAllRecipeCatgory = async (category) => {
     errorAlert(error);
   }
 };
+
+// edit profile details
+export const handleProfileEdit = async (newUserData, profileImage, id) => {
+  try {
+    const formdata = new FormData();
+
+    if (!newUserData) {
+      errorAlert("Please fill the name field!");
+    } else if (!profileImage) {
+      errorAlert("Please upload any profile picture");
+    } else if (!id) {
+      errorAlert("Somthing went wrong, Try again");
+    } else {
+      formdata.append("UserName", newUserData.UserName);
+      formdata.append("email", newUserData.email);
+      formdata.append("profileImage", profileImage);
+
+      const { data } = await api_request.post(
+        `/editProfile?userId=${id}`,
+        formdata,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (data.status) {
+        successAlert(data.message);
+        return data;
+      } else {
+        errorAlert(data.message);
+      }
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+//-------------------------------------------------------------------------------------
+
+export const getAccessChat = async (id, userId) => {
+  try {
+    const { data } = await api_request.post(`/createChat?user=${id}`, {
+      userId,
+    });
+    return data.data;
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+export const sendMessage = async (newMessage) => {
+  try {
+    const { data } = await api_request.post(`/sendNewMessage`, newMessage);
+    // console.log(data);
+  } catch (error) {}
+};

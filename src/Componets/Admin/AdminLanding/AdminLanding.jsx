@@ -38,7 +38,7 @@ const AdminLanding = () => {
           {adminData ? (
             <div className="text-center md:text-left mt-5 justify-center flex">
               <Link
-                to={"/admin/dashboard"}
+                to={"/admin/category"}
                 className="mt-4 bg-defaultBtnColor hover:bg-onHoverButton px-10 py-3 transition duration-500 text-white uppercase rounded text-xs tracking-wider"
                 type="submit"
               >

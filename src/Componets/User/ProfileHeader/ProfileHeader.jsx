@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 import AddRecipe from "../AddRecipe/AddRecipe";
 import ListModal from "../ListModal/ListModal";
+import ProfileEdit from "../ProfileEdit/ProfileEdit";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../../Services/api/admin_API";
+import { FaUserCircle } from "react-icons/fa";
 //------------------------------------------------------------------
 
 const ProfileHeader = ({ userData, recipeCount }) => {
   const [allCategory, setAllCategory] = useState([]);
+  const { image } = useSelector((state) => state.user);
 
   useEffect(() => {
     const allCategory = async () => {
@@ -25,11 +29,18 @@ const ProfileHeader = ({ userData, recipeCount }) => {
     <>
       <div>
         <div className="p-5 flex justify-center items-center relative">
-          <div className="avatar">
-            <div className="w-36 rounded-full">
-              <img src="https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=600" />
+          {userData?.profile_image ? (
+            <div className="avatar">
+              <div className="w-36 rounded-full">
+                <img src={`/Images/${userData?.profile_image}`} />
+              </div>
             </div>
-          </div>
+          ) : (
+            <FaUserCircle
+              className="h-36 w-36 text-gray-300"
+              aria-hidden="true"
+            />
+          )}
 
           <div className="absolute top-5 foldSize:right-2 ultraSm:right-3 md:right-8 lg:right-10 xl:right-10 2xl:right-10">
             <button className="btn bg-defaultBtnColor hover:bg-onHoverButton border-none foldSize:px-0 ultraSm:px-3 md:px-5 lg:px-6 xl:px-6 2xl:px-6">
@@ -50,10 +61,17 @@ const ProfileHeader = ({ userData, recipeCount }) => {
             {userData.UserName}
           </h1>
           <div>
-            <button className="btn bg-white hover:bg-white hover:border-black border-black/50 px-3">
+            <button
+              className="btn bg-white hover:bg-white hover:border-black border-black/50 px-3"
+              onClick={() =>
+                document.getElementById("edit_profile").showModal()
+              }
+            >
               <MdOutlineEdit className="text-xl text-black" />
               <span className="text-black">Edit profile</span>
             </button>
+
+            <ProfileEdit modalId={"edit_profile"} />
           </div>
         </div>
 

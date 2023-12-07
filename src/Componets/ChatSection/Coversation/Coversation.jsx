@@ -1,25 +1,30 @@
 import React from "react";
+import { FaUserCircle } from "react-icons/fa";
 
 const Coversation = ({ data, currentUserId }) => {
   return (
     <>
-      <div className="listDiv shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:border-none my-2">
-        <div className="avatar placeholder ">
-          <div className="bg-neutral text-neutral-content rounded-full w-8 h-8 mx-auto my-auto ">
-            <span>{data.UserName[0]}</span>
+      <li className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group cursor-pointer">
+        {data.profile_image ? (
+          <div className="avatar">
+            <div className="w-16 rounded">
+              <img
+                src={`/Images/${data?.profile_image}`}
+                alt="Tailwind-CSS-Avatar-component"
+              />
+            </div>
           </div>
-        </div>
-
-        <div className="ml-1 my-auto">
-          <div className="">
-            <h1 className="text-sm font-sans font-semibold text-center">{data.UserName}</h1>
-          </div>
-
-          <div>
-            <p className="text-xs lg:text-start xl:text-start ultraSm:text-center">online</p>
-          </div>
-        </div>
-      </div>
+        ) : (
+          <FaUserCircle
+            className="h-10 w-10 text-gray-300"
+            aria-hidden="true"
+          />
+        )}
+        <span className="flex-1 ml-3 whitespace-nowrap">{data?.UserName}</span>
+        <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+          1
+        </span>
+      </li>
     </>
   );
 };
