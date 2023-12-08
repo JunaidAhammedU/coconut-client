@@ -110,7 +110,6 @@ export const getLoggedUserInfo = async (id) => {
       errorAlert(data.message);
     }
   } catch (error) {
-    errorAlert(error);
   }
 };
 
@@ -258,7 +257,6 @@ export const getCollectionData = async (userId) => {
       errorAlert(data.message);
     }
   } catch (error) {
-    errorAlert(error);
   }
 };
 
