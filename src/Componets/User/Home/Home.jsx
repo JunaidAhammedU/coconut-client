@@ -14,7 +14,7 @@ const Home = () => {
     const data = await is_auth();
     if (!data?.status) {
       localStorage.removeItem("user");
-      navigate("/login");
+      navigate("/");
     } else {
       console.log(res);
     }
