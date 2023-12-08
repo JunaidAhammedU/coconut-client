@@ -72,7 +72,7 @@ export const getAllCategories = async () => {
     if (data.status) {
       return data;
     } else {
-      errorAlert(data.message);
+      errorAlert("data.message");
     }
   } catch (error) {
     errorAlert(error);
