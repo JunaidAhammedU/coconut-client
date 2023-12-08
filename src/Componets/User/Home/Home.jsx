@@ -12,7 +12,7 @@ const Home = () => {
   //check the user is authenticated
   const checkIsauthenticated = async () => {
     const data = await is_auth();
-    if (!data.status) {
+    if (!data?.status) {
       localStorage.removeItem("user");
       navigate("/login");
     } else {
@@ -46,7 +46,7 @@ const Home = () => {
         <h1 className="text-5xl font-bold mt-5 text-center font-abc ">
           Cuisines
         </h1>
-        <div className="flex flex-wrap justify-center gap-8 ">
+{/*         <div className="flex flex-wrap justify-center gap-8 ">
           {allCategory.map((data) => {
             return (
               <div className="cat_Div1" key={data?._id}>
@@ -61,7 +61,7 @@ const Home = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </section>
     </>
   );
