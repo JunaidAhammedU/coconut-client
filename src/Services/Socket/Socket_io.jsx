@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 const initializeSocket = () => {
-  const socket = io.connect("http://localhost:5000");
+  const socket = io.connect("http://oleaplants.shop/");
   return socket;
 };
 
