@@ -61,7 +61,7 @@ const OtpVerify = () => {
               <div>
                 <label
                   htmlFor="otp"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-semibold"
+                  className="block mb-2 text-sm text-gray-900 dark:text-white font-semibold"
                 >
                   Verify Your OTP
                 </label>
