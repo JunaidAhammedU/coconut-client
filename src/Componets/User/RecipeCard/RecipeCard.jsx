@@ -41,7 +41,7 @@ const RecipeCard = ({
           </ul>
         </div>
         <img
-          src={`/Images/${image}`}
+          src={`${image}`}
           alt="recipe"
           className="w-full h-full object-cover"
         />

@@ -153,7 +153,7 @@ const Header = () => {
             >
               {profile_image ? (
                 <div className="w-12 rounded-full">
-                  <img src={`/Images/${profile_image}`} />
+                  <img src={`${profile_image}`} />
                 </div>
               ) : (
                 <FaUserCircle

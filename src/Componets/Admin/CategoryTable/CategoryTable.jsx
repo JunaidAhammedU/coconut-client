@@ -11,6 +11,20 @@ const CategoryTable = ({ categoryData }) => {
     bio: "",
   });
 
+  // handle image to upload to cloudinary
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    imageToBase(file);
+  };
+
+  const imageToBase = async (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+  };
+
   // handle Submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +91,7 @@ const CategoryTable = ({ categoryData }) => {
                 className="file-input file-input-bordered w-full max-w-xs"
                 accept=".jpg, .jpeg, .png, .gif, .pdf"
                 name="image"
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={(e) => handleImage(e)}
               />
               <button className="btn mt-2" type="submit">
                 Upload
@@ -105,7 +119,7 @@ const CategoryTable = ({ categoryData }) => {
                           <div className="avatar">
                             <div className="mask mask-squircle w-12 h-12">
                               <img
-                                src={`/Images/${data.image}`}
+                                src={`${data?.image}`}
                                 className="object-cover"
                                 alt="category image"
                               />

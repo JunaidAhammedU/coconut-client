@@ -189,7 +189,7 @@ const RecipeDetails = () => {
           {userDetails?.profile_image ? (
             <div className="avatar">
               <div className="w-20 rounded-full">
-                <img src={`/Images/${userDetails?.profile_image}`} />
+                <img src={`${userDetails?.profile_image}`} />
               </div>
             </div>
           ) : (
@@ -232,7 +232,7 @@ const RecipeDetails = () => {
 
           <div className="flex justify-center py-2 mt-5 overflow-hidden">
             <img
-              src={`/Images/${recipeData.recipeImage}`}
+              src={`${recipeData.recipeImage}`}
               alt=""
               className="object-cover rounded-xl lg:h-[400px] lg:w-[800px] xl:h-[550px] xl:w-[800px]"
             />

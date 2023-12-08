@@ -77,7 +77,7 @@ const Comments = ({
                     <div className="rounded-full w-9 h-9 sm:w-9 sm:h-w-9">
                       <img
                         className="rounded-full w-full h-full object-cover"
-                        src={`/Images/${comment?.user?.profile_image}`}
+                        src={`${comment?.user?.profile_image}`}
                         alt=""
                       />
                     </div>

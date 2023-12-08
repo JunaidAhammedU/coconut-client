@@ -32,7 +32,7 @@ const ProfileHeader = ({ userData, recipeCount }) => {
           {userData?.profile_image ? (
             <div className="avatar">
               <div className="w-36 rounded-full">
-                <img src={`/Images/${userData?.profile_image}`} />
+                <img src={`${userData?.profile_image}`} />
               </div>
             </div>
           ) : (

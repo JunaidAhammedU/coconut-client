@@ -37,6 +37,21 @@ const AddRecipe = ({ allCategory }) => {
   const addInstructionField = () => {
     setInstruction([...instruction, []]);
   };
+
+  // handle image to upload to cloudinary
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    imageToBase(file);
+  };
+
+  const imageToBase = async (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+  };
+
   //--------------------------------------------------
 
   return (
@@ -206,7 +221,7 @@ const AddRecipe = ({ allCategory }) => {
                 name="image"
                 onChange={(e) => {
                   const selectedImg = e.target.files[0];
-                  setImage(selectedImg);
+                  handleImage(e);
                   selectedImg
                     ? setImagePreview(URL.createObjectURL(e.target.files[0]))
                     : null;

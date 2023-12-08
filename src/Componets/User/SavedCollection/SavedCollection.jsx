@@ -11,7 +11,6 @@ const SavedCollection = () => {
     <>
       <section>
         <div className="flex p-5 flex-col items-center border-t-2 mt-2">
-
           {collecionData?.map((data, ind) => {
             return (
               <div
@@ -20,7 +19,7 @@ const SavedCollection = () => {
               >
                 <figure className="max-w-[200px] h-[270px]">
                   <img
-                    src={`/Images/${data?.recipeImage[0]}`}
+                    src={`${data?.recipeImage[0]}`}
                     alt="Movie"
                     className="w-full h-full object-cover"
                   />
@@ -55,7 +54,6 @@ const SavedCollection = () => {
               </div>
             );
           })}
-
         </div>
       </section>
     </>

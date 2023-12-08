@@ -9,7 +9,7 @@ const Coversation = ({ data, currentUserId }) => {
           <div className="avatar">
             <div className="w-16 rounded">
               <img
-                src={`/Images/${data?.profile_image}`}
+                src={`${data?.profile_image}`}
                 alt="Tailwind-CSS-Avatar-component"
               />
             </div>

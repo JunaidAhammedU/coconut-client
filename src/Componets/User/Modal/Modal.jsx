@@ -24,7 +24,7 @@ const Modal = ({
         {recipeImg ? (
           <div className="avatar absolute left-12 bottom-3 ">
             <div className="w-20 rounded">
-              <img src={`/Images/${recipeImg}`} />
+              <img src={`${recipeImg}`} />
             </div>
             <p className="px-4 font-abc font-semibold ">
               {recipeTitle.toUpperCase()}

@@ -54,7 +54,7 @@ const Home = () => {
                 <div className="relative">
                   <img src="bg-pater-11.png" alt="" className="outerImgPtrn1" />
                   <img
-                    src={`/Images/${data?.image}`}
+                    src={`${data?.image}`}
                     alt=""
                     className="innerImgPtrn1"
                   />

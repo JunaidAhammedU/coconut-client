@@ -16,6 +16,21 @@ const ProfileEdit = ({ modalId }) => {
     email: email || "",
   });
 
+  // handle image to upload to cloudinary
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    imageToBase(file);
+  };
+
+  const imageToBase = async (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setProfileImage(reader.result);
+    };
+  };
+
+  // handle user profile submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,6 +39,7 @@ const ProfileEdit = ({ modalId }) => {
         profileImage,
         id
       );
+
       if (updatedData) {
         dispatch(
           updateUser({
@@ -68,7 +84,7 @@ const ProfileEdit = ({ modalId }) => {
                             <img src={`${prevImage}`} alt="profile pic" />
                           ) : (
                             <img
-                              src={`/Images/${profile_image}`}
+                              src={`${profile_image}`}
                               alt="profile pic"
                             />
                           )}
@@ -87,8 +103,8 @@ const ProfileEdit = ({ modalId }) => {
                         className="sr-only"
                         onChange={(e) => {
                           const imageData = e.target.files[0];
+                          handleImage(e);
                           setPrevImage(URL.createObjectURL(imageData));
-                          setProfileImage(imageData);
                         }}
                       />
                     </div>

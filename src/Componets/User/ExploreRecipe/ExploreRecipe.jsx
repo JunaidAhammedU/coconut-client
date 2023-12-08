@@ -72,7 +72,7 @@ const ExploreRecipe = () => {
                 <div className="cat_Div">
                   <div className="relative overflow-hidden rounded-full">
                     <img
-                      src={`/Images/${data.image}`}
+                      src={`${data.image}`}
                       alt=""
                       className="category_img"
                     />
