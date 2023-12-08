@@ -15,8 +15,8 @@ const Login = () => {
   const [loader, setLoader] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "guest@gmail.com",
+    password: "Guest@123",
   });
 
   // Show hide password handle
@@ -84,6 +84,7 @@ const Login = () => {
                 name="email"
                 type="email"
                 autoComplete="email"
+                value={user?.email}
                 required
                 onChange={(e) =>
                   setUser({ ...user, [e.target.name]: e.target.value })
@@ -109,6 +110,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 autoComplete="password"
                 required
+                value={user?.password}
                 onChange={(e) =>
                   setUser({ ...user, [e.target.name]: e.target.value })
                 }

@@ -168,7 +168,7 @@ const Header = () => {
             >
               <li>
                 <a className="font-bold text-[18px] font-abc hover:bg-transparent border-b">
-                  {userName.toUpperCase()}
+                  {userName?.toUpperCase()}
                 </a>
               </li>
               {user ? (

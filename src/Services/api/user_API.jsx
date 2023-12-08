@@ -332,6 +332,12 @@ export const getAccessChat = async (id, userId) => {
 export const sendMessage = async (newMessage) => {
   try {
     const { data } = await api_request.post(`/sendNewMessage`, newMessage);
-    // console.log(data);
-  } catch (error) {}
+    if (data.status) {
+      return data.data;
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
 };

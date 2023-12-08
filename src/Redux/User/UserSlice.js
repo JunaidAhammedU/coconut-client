@@ -9,6 +9,8 @@ export const UserSlice = createSlice({
     email: "",
     followers: [],
     following: [],
+    profile_image: "",
+    notifications: [],
   },
   reducers: {
     updateUser: (state, action) => {
@@ -20,7 +22,7 @@ export const UserSlice = createSlice({
       state.profile_image = action.payload.profile_image;
     },
     chatReducer: (state, action) => {
-      state.selectedChat = action.payload.selectedChat;
+      state.notifications.push(action.payload.notification);
     },
   },
 });

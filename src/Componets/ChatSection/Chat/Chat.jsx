@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   getFollowerData,
   getAccessChat,
@@ -14,20 +14,23 @@ import { BsLayoutSidebar } from "react-icons/bs";
 import InputEmoji from "react-input-emoji";
 import EmptyChat from "../EmptyChat/EmptyChat";
 import { format } from "timeago.js";
-import { data } from "autoprefixer";
-import { FaUserCircle } from "react-icons/fa";
+// import { chatReducer } from "../../../Redux/User/UserSlice";
 //------------------------------------------------------------------
 
 const Chat = () => {
+  const { id } = useSelector((state) => state.user);
+  const notifications = useSelector((state) => state.user.notifications);
+  const dispatch = useDispatch();
+
   const [selectedUser, setSelectedUser] = useState(null);
   const [userList, setUserList] = useState([]);
   const [socketConnected, setSocketConnected] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [room, setCreateRoom] = useState("");
-  const { id } = useSelector((state) => state.user);
   const socket = initializeSocket();
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
+  var selectedChatCompare;
 
   // handle user click
   const handleUserClick = async (selectUserData) => {
@@ -48,10 +51,9 @@ const Chat = () => {
           chatId: room,
         };
 
-        await sendMessage(messageData);
-        setAllMessages((prevMessages) => [...prevMessages, messageData]);
-        await socket.emit("new message", messageData);
-        setNewMessage("");
+        const newMessageData = await sendMessage(messageData);
+        socket.emit("new message", newMessageData);
+        setAllMessages((prevMessages) => [...prevMessages, newMessageData]);
       }
     } catch (error) {
       console.log(error);
@@ -60,8 +62,8 @@ const Chat = () => {
 
   // Subscribe to the 'message received' event
   useEffect(() => {
-    socket.on("message recieved", (data) => {
-      setAllMessages((prevMessages) => [...prevMessages, data]);
+    socket.on("message recieved", (messageRecived) => {
+      setAllMessages((prevMessages) => [...prevMessages, messageRecived]);
     });
   });
 
@@ -83,6 +85,11 @@ const Chat = () => {
     socket.emit("setup", id);
     socket.on("connected", () => setSocketConnected(true));
   }, []);
+
+  //----
+  useEffect(() => {
+    selectedChatCompare = selectedUser;
+  }, [selectedUser]);
 
   return (
     <>
@@ -172,21 +179,14 @@ const Chat = () => {
                           : `chat chat-start`
                       }`}
                     >
-                      {data?.profile_image ? (
-                        <div className="chat-image avatar">
-                          <div className="w-10 rounded-full">
-                            <img
-                              alt="Tailwind CSS chat bubble component"
-                              src={`/Images/${data?.profile_image}`}
-                            />
-                          </div>
+                      <div className="chat-image avatar">
+                        <div className="w-10 rounded-full">
+                          <img
+                            alt="Tailwind CSS chat bubble component"
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                          />
                         </div>
-                      ) : (
-                        <FaUserCircle
-                          className="h-10 w-10 text-gray-300"
-                          aria-hidden="true"
-                        />
-                      )}
+                      </div>
 
                       <div className="chat-header gap-4">
                         <h1>
