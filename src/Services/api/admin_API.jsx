@@ -75,6 +75,6 @@ export const getAllCategories = async () => {
       errorAlert("data.message");
     }
   } catch (error) {
-    errorAlert(error);
+    // errorAlert(error);
   }
 };
