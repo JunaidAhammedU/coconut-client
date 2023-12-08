@@ -12,9 +12,9 @@ const Home = () => {
   //check the user is authenticated
   const checkIsauthenticated = async () => {
     const data = await is_auth();
-    if (!data?.status) {
+    if (!data.status) {
       localStorage.removeItem("user");
-      navigate("/");
+      navigate("/login");
     } else {
       console.log(res);
     }
