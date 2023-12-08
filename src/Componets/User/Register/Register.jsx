@@ -62,7 +62,7 @@ const Register = () => {
     } else {
       setLoader(true);
       const { data } = await axios.post(
-        import.meta.env.VITE_REACT_APP_SERVER_URL + "/register",
+        "https://oleaplants.shop" + "/register",
         { ...user }
       );
 

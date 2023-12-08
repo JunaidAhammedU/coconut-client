@@ -14,7 +14,7 @@ export const is_auth = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user ? user.token : null;
     axios
-      .post(import.meta.env.VITE_REACT_APP_SERVER_URL, { token })
+      .post("https://oleaplants.shop", { token })
       .then((response) => {
         const data = response.data;
         if (!data.status) {
