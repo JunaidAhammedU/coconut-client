@@ -109,8 +109,7 @@ export const getLoggedUserInfo = async (id) => {
     } else {
       errorAlert(data.message);
     }
-  } catch (error) {
-  }
+  } catch (error) {}
 };
 
 // get recipe intividual deails
@@ -256,8 +255,7 @@ export const getCollectionData = async (userId) => {
     } else {
       errorAlert(data.message);
     }
-  } catch (error) {
-  }
+  } catch (error) {}
 };
 
 // get all category based recipe
