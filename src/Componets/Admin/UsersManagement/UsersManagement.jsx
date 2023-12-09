@@ -15,7 +15,7 @@ const UsersManagement = () => {
       setUserData(await getAllUserData());
     };
     fetchAllUsers();
-  }, [getAllUserData]);
+  }, [getAllUserData,handleUserBolckAndUnblock]);
 
   return (
     <>
