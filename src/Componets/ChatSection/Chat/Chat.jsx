@@ -176,10 +176,10 @@ const Chat = () => {
             </div>
 
             {/* ---===---- */}
-            <div className="flex flex-col items-center justify-between rounded-lg flex-1 mt-1 ">
+            <div className="flex flex-col items-center justify-between rounded-lg flex-1 mt-1 " ref={chatContainerRef}>
               <div
                 className="w-full overflow-x-auto rounded-lg h-[400px] overflow-y-auto px-5 "
-                ref={chatContainerRef}
+                
               >
                 {allMessages?.map((data) => {
                   return (
