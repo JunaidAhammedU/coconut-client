@@ -24,9 +24,6 @@ export default api_request;
 
 
 
-
-
-
 // axios setup
 
 // import axios from "axios";
