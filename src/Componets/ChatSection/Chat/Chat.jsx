@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getFollowerData,
@@ -22,7 +22,7 @@ const Chat = () => {
   const { id } = useSelector((state) => state.user);
   const notifications = useSelector((state) => state.user.notifications);
   const dispatch = useDispatch();
-
+  const chatContainerRef = useRef(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userList, setUserList] = useState([]);
   const [socketConnected, setSocketConnected] = useState(false);
@@ -91,6 +91,14 @@ const Chat = () => {
   useEffect(() => {
     selectedChatCompare = selectedUser;
   }, [selectedUser]);
+
+  // auto scrolling for new message
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [allMessages]);
 
   return (
     <>
@@ -169,7 +177,10 @@ const Chat = () => {
 
             {/* ---===---- */}
             <div className="flex flex-col items-center justify-between rounded-lg flex-1 mt-1 ">
-              <div className="w-full overflow-x-auto rounded-lg h-[400px] overflow-y-auto px-5 ">
+              <div
+                className="w-full overflow-x-auto rounded-lg h-[400px] overflow-y-auto px-5 "
+                ref={chatContainerRef}
+              >
                 {allMessages?.map((data) => {
                   return (
                     <div
