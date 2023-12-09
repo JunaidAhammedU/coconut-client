@@ -14,6 +14,7 @@ import { BsLayoutSidebar } from "react-icons/bs";
 import InputEmoji from "react-input-emoji";
 import EmptyChat from "../EmptyChat/EmptyChat";
 import { format } from "timeago.js";
+import { FaUserCircle } from "react-icons/fa";
 // import { chatReducer } from "../../../Redux/User/UserSlice";
 //------------------------------------------------------------------
 
@@ -179,14 +180,23 @@ const Chat = () => {
                           : `chat chat-start`
                       }`}
                     >
-                      <div className="chat-image avatar">
-                        <div className="w-10 rounded-full">
-                          <img
-                            alt="Tailwind CSS chat bubble component"
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      {data?.profile_image ? (
+                        <div className="chat-image avatar">
+                          <div className="w-10 rounded-full">
+                            <img
+                              alt="Tailwind CSS chat bubble component"
+                              src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="chat-image avatar">
+                          <FaUserCircle
+                            className="h-10 w-10 text-gray-300"
+                            aria-hidden="true"
                           />
                         </div>
-                      </div>
+                      )}
 
                       <div className="chat-header gap-4">
                         <h1>
