@@ -4,11 +4,13 @@ import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import { handleAddRecipe } from "../../../Services/api/user_API";
 import { IoCloseCircleOutline, IoAddSharp } from "react-icons/io5";
+import {errorAlert } from "../../../Services/Toast/Toast";
 //---------------------------------------------------------------
 
 const AddRecipe = ({ allCategory }) => {
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [loding, setLoding] = useState(false);
 
   const { id } = useSelector((state) => state.user);
   const [recipe, setRecipe] = useState({
@@ -66,8 +68,32 @@ const AddRecipe = ({ allCategory }) => {
         action=""
         className="grid xl:grid-cols-3 lg:grid-cols-3 gap-2 md:grid-cols-1  ultraSm:grid-cols-1"
         onSubmit={(e) => {
-          e.preventDefault(),
+          e.preventDefault();
+          setLoding(true)
+          if (!recipe.title) {
+            setLoding(false)
+            errorAlert("Please fill the recipe title");
+          } else if (!recipe.description) {
+            setLoding(false)
+            errorAlert("Please fill the recipe description");
+          } else if (!recipe.veg) {
+            setLoding(false)
+            errorAlert("Please select the recipe type");
+          } else if (!recipe.time) {
+            setLoding(false)
+            errorAlert("please select the time for cooking");
+          } else if (!recipe.cuisine) {
+            setLoding(false)
+            errorAlert("please select the category of the recipe");
+          } else if ( !recipe.calories || !recipe.protein || !recipe.carbohydrates || !recipe.fat || !recipe.calcium ) {
+            setLoding(false)
+            errorAlert("please fill the all fields of recipe nutrition fact");
+          } else if (!image) {
+            setLoding(false)
+            errorAlert("please select any image for you recipe")
+          } else{
             handleAddRecipe(recipe, ingredient, instruction, image, id);
+          }
         }}
         encType="multipart/form-data"
       >
@@ -387,9 +413,17 @@ const AddRecipe = ({ allCategory }) => {
           <div className="flex mt-5 md:justify-end lg:justify-end xl:justify-end ultraSm:justify-center">
             <button
               type="submit"
-              className="bg-defaultBtnColor w-40 hover:bg-onHoverButton text-white font-bold py-3 px-4 rounded transition duration-300"
+              className={`${
+                loding
+                  ? `bg-defaultBtnColor w-40 hover:bg-onHoverButton text-white font-bold py-3 px-4 rounded transition duration-300 cursor-not-allowed`
+                  : `bg-defaultBtnColor w-40 hover:bg-onHoverButton text-white font-bold py-3 px-4 rounded transition duration-300`
+              }`}
             >
-              Add Recipe
+              {loding ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : (
+                `Add Recipe`
+              )}
             </button>
           </div>
         </div>

@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SlOptions } from "react-icons/sl";
 import { Link, useOutletContext } from "react-router-dom";
+import { doRecipeRemove } from "../../../Services/api/user_API";
 //---------------------------------------------------------
 
 const SavedCollection = () => {
   // fetching Data from outlook
   const { collecionData } = useOutletContext();
+
+  const handleRecipeRemove = async (userId, recipeId) => {
+    try {
+      await doRecipeRemove(userId, recipeId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -34,7 +43,12 @@ const SavedCollection = () => {
                       tabIndex={0}
                       className="dropdown-content z-[1] menu p-2 shadow bg-base-100 border rounded-box w-36 mt-2"
                     >
-                      <li className="text-xs text-red-600 hover:bg-red-500 rounded-lg ">
+                      <li
+                        className="text-xs text-red-600 hover:bg-red-500 rounded-lg "
+                        onClick={() =>
+                          handleRecipeRemove(data?.userId, data?._id)
+                        }
+                      >
                         <a>Remove from collection</a>
                       </li>
                     </ul>

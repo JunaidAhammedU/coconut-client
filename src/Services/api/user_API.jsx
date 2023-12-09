@@ -5,6 +5,7 @@ import {
   errorAlert,
   commentAddedAlert,
   emojiAlert,
+  warnAlert,
 } from "../Toast/Toast";
 //----------------------------------------------------------------------------------------
 
@@ -54,6 +55,7 @@ export const handleAddRecipe = async (
   id
 ) => {
   const formData = new FormData();
+
   formData.append("title", recipe.title);
   formData.append("description", recipe.description);
   formData.append("veg", recipe.veg);
@@ -109,7 +111,9 @@ export const getLoggedUserInfo = async (id) => {
     } else {
       errorAlert(data.message);
     }
-  } catch (error) {}
+  } catch (error) {
+    errorAlert(error);
+  }
 };
 
 // get recipe intividual deails
@@ -252,10 +256,10 @@ export const getCollectionData = async (userId) => {
     );
     if (data.status) {
       return data;
-    } else {
-      errorAlert(data.message);
     }
-  } catch (error) {}
+  } catch (error) {
+    errorAlert(error);
+  }
 };
 
 // get all category based recipe
@@ -312,8 +316,7 @@ export const handleProfileEdit = async (newUserData, profileImage, id) => {
   }
 };
 
-//-------------------------------------------------------------------------------------
-
+// joining chat room
 export const getAccessChat = async (id, userId) => {
   try {
     const { data } = await api_request.post(`/createChat?user=${id}`, {
@@ -325,11 +328,31 @@ export const getAccessChat = async (id, userId) => {
   }
 };
 
+// send new message
 export const sendMessage = async (newMessage) => {
   try {
     const { data } = await api_request.post(`/sendNewMessage`, newMessage);
     if (data.status) {
       return data.data;
+    } else {
+      errorAlert(data.message);
+    }
+  } catch (error) {
+    errorAlert(error);
+  }
+};
+
+// remove recipe from the user collection
+export const doRecipeRemove = async (userId, recipeId) => {
+  try {
+    const { data } = await api_request.patch(
+      `/removeRecipeCollection?userId=${userId}&&recipeId=${recipeId}`
+    );
+    if (data.status) {
+      successAlert(data.message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } else {
       errorAlert(data.message);
     }

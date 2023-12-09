@@ -47,6 +47,12 @@ export const commentAddedAlert = async (message) => {
 
 export const emojiAlert = (message) => {
   toast(message, {
+    position: "top-right",
     icon: "🍲",
+    style: {
+      border: "0.5px solid #8c8b89",
+      padding: "16px",
+      color: "#000",
+    },
   });
 };
