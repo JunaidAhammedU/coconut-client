@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getFollowerData,
@@ -15,14 +15,13 @@ import InputEmoji from "react-input-emoji";
 import EmptyChat from "../EmptyChat/EmptyChat";
 import { format } from "timeago.js";
 import { FaUserCircle } from "react-icons/fa";
-// import { chatReducer } from "../../../Redux/User/UserSlice";
 //------------------------------------------------------------------
 
 const Chat = () => {
   const { id } = useSelector((state) => state.user);
   const notifications = useSelector((state) => state.user.notifications);
   const dispatch = useDispatch();
-  const chatContainerRef = useRef(null);
+  const { profile_image } = useSelector((state) => state.user);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userList, setUserList] = useState([]);
   const [socketConnected, setSocketConnected] = useState(false);
@@ -92,14 +91,6 @@ const Chat = () => {
     selectedChatCompare = selectedUser;
   }, [selectedUser]);
 
-  // auto scrolling for new message
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
-    }
-  }, [allMessages]);
-
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
@@ -117,6 +108,7 @@ const Chat = () => {
                 <img src="/logo.png" className="h-8 mr-3" alt="coconut." />
               </Link>
             </div>
+
             <div className="flex items-center">
               <div className="flex items-center ml-3">
                 <div>
@@ -127,8 +119,8 @@ const Chat = () => {
                     data-dropdown-toggle="dropdown-user"
                   >
                     <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      className="w-8 h-8 rounded-full object-cover"
+                      src={`${profile_image}`}
                       alt="user photo"
                     />
                   </button>
@@ -142,12 +134,25 @@ const Chat = () => {
       <div className="flex bg-slate-100">
         <aside
           id="logo-sidebar"
-          className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${
+          className={`fixed top-0 left-0 z-40 w-64 h-screen pt-16 transition-transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } bg-white border-r border-gray-200 sm:translate-x-0`}
+          } border-r bg-orange-200 border-gray-200 sm:translate-x-0 `}
           aria-label="Sidebar"
         >
-          <div className="h-full px-3 pb-4 overflow-y-auto bg-white">
+          <div className="text-sm breadcrumbs flex justify-center">
+            <ul className="font-sans font-semibold">
+              <li>
+                <Link to={"/"}>
+                  <a>Home</a>
+                </Link>
+              </li>
+              <li>
+                <a>Messages</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="h-full px-3 pb-4 overflow-y-auto bg-orange-200">
             <ul className="space-y-2 font-medium">
               {userList?.map((chat, indx) => {
                 return (
@@ -162,25 +167,21 @@ const Chat = () => {
       </div>
 
       {/* chat area */}
-
       {selectedUser ? (
         <div className="p-4 sm:ml-64 h-screen pt-14 ">
-          <div className="p-4 border border-gray-200 rounded-lg h-full flex flex-col">
+          <div className="p-4 rounded-lg h-full flex flex-col">
             {/* ---===---- */}
-            <div className="grid">
-              <div className="flex rounded items-center bg-gray-100 h-16 dark:bg-gray-800">
-                <h1 className="text-start font-bold  ml-5 font-sans text-gray-600 text-2xl">
-                  {selectedUser?.UserName}
-                </h1>
-              </div>
-            </div>
 
-            {/* ---===---- */}
-            <div className="flex flex-col items-center justify-between rounded-lg flex-1 mt-1 " ref={chatContainerRef}>
-              <div
-                className="w-full overflow-x-auto rounded-lg h-[400px] overflow-y-auto px-5 "
-                
-              >
+            <div className="flex flex-col items-center justify-between rounded-lg flex-1 mt-1 h-full">
+              <div className="grid w-full h-[12%]">
+                <div className="flex rounded items-center bg-orange-200">
+                  <h1 className="text-start font-bold  ml-5 font-sans text-gray-600 text-2xl">
+                    {selectedUser?.UserName}
+                  </h1>
+                </div>
+              </div>
+
+              <div className="w-full overflow-x-auto rounded-lg h-[80%] overflow-y-auto px-5 border mt-1 backdrop-blur-md bg-white/30">
                 {allMessages?.map((data) => {
                   return (
                     <div

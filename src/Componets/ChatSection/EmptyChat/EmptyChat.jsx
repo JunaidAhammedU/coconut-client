@@ -4,9 +4,10 @@ import { PiChatsCircleFill } from "react-icons/pi";
 
 const EmptyChat = () => {
   return (
-    <div className="w-full">
-      <div className="flex justify-center items-center h-[545px] overflow-hidden overflow-y-auto p-4 bg-white mt-2 rounded-md shadow-md">
-        <div className="">
+    <div className="p-4 sm:ml-64 h-screen pt-14 ">
+      <div className="p-4 rounded-lg h-full flex flex-col items-center justify-center">
+
+        <div >
           <div className="flex justify-center">
             <PiChatsCircleFill className="text-8xl text-defaultBtnColor" />
           </div>
@@ -19,6 +20,7 @@ const EmptyChat = () => {
             send and receive messages securely.
           </p>
         </div>
+
       </div>
     </div>
   );

@@ -81,7 +81,7 @@ const ProfileHeader = ({ userData, recipeCount }) => {
             <p className="font-abc font-normal text-sm text-gray-700 text-center">
               Posts
             </p>
-            <button className="btn hover:bg-white  border-none text-xs font-thin bg-white">
+            <button className="btn hover:bg-white  border-none text-xs font-thin bg-white shadow-none">
               <span className="font-abc font-normal text-lg">
                 {recipeCount}
               </span>
@@ -99,7 +99,7 @@ const ProfileHeader = ({ userData, recipeCount }) => {
             <p className="font-abc font-normal text-sm text-gray-700 text-center">
               Followers
             </p>
-            <button className="btn hover:bg-white  border-none text-xs font-thin bg-white">
+            <button className="btn hover:bg-white  border-none text-xs font-thin bg-white shadow-none">
               <span className="font-abc font-normal text-lg">
                 {userData?.followers?.length}
               </span>
@@ -117,7 +117,7 @@ const ProfileHeader = ({ userData, recipeCount }) => {
             <p className="font-abc font-normal text-sm text-gray-700 text-center">
               Following
             </p>
-            <button className="btn hover:bg-white  border-none text-xs font-thin bg-white">
+            <button className="btn hover:bg-white  border-none text-xs font-thin bg-white shadow-none">
               <span className="font-abc font-normal text-lg">
                 {userData?.following?.length}
               </span>

@@ -19,9 +19,7 @@ export const is_auth = async () => {
       .then((response) => {
         const data = response.data;
         if (!data.status) {
-          errorAlert("Try to login again");
           return data;
-        } else {
         }
       })
       .catch((err) => {

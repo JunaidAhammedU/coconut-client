@@ -53,3 +53,7 @@ h2 {
     height: 49px;
     box-shadow: rgb(0 0 0 / 19%) 0px 1px 10px;
   }
+
+.eyeIcon{
+    @apply absolute text-xl text-gray-900 top-1/2 transform -translate-y-1/2 right-3 cursor-pointer hover:scale-105 transition duration-300
+}

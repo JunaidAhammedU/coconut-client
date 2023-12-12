@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../Loader/Loader";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { errorAlert, successAlert } from "../../../Services/Toast/Toast";
 //------------------------------------------------------------
 
 const Register = () => {
@@ -14,6 +13,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [loader, setLoader] = useState(false);
 
@@ -22,19 +22,6 @@ const Register = () => {
   };
 
   const navigate = useNavigate();
-
-  // Toaster Message
-  const toastMessage = (param) => {
-    return {
-      position: "top-center",
-      autoClose: param,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    };
-  };
 
   // cheking user already exist!
   useEffect(() => {
@@ -48,51 +35,40 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const name_reg = /^[A-Za-z_][a-zA-Z0-9_.]{3,15}$/gm;
-    const email_reg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/gm;
-    const password_reg =
-      /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*().\\?]).{8,16}$/gm;
+    setLoader(true);
 
-    if (!name_reg.test(user.UserName)) {
-      toast.error("Invalid Username", toastMessage(1000));
-    } else if (!email_reg.test(user.email)) {
-      toast.error("Invalid Email Address", toastMessage(1000));
-    } else if (!password_reg.test(user.password)) {
-      toast.error("Create Strong Password", toastMessage(1000));
+    // api request for register
+    const { data } = await axios.post(
+      "https://oleaplants.shop" + "/register",
+      { ...user }
+    );
+    if (!data.status) {
+      errorAlert(data.message);
+      setTimeout(() => {
+        setLoader(false);
+      }, 1000);
     } else {
-      setLoader(true);
-      const { data } = await axios.post(
-        "https://oleaplants.shop" + "/register",
-        { ...user }
-      );
-
-      if (data.exist) {
-        toast.warning("User Already exist!!", toastMessage(3000));
-        setTimeout(() => {
-          setLoader(false);
-        }, 1000);
-      } else {
-        toast.success("New Account Created!", toastMessage(1500));
-        setTimeout(() => {
-          setLoader(false);
-        }, 1000);
-        setTimeout(() => {
-          navigate("/otp-verify");
-        }, 2000);
-      }
+      successAlert(data.message);
+      setTimeout(() => {
+        setLoader(false);
+      }, 1000);
+      setTimeout(() => {
+        navigate("/otp-verify");
+      }, 2000);
     }
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="flex min-h-full flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8 h-screen relative ">
+      <img src="/Home.png" className="absolute bottom-0 right-0 object-cover w-full -z-0" alt="" />
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm z-50">
         <img className="mx-auto h-10 w-auto" src="/logo.png" alt="coconut" />
-        <h2 className="mt-5 font-sans text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-5 font-abc text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Register your account
         </h2>
       </div>
 
-      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm px-2 py-2 rounded-2xl shadow-md z-50 backdrop-blur-md bg-white/30">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
@@ -160,41 +136,15 @@ const Register = () => {
                 className="block w-full rounded-md border-0 py-1.5 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
               />
               {showPassword ? (
-                <svg
-                  className="absolute w-4 h-4 text-gray-800 dark:text-white top-1/2 transform -translate-y-1/2 right-3 cursor-pointer "
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 14"
+                <AiOutlineEye
+                  className="eyeIcon"
                   onClick={showPasswordHandle}
-                >
-                  <g
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  >
-                    <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                    <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z" />
-                  </g>
-                </svg>
+                />
               ) : (
-                <svg
-                  className="absolute w-4 h-4 text-gray-800 dark:text-white top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 14"
+                <AiOutlineEyeInvisible
+                  className="eyeIcon"
                   onClick={showPasswordHandle}
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M1.933 10.909A4.357 4.357 0 0 1 1 9c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 19 9c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M2 17 18 1m-5 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  />
-                </svg>
+                />
               )}
             </div>
           </div>
@@ -226,7 +176,6 @@ const Register = () => {
           </Link>
         </p>
       </div>
-      <ToastContainer />
     </div>
   );
 };

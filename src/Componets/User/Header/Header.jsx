@@ -149,7 +149,7 @@ const Header = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn m-1 avatar bg-white border-none hover:bg-transparent"
+              className="btn m-1 avatar bg-white shadow-none border-none hover:bg-transparent"
             >
               {profile_image ? (
                 <div className="w-12 rounded-full">

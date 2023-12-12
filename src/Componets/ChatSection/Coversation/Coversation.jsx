@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 const Coversation = ({ data, currentUserId }) => {
   return (
     <>
-      <li className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group cursor-pointer">
+      <li className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-white dark:hover:bg-gray-700 group cursor-pointer transition duration-300 ">
         {data.profile_image ? (
           <div className="avatar">
             <div className="w-16 rounded">

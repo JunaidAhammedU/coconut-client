@@ -16,8 +16,6 @@ const Home = () => {
     if (!data.status) {
       localStorage.removeItem("user");
       navigate("/login");
-    } else {
-      console.log(res);
     }
   };
 

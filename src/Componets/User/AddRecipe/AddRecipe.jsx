@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import { handleAddRecipe } from "../../../Services/api/user_API";
 import { IoCloseCircleOutline, IoAddSharp } from "react-icons/io5";
-import {errorAlert } from "../../../Services/Toast/Toast";
+import { errorAlert } from "../../../Services/Toast/Toast";
 //---------------------------------------------------------------
 
 const AddRecipe = ({ allCategory }) => {
@@ -69,29 +69,35 @@ const AddRecipe = ({ allCategory }) => {
         className="grid xl:grid-cols-3 lg:grid-cols-3 gap-2 md:grid-cols-1  ultraSm:grid-cols-1"
         onSubmit={(e) => {
           e.preventDefault();
-          setLoding(true)
+          setLoding(true);
           if (!recipe.title) {
-            setLoding(false)
+            setLoding(false);
             errorAlert("Please fill the recipe title");
           } else if (!recipe.description) {
-            setLoding(false)
+            setLoding(false);
             errorAlert("Please fill the recipe description");
           } else if (!recipe.veg) {
-            setLoding(false)
+            setLoding(false);
             errorAlert("Please select the recipe type");
           } else if (!recipe.time) {
-            setLoding(false)
+            setLoding(false);
             errorAlert("please select the time for cooking");
           } else if (!recipe.cuisine) {
-            setLoding(false)
+            setLoding(false);
             errorAlert("please select the category of the recipe");
-          } else if ( !recipe.calories || !recipe.protein || !recipe.carbohydrates || !recipe.fat || !recipe.calcium ) {
-            setLoding(false)
+          } else if (
+            !recipe.calories ||
+            !recipe.protein ||
+            !recipe.carbohydrates ||
+            !recipe.fat ||
+            !recipe.calcium
+          ) {
+            setLoding(false);
             errorAlert("please fill the all fields of recipe nutrition fact");
           } else if (!image) {
-            setLoding(false)
-            errorAlert("please select any image for you recipe")
-          } else{
+            setLoding(false);
+            errorAlert("please select any image for you recipe");
+          } else {
             handleAddRecipe(recipe, ingredient, instruction, image, id);
           }
         }}
@@ -166,26 +172,56 @@ const AddRecipe = ({ allCategory }) => {
             <p className="headings">*Category</p>
           </div>
           <div className="flex gap-2 ">
-            <input
-              className=" w-1/2 rounded-lg border-gray-300"
-              type="time"
+
+            <select
+              id="time"
+              name="time"
+              className="w-1/2 rounded-lg border-gray-300 text-xs"
+              value={recipe.time || ""}
               onChange={(e) =>
                 setRecipe({ ...recipe, [e.target.name]: e.target.value })
               }
-              name="time"
-            />
+            >
+              <option className="text-xs font-abc">Choose the time.</option>
+              <option className="font-sans text-xs" value="5 min to 10 min">
+                5 min to 10 min
+              </option>
+              <option className="font-sans text-xs" value="10 min to 20 min">
+                10 min to 20 min
+              </option>
+              <option className="font-sans text-xs" value="20 min to 30 min">
+                20 min to 30 min
+              </option>
+              <option className="font-sans text-xs" value="30 min to 40 min">
+                30 min to 40 min
+              </option>
+              <option className="font-sans text-xs" value="40 min to 50 min">
+                40 min to 50 min
+              </option>
+              <option className="font-sans text-xs" value="50 min to 1 hour">
+                50 min to 1 hour
+              </option>
+              <option className="font-sans text-xs" value="1 hour to 2 hours">
+                1 hour to 2 hours
+              </option>
+              <option className="font-sans text-xs" value="2 hours to 5 hours">
+                2 hours to 5 hours
+              </option>
+            </select>
+
+            {/*  */}
             <select
               id="countries"
-              className=" w-1/2 rounded-lg border-gray-300 p-2"
+              className=" w-1/2 rounded-lg border-gray-300 p-2 text-xs"
               name="cuisine"
               onChange={(e) =>
                 setRecipe({ ...recipe, [e.target.name]: e.target.value })
               }
             >
-              <option className="font-sans text-xs">Choose</option>
-              {allCategory.map((data, ind) => {
+              <option className="font-sans text-xs">Choose the category</option>
+              {allCategory.map((data) => {
                 return (
-                  <option className="font-sans text-xs" value={data._id}>
+                  <option className="font-sans text-xs" value={data?._id}>
                     {data.title}
                   </option>
                 );
@@ -265,7 +301,7 @@ const AddRecipe = ({ allCategory }) => {
           <div className="h-44 overflow-hidden overflow-y-auto">
             {ingredient.map((value, index) => {
               return (
-                <div className="mt-2 relative" key={value._id}>
+                <div className="mt-2 relative" key={value?._id}>
                   <IoCloseCircleOutline
                     className="text-xl font-sans text-black/40 hover:text-black/70 absolute top-2.5 right-2 cursor-pointer"
                     onClick={(e) => {
