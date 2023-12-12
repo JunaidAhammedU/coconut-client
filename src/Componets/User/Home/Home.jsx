@@ -4,7 +4,7 @@ import "./Home.css";
 import { is_auth } from "../../../Services/api/user_API";
 import { getAllCategories } from "../../../Services/api/admin_API";
 import LandingPage from "../LandingPage/LandingPage";
-//-------------------------------------------------------
+//--------------------------------------------------------------
 
 const Home = () => {
   const navigate = useNavigate();
