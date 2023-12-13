@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./AddRecipe.css";
-import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import { handleAddRecipe } from "../../../Services/api/user_API";
 import { IoCloseCircleOutline, IoAddSharp } from "react-icons/io5";
 import { errorAlert } from "../../../Services/Toast/Toast";
-//---------------------------------------------------------------
+//-----------------------------------------------------------------
 
 const AddRecipe = ({ allCategory }) => {
   const [image, setImage] = useState(null);
@@ -172,7 +171,6 @@ const AddRecipe = ({ allCategory }) => {
             <p className="headings">*Category</p>
           </div>
           <div className="flex gap-2 ">
-
             <select
               id="time"
               name="time"
@@ -464,7 +462,6 @@ const AddRecipe = ({ allCategory }) => {
           </div>
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 };

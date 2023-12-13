@@ -60,7 +60,11 @@ const Register = () => {
 
   return (
     <div className="flex min-h-full flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8 h-screen relative ">
-      <img src="/Home.png" className="absolute bottom-0 right-0 object-cover w-full -z-0" alt="" />
+      <img
+        src="/Home.png"
+        className="absolute bottom-0 right-0 object-cover w-full -z-0"
+        alt=""
+      />
       <div className="sm:mx-auto sm:w-full sm:max-w-sm z-50">
         <img className="mx-auto h-10 w-auto" src="/logo.png" alt="coconut" />
         <h2 className="mt-5 font-abc text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">

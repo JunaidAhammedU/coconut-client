@@ -6,6 +6,7 @@ import ProfileEdit from "../ProfileEdit/ProfileEdit";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../../Services/api/admin_API";
 import { FaUserCircle } from "react-icons/fa";
+import { errorAlert } from "../../../Services/Toast/Toast";
 //------------------------------------------------------------------
 
 const ProfileHeader = ({ userData, recipeCount }) => {
@@ -18,7 +19,7 @@ const ProfileHeader = ({ userData, recipeCount }) => {
         const response = await getAllCategories();
         setAllCategory(response.data);
       } catch (error) {
-        console.log(error);
+        errorAlert(error);
       }
     };
 
