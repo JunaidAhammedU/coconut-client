@@ -1,7 +1,6 @@
 import React from 'react'
 import {Routes, Route} from "react-router-dom";
-import PortectedRoute from "./Common/protectedRoute/ProtectedRoutes";
-import AuthProtected from "./Common/protectedRoute/AuthProtected";
+import AuthProtected from "../Common/protectedRoute/AuthProtected";
 import HomePage from '../Pages/User/HomePage';
 import LoginPage from '../Pages/User/LoginPage';
 import RegisterPage from '../Pages/User/RegisterPage';
@@ -13,6 +12,7 @@ import RecipeCategoriesPage from '../Pages/User/RecipeCategoriesPage';
 import UserProfilePage from '../Pages/User/UserProfilePage';
 import UserRecipeListPage from '../Pages/User/UserRecipeListPage';
 import SavedCollectionPage from '../Pages/User/SavedCollectionPage';
+import PortectedRoute from '../Common/protectedRoute/ProtectedRoutes'
 //------------------------------------------------------------------------
 
 const UserRoutes = () => {
