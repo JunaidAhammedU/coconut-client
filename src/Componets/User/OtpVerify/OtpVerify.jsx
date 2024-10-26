@@ -28,7 +28,7 @@ const OtpVerify = () => {
       toast.error("Invalid OTP", toastMessage(1000));
     } else {
       const data = await axios.post(
-        "https://oleaplants.shop" + "/otp-verify",
+        "http://localhost:3000" + "/otp-verify",
         { otp }
       );
       if (data.data.verified) {

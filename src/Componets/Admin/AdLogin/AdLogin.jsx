@@ -46,7 +46,7 @@ const AdLogin = () => {
       toast.error("Invlaid Password!!", toastMessage(1000));
     } else {
       const data = await axios.post(
-        `https://oleaplants.shop/admin/login`,
+        `http://localhost:3000/admin/login`,
         { ...admin }
       );
       if (!data.data.status === -1) {

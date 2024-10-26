@@ -39,7 +39,7 @@ const Register = () => {
 
     // api request for register
     const { data } = await axios.post(
-      "https://oleaplants.shop" + "/register",
+      "http://localhost:3000" + "/register",
       { ...user }
     );
     if (!data.status) {

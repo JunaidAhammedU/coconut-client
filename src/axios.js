@@ -1,8 +1,7 @@
 import axios from "axios";
-// baseURL: import.meta.env.VITE_REACT_APP_SERVER_URL
 
 const api_request = axios.create({
-    baseURL: "https://oleaplants.shop"
+    baseURL: import.meta.env.VITE_BACKEND_URL
 
 })
 
