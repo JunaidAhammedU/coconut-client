@@ -39,29 +39,6 @@ const Home = () => {
   return (
     <>
       <LandingPage />
-
-      {/* ------------------- */}
-      <section>
-        <h1 className="text-5xl font-bold mt-5 text-center font-abc ">
-          Cuisines
-        </h1>
-        <div className="flex flex-wrap justify-center gap-8 ">
-          {allCategory.map((data) => {
-            return (
-              <div className="cat_Div1" key={data?._id}>
-                <div className="relative">
-                  <img src="bg-pater-11.png" alt="" className="outerImgPtrn1" />
-                  <img
-                    src={`${data?.image}`}
-                    alt=""
-                    className="innerImgPtrn1"
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div> 
-      </section>
     </>
   );
 };

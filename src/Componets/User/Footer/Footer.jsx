@@ -9,11 +9,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <footer className="footer footer-center p-5 bg-gradient-to-b from-transparent to-rose-300 text-base-content rounded mt-2">
-        <nav className="grid grid-flow-col gap-5">
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-        </nav>
+      <footer className="footer footer-center p-5 text-base-content rounded mt-24">
         <nav>
           <div className="grid grid-flow-col gap-5">
             <FaXTwitter className="text-xl cursor-pointer hover:text-[#1D9BF0] transition duration-300" />
