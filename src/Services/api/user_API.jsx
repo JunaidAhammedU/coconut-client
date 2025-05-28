@@ -15,7 +15,7 @@ export const is_auth = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user ? user.token : null;
     axios
-      .post("http://localhost:3000", { token })
+      .post("https://coconut-server-b054.onrender.com", { token })
       .then((response) => {
         const data = response.data;
         if (!data.status) {

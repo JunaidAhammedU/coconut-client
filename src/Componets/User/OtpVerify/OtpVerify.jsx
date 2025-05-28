@@ -28,7 +28,7 @@ const OtpVerify = () => {
       toast.error("Invalid OTP", toastMessage(1000));
     } else {
       const data = await axios.post(
-        "http://localhost:3000" + "/otp-verify",
+        "https://coconut-server-b054.onrender.com" + "/otp-verify",
         { otp }
       );
       if (data.data.verified) {
