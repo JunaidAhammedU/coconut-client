@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
+import api_request from "../../../axios";
 import axios from "axios";
 import Loader from "../../Loader/Loader";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -39,7 +40,7 @@ const Register = () => {
 
     // api request for register
     const { data } = await axios.post(
-      "http://localhost:3000" + "/register",
+      "https://coconut-server-b054.onrender.com" + "/register",
       { ...user }
     );
     if (!data.status) {
