@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import backgroundImage from "/admin-landing.png";
+import backgroundImage from "/admin-landing.jpeg";
 import { Link } from "react-router-dom";
 //-------------------------------------------------
 
