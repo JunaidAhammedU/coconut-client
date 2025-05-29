@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
   return (
     <>
-      <section className="h-[100vh]"></section>
+      <section className="h-[50vh]"></section>
     </>
   );
 };
